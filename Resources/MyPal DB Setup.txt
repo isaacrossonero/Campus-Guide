@@ -1,0 +1,8 @@
+First, import MyPal.bacpac into a new database on Microsoft SQL Server.
+After, open MyPal.sln and navigate to appsettings.json.
+Finally, inside ConnectionStrings->DefaultConnection, modify connection string as follows "Server=YOUR-SERVER-NAME;Database=MyPal;Trusted_Connection=True;MultipleActiveResultSets=True"
+
+Notes: The server name can be found when logging in on Microsoft SQL
+For example my server name is (localdb)\\mssqllocaldb and hence, my connection string is "Server=(localdb)\\mssqllocaldb;Database=MyPal;Trusted_Connection=True;MultipleActiveResultSets=True"
+
+If you have any difficulties ask me (Michael).
