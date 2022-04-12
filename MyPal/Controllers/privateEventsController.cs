@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace MyPal.Controllers
 {
-    public class privateEventsController : Controller
+    public class PrivateEventsController : Controller
     {
         //Instance of the database.
         private readonly ApplicationDbContext _db;
 
         //Constructor.
-        public privateEventsController(ApplicationDbContext db)
+        public PrivateEventsController(ApplicationDbContext db)
         {
             _db = db;
         }
