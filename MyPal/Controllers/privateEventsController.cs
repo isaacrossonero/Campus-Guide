@@ -30,13 +30,10 @@ namespace MyPal.Controllers
         }
 
         //Adding a new category to the table (GET - CREATE).
+        [HttpGet]
         public IActionResult Create()
         {
-            //Creating a list that will store the contents of all the data present in PrivateEvents.
-            IEnumerable<PrivateEvents> objList = _db.PrivateEvents;
-
-            //Returning the list of objects that were retrived from the databse to the privateEvents view.
-            return View(objList);
+            return View();
         }
 
         //Adding a new category to the table (POST - CREATE).
