@@ -1,0 +1,78 @@
+﻿@model IEnumerable<MyPal.Models.PrivateEvents>
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Private Events List</h2>
+        </div>
+    </div>
+
+    <!--skipping some lines-->
+    <br /><br />
+
+    <!--Validation to check if the table has any content-->
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Event Id
+                    </th>
+
+                    <th>
+                        Event name
+                    </th>
+
+                    <th>
+                        Event description
+                    </th>
+
+                    <th>
+                        Start time
+                    </th>
+
+                    <th>
+                        End time
+                    </th>
+
+                    <th>
+                        Capacity
+                    </th>
+
+                    <th>
+                        PinPoint id
+                    </th>
+
+                    <th>
+                        User ID
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model)
+                {
+                    <tr>
+                        <td width="30%">@obj.Id</td>
+                        <td width="30%">@obj.Name</td>
+                        <td width="40%">@obj.Description</td>
+                        <td width="50%">@obj.StartTime</td>
+                        <td width="50%">@obj.EndTime</td>
+                        <td width="50%">@obj.Capacity</td>
+                        <td width="50%">@obj.PinpointId</td>
+                        <td width="50%">@obj.UserId</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="col-6 text-left">
+            <a asp-controller="privateEvents" asp-action="Create" class="btn btn-primary"> Create new private-event.</a>
+        </div>
+    }
+    else
+    {
+        <!--In case that the table is empty-->
+        <p>There ar no events.</p>
+    }
+</div>
+

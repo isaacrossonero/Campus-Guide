@@ -28,6 +28,8 @@ namespace MyPal.Data
             modelBuilder.Entity<Paths>()
                 .HasKey(p => new { p.PinpointIdOne, p.PinpointIdTwo});
         }
+
+        //Each DbSet repreents a table that is in the databse. This allows us to easily access and modify that data.
         public DbSet<Paths> Paths { get; set; }
         public DbSet<Pinpoints> Pinpoints { get; set; }
         public DbSet<PinpointsTypes> PinpointsTypes { get; set; }
