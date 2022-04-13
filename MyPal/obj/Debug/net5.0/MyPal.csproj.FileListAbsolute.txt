@@ -875,3 +875,7 @@ E:\SchoolCoding\Campus-Guide\MyPal\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.
 E:\SchoolCoding\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\PrivateEvents\Create.cshtml.g.cs
 E:\SchoolCoding\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\PrivateEvents\Index.cshtml.g.cs
 E:\SchoolCoding\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\PublicEvents\Index.cshtml.g.cs
+C:\Users\phili\OneDrive\Desktop\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\PublicEvents\Index.cshtml.g.cs
+C:\Users\phili\OneDrive\Desktop\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\PublicEvents\Create.cshtml.g.cs
+C:\Users\phili\OneDrive\Desktop\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\LoginRegister\Index.cshtml.g.cs
+C:\Users\phili\OneDrive\Desktop\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\LoginRegister\Register.cshtml.g.cs
