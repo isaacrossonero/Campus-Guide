@@ -1,4 +1,9 @@
-﻿@model IEnumerable<MyPal.Models.PublicEvents>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@inject RoleManager<IdentityRole> RoleManager
+
+@model IEnumerable<MyPal.Models.PublicEvents>
 @{
     ViewData["Title"] = "Map View";
 }
@@ -74,7 +79,10 @@
         <!--In case that the table is empty-->
         <p>There are no public events.</p>
     }
-    <div class="col-6 text-left">
-        <a asp-controller="publicEvents" asp-action="Create" class="btn btn-primary"> Create new public event.</a>
-    </div>
+   @if (User.IsInRole("Admin")) { 
+        <div class="col-6 text-left">
+            <a asp-controller="PublicEvents" asp-action="Create" class="btn btn-primary"> Create new public event.</a>
+        </div>
+    }
+    
 </div>

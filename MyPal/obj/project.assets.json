@@ -2,6 +2,20 @@
   "version": 3,
   "targets": {
     "net5.0": {
+      "DotLiquid/2.2.610": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/DotLiquid.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/DotLiquid.dll": {}
+        },
+        "resource": {
+          "lib/netstandard2.0/it/DotLiquid.resources.dll": {
+            "locale": "it"
+          }
+        }
+      },
       "Humanizer.Core/2.8.26": {
         "type": "package",
         "compile": {
@@ -2189,6 +2203,28 @@
     }
   },
   "libraries": {
+    "DotLiquid/2.2.610": {
+      "sha512": "Lk6JI38ubq9AkPceGIlAJHrqHhMs3lY2cFuTKma8prf8elncbDEkgbZwjlZ2Ex6sEXdyjf+As53uKkycmY0kfQ==",
+      "type": "package",
+      "path": "dotliquid/2.2.610",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "dotliquid.2.2.610.nupkg.sha512",
+        "dotliquid.nuspec",
+        "lib/net45/DotLiquid.dll",
+        "lib/net45/DotLiquid.xml",
+        "lib/net45/it/DotLiquid.resources.dll",
+        "lib/netstandard1.3/DotLiquid.dll",
+        "lib/netstandard1.3/DotLiquid.xml",
+        "lib/netstandard1.3/it/DotLiquid.resources.dll",
+        "lib/netstandard2.0/DotLiquid.dll",
+        "lib/netstandard2.0/DotLiquid.xml",
+        "lib/netstandard2.0/it/DotLiquid.resources.dll",
+        "readme.txt"
+      ]
+    },
     "Humanizer.Core/2.8.26": {
       "sha512": "OiKusGL20vby4uDEswj2IgkdchC1yQ6rwbIkZDVBPIR6al2b7n3pC91elBul9q33KaBgRKhbZH3+2Ur4fnWx2A==",
       "type": "package",
@@ -7583,6 +7619,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "DotLiquid >= 2.2.610",
       "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 5.0.13",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 5.0.15",
       "Microsoft.AspNetCore.Identity.UI >= 5.0.15",
@@ -7598,11 +7635,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\SchoolCoding\\MyPal VC\\Version 1 14.04.2022\\MyPal\\MyPal.csproj",
+      "projectUniqueName": "E:\\SchoolCoding\\Campus-Guide\\MyPal\\MyPal.csproj",
       "projectName": "MyPal",
-      "projectPath": "E:\\SchoolCoding\\MyPal VC\\Version 1 14.04.2022\\MyPal\\MyPal.csproj",
+      "projectPath": "E:\\SchoolCoding\\Campus-Guide\\MyPal\\MyPal.csproj",
       "packagesPath": "C:\\Users\\Michael\\.nuget\\packages\\",
-      "outputPath": "E:\\SchoolCoding\\MyPal VC\\Version 1 14.04.2022\\MyPal\\obj\\",
+      "outputPath": "E:\\SchoolCoding\\Campus-Guide\\MyPal\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Michael\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -7631,6 +7668,10 @@
       "net5.0": {
         "targetAlias": "net5.0",
         "dependencies": {
+          "DotLiquid": {
+            "target": "Package",
+            "version": "[2.2.610, )"
+          },
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
             "target": "Package",
             "version": "[5.0.13, )"

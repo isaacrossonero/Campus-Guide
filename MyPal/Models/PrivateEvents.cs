@@ -23,6 +23,6 @@ namespace MyPal.Models
         public int PinpointId { get; set; }
         [ForeignKey("AspNetUsers")]
         [DisplayName("User ID")]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
     }
 }

@@ -44,10 +44,6 @@
                     <th>
                         PinPoint id
                     </th>
-
-                    <th>
-                        User ID
-                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -60,7 +56,6 @@
                         <td width="50%">@obj.StartTime</td>
                         <td width="50%">@obj.EndTime</td>
                         <td width="50%">@obj.PinpointId</td>
-                        <td width="50%">@obj.UserId</td>
                     </tr>
                 }
             </tbody>
@@ -72,7 +67,7 @@
         <p>There are no private events.</p>
     }
     <div class="col-6 text-left">
-        <a asp-controller="PrivateEvents" asp-action="Create" class="btn btn-primary"> Create new private event.</a>
+        <a asp-controller="PrivateEvents" asp-action="Create" id="button" class="btn btn-secondary"> Create new private event.</a>
     </div>
 </div>
 

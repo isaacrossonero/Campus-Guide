@@ -33,6 +33,7 @@
     ".NETCoreApp,Version=v5.0": {
       "MyPal/1.0.0": {
         "dependencies": {
+          "DotLiquid": "2.2.610",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "5.0.13",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "5.0.15",
           "Microsoft.AspNetCore.Identity.UI": "5.0.15",
@@ -322,6 +323,22 @@
         },
         "compile": {
           "MyPal.dll": {}
+        }
+      },
+      "DotLiquid/2.2.610": {
+        "runtime": {
+          "lib/netstandard2.0/DotLiquid.dll": {
+            "assemblyVersion": "2.2.610.0",
+            "fileVersion": "2.2.610.0"
+          }
+        },
+        "resources": {
+          "lib/netstandard2.0/it/DotLiquid.resources.dll": {
+            "locale": "it"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/DotLiquid.dll": {}
         }
       },
       "Humanizer.Core/2.8.26": {
@@ -3641,6 +3658,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "DotLiquid/2.2.610": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Lk6JI38ubq9AkPceGIlAJHrqHhMs3lY2cFuTKma8prf8elncbDEkgbZwjlZ2Ex6sEXdyjf+As53uKkycmY0kfQ==",
+      "path": "dotliquid/2.2.610",
+      "hashPath": "dotliquid.2.2.610.nupkg.sha512"
     },
     "Humanizer.Core/2.8.26": {
       "type": "package",

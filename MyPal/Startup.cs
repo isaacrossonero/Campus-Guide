@@ -41,6 +41,7 @@ namespace MyPal
             // Options for users login regarding password, maximum attempts, etcetera
             services.Configure<IdentityOptions>(options =>
             {
+
                 // Password settings
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
@@ -53,17 +54,17 @@ namespace MyPal
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
 
-                // User settings.
+                // User settings
                 options.User.AllowedUserNameCharacters =
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                // Unique email
                 options.User.RequireUniqueEmail = true;
             });
 
             services.ConfigureApplicationCookie(options =>
             {
                 // Cookie settings
-                options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(0.5);
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(120);
 
                 options.LoginPath = "/Identity/Account/Login";
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
@@ -97,7 +98,7 @@ namespace MyPal
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=PublicEvents}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
 

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\SchoolCoding\\MyPal VC\\Version 1 14.04.2022\\MyPal\\MyPal.csproj": {}
+    "E:\\SchoolCoding\\Campus-Guide\\MyPal\\MyPal.csproj": {}
   },
   "projects": {
-    "E:\\SchoolCoding\\MyPal VC\\Version 1 14.04.2022\\MyPal\\MyPal.csproj": {
+    "E:\\SchoolCoding\\Campus-Guide\\MyPal\\MyPal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\SchoolCoding\\MyPal VC\\Version 1 14.04.2022\\MyPal\\MyPal.csproj",
+        "projectUniqueName": "E:\\SchoolCoding\\Campus-Guide\\MyPal\\MyPal.csproj",
         "projectName": "MyPal",
-        "projectPath": "E:\\SchoolCoding\\MyPal VC\\Version 1 14.04.2022\\MyPal\\MyPal.csproj",
+        "projectPath": "E:\\SchoolCoding\\Campus-Guide\\MyPal\\MyPal.csproj",
         "packagesPath": "C:\\Users\\Michael\\.nuget\\packages\\",
-        "outputPath": "E:\\SchoolCoding\\MyPal VC\\Version 1 14.04.2022\\MyPal\\obj\\",
+        "outputPath": "E:\\SchoolCoding\\Campus-Guide\\MyPal\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Michael\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "DotLiquid": {
+              "target": "Package",
+              "version": "[2.2.610, )"
+            },
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.13, )"

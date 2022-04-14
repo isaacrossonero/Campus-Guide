@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Lv45QKLt4SubHysck0M19SFtlCrIy00kzJfnwXwtpaUVLxq5IX26KpBRHDhAXndbrJjuRwPpH3avVhCjrFqKwA==",
+  "dgSpecHash": "fbnHs6h3XuNcN20Vk4jaNisvG+U+me0DuQX3RT99u7abhN7uThoO08cCK2pcwC6PfWN44XXoqQL+z1zTDcbqQw==",
   "success": true,
-  "projectFilePath": "E:\\SchoolCoding\\MyPal VC\\Version 1 14.04.2022\\MyPal\\MyPal.csproj",
+  "projectFilePath": "E:\\SchoolCoding\\Campus-Guide\\MyPal\\MyPal.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Michael\\.nuget\\packages\\dotliquid\\2.2.610\\dotliquid.2.2.610.nupkg.sha512",
     "C:\\Users\\Michael\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Michael\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.15\\microsoft.aspnetcore.cryptography.internal.5.0.15.nupkg.sha512",
     "C:\\Users\\Michael\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\5.0.15\\microsoft.aspnetcore.cryptography.keyderivation.5.0.15.nupkg.sha512",
