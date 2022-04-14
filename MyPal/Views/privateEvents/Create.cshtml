@@ -1,5 +1,6 @@
 ﻿@model MyPal.Models.PrivateEvents
 
+
 <form method="post" asp-action="Create">
     <div class="border p-3">
         <div class="form-group row">
@@ -39,22 +40,22 @@
                         <input asp-for="EndTime" class="form-control">
                     </div>
                 </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="PinpointId"></label>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="PinpointId" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="UserId"></label>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="UserId" class="form-control">
-                    </div>
-                </div>
+                @*
+            <div class="form-group row">
+            <label for="pinpoints">Choose a pinpoint:</label>
+            <select name="pinpoints" id="pinpoints">
+                @foreach (var obj in Model)
+                {
+                    <option value="volvo">Volvo</option>
+                    <option value="saab">Saab</option>
+                    <option value="mercedes">Mercy</option>
+                    <option value="audi">Audi</option>
+
+                }
+            </select>
+        </div>
+                *@
+
                 <div class="form-group row">
                     <div class="col">
                         <input type="submit" class="btn btn-info w-100" value="Create" />

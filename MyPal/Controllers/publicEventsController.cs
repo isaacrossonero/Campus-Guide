@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyPal.Data;
 using MyPal.Models;
 using System;
@@ -28,6 +29,7 @@ namespace MyPal.Controllers
             return View(objList);
         }
 
+        [Authorize(Roles = "Admin")]
         //Adding a new category to the table (GET - CREATE).
         [HttpGet]
         public IActionResult Create()
@@ -36,8 +38,10 @@ namespace MyPal.Controllers
         }
 
         //Adding a new category to the table (POST - CREATE).
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create(PublicEvents obj)
         {
             //Adding the items to a private events object(they are not added to the db just yet).
