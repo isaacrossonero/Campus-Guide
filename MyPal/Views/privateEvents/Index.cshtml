@@ -1,4 +1,8 @@
-﻿@model IEnumerable<MyPal.Models.PrivateEvents>
+﻿@{
+    ViewData["Title"] = "Itinerary View";
+}
+
+@model IEnumerable<MyPal.Models.PrivateEvents>
 
 <h1>This is where the calendar should be implemented. When clicking on the day inside the calendar, the list of Private Events associated with that day and associated with that logged in user should be displayed</h1>
 <div class="container p-3">
@@ -38,10 +42,6 @@
                     </th>
 
                     <th>
-                        Capacity
-                    </th>
-
-                    <th>
                         PinPoint id
                     </th>
 
@@ -59,24 +59,20 @@
                         <td width="40%">@obj.Description</td>
                         <td width="50%">@obj.StartTime</td>
                         <td width="50%">@obj.EndTime</td>
-                        <td width="50%">@obj.Capacity</td>
                         <td width="50%">@obj.PinpointId</td>
                         <td width="50%">@obj.UserId</td>
                     </tr>
                 }
             </tbody>
         </table>
-        <div class="col-6 text-left">
-            <a asp-controller="privateEvents" asp-action="Create" class="btn btn-primary"> Create new private-event.</a>
-        </div>
     }
     else
     {
         <!--In case that the table is empty-->
-        <p>There ar no events.</p>
-        <div class="col-6 text-left">
-            <a asp-controller="privateEvents" asp-action="Create" class="btn btn-primary"> Create new private-event.</a>
-        </div>
+        <p>There are no private events.</p>
     }
+    <div class="col-6 text-left">
+        <a asp-controller="PrivateEvents" asp-action="Create" class="btn btn-primary"> Create new private event.</a>
+    </div>
 </div>
 

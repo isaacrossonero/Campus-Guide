@@ -19,15 +19,16 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="PublicEvents" asp-action="">Public events</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="PublicEvents" asp-action="Index">Public Events</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="PrivateEvents" asp-action="">Private events</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="PrivateEvents" asp-action="Index">Private Events</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="LoginRegister" asp-action="">Login</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">MyPal Bot</a>
                         </li>
                     </ul>
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
@@ -40,7 +41,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - MyPal - <a asp-area="" asp-controller="Home" asp-action="Index">MyPal</a>
+            &copy; 2022 - MyPal - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

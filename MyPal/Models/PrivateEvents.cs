@@ -18,11 +18,10 @@ namespace MyPal.Models
         public DateTime StartTime { get; set; }
         [DisplayName("End time")]
         public DateTime EndTime { get; set; }
-        public int Capacity { get; set; }
         [ForeignKey("Pinpoints")]
         [DisplayName("Pin-point ID")]
         public int PinpointId { get; set; }
-        [ForeignKey("Users")]
+        [ForeignKey("AspNetUsers")]
         [DisplayName("User ID")]
         public int UserId { get; set; }
     }

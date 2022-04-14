@@ -1,82 +1,80 @@
 ﻿@model IEnumerable<MyPal.Models.PublicEvents>
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
 @{
+    ViewData["Title"] = "Map View";
 }
+
 <h1>This is where the map with the pinpoints should be displayed</h1>
-<h1>When a user selects a specific pinpoint the list of PUBLIC events associated with that pinpoint should be displayed</h1> 
-<br/><br/>
-     <div class="container p-3">
-         <div class="row pt-4">
-             <div class="col-6">
-                 <h2 class="text-primary">Private Events List</h2>
-             </div>
-         </div>
+<h1>When a user selects a specific pinpoint the list of PUBLIC events associated with that pinpoint should be displayed</h1>
+<br />
+<br />
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Public Events List</h2>
+        </div>
+    </div>
 
-         <!--skipping some lines-->
-         <br /><br />
+    <!--skipping some lines-->
+    <br /><br />
 
-         <!--Validation to check if the table has any content-->
-         @if (Model.Count() > 0)
-         {
-             <table class="table table-bordered table-striped" style="width:100%">
-                 <thead>
-                     <tr>
-                         <th>
-                             Event Id
-                         </th>
+    <!--Validation to check if the table has any content-->
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Event Id
+                    </th>
 
-                         <th>
-                             Event name
-                         </th>
+                    <th>
+                        Event name
+                    </th>
 
-                         <th>
-                             Event description
-                         </th>
+                    <th>
+                        Event description
+                    </th>
 
-                         <th>
-                             Start time
-                         </th>
+                    <th>
+                        Start time
+                    </th>
 
-                         <th>
-                             End time
-                         </th>
+                    <th>
+                        End time
+                    </th>
 
-                         <th>
-                             Capacity
-                         </th>
+                    <th>
+                        Capacity
+                    </th>
 
-                         <th>
-                             PinPoint id
-                         </th>
-                     </tr>
-                 </thead>
-                 <tbody>
-                     @foreach (var obj in Model)
-                     {
-                         <tr>
-                             <td width="30%">@obj.Id</td>
-                             <td width="30%">@obj.Name</td>
-                             <td width="40%">@obj.Description</td>
-                             <td width="50%">@obj.StartTime</td>
-                             <td width="50%">@obj.EndTime</td>
-                             <td width="50%">@obj.Capacity</td>
-                             <td width="50%">@obj.PinpointId</td>
-                         </tr>
-                     }
-                 </tbody>
-             </table>
-             <div class="col-6 text-left">
-                 <a asp-controller="publicEvents" asp-action="Create" class="btn btn-primary"> Create new public-event.</a>
-             </div>
-         }
-         else
-         {
-             <!--In case that the table is empty-->
-             <p>There ar no events.</p>
-             <div class="col-6 text-left">
-                 <a asp-controller="publicEvents" asp-action="Create" class="btn btn-primary"> Create new public-event.</a>
-             </div>
-         }
-     </div>
+                    <th>
+                        PinPoint id
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model)
+                {
+                    <tr>
+                        <td width="30%">@obj.Id</td>
+                        <td width="30%">@obj.Name</td>
+                        <td width="40%">@obj.Description</td>
+                        <td width="50%">@obj.StartTime</td>
+                        <td width="50%">@obj.EndTime</td>
+                        <td width="50%">@obj.Capacity</td>
+                        <td width="50%">@obj.PinpointId</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    }
+    else
+    {
+        <!--In case that the table is empty-->
+        <p>There are no public events.</p>
+    }
+    <div class="col-6 text-left">
+        <a asp-controller="publicEvents" asp-action="Create" class="btn btn-primary"> Create new public event.</a>
+    </div>
+</div>
