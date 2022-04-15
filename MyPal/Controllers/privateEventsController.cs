@@ -46,7 +46,7 @@ namespace MyPal.Controllers
         {
             CollectionDataModel coll = new CollectionDataModel();
             coll.PrivateEvents = new PrivateEvents();
-            coll.PinpointsList = _db.Pinpoints.ToList();
+            coll.PinpointsList = _db.Pinpoints.Where(pinpoint => pinpoint.PinpointTypesId == 1).ToList();
             return View(coll);
         }
 
