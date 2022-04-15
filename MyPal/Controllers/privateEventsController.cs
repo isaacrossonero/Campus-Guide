@@ -44,9 +44,15 @@ namespace MyPal.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            // Creates a new CollectionDataModel instace
             CollectionDataModel coll = new CollectionDataModel();
+            // Adds an empty object of PrivateEvents to coll.PrivateEvents
+            // This will be then used as the object of PrivateEvents inside the view
             coll.PrivateEvents = new PrivateEvents();
+            // Populates coll's pinpoint list from database where pinpoint refers to a class
+            // This list will be used to display the drop-down of pinpoints available
             coll.PinpointsList = _db.Pinpoints.Where(pinpoint => pinpoint.PinpointTypesId == 1).ToList();
+            //Passes the collection object to the view
             return View(coll);
         }
 
@@ -55,10 +61,11 @@ namespace MyPal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateAsync(CollectionDataModel coll)
         {
-            var user = await _userManager.FindByEmailAsync(User.Identity.Name);
-
-
+            // Gets the logged in user
+            var user = await _userManager.FindByEmailAsync(User.Identity.Name);                 
+            // Creates an object of PrivateEvents that refers to the PrivateEvents instance passed by collection
             PrivateEvents obj = coll.PrivateEvents;
+            // Associates that event with that particular user
             obj.UserId = user.Id;
             //Adding the items to a private events object(they are not added to the db just yet).
             _db.PrivateEvents.Add(obj);
