@@ -7,6 +7,7 @@
     ViewData["Title"] = "MyPal Dashboard";
 }
 <h1>MyPal Dashboard</h1>
+<h2>Available Public Events</h2>
 @if (Model.PublicEventsList.Count() > 0)
 {
     <table class="table table-bordered table-striped" style="width:100%">
@@ -66,7 +67,7 @@ else
 @if (SignInManager.IsSignedIn(User))
 {
 
-    <h1>Get All Private Events</h1>
+<h2>Available Private Events</h2>
     @if (Model.PrivateEventsList.Count() > 0)
     {
         <table class="table table-bordered table-striped" style="width:100%">
