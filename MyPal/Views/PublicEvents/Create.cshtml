@@ -1,4 +1,4 @@
-﻿@model MyPal.Models.PublicEvents
+﻿@model MyPal.Models.CollectionDataModel
 
 <form method="post" asp-action="Create">
     <div class="border p-3">
@@ -9,50 +9,56 @@
             <div class="col-8">
                 <div class="form-group row">
                     <div class="col-4">
-                        <label asp-for="Name"></label>
+                        <label asp-for="PublicEvents.Name"></label>
                     </div>
                     <div class="col-8">
-                        <input asp-for="Name" class="form-control">
+                        <input asp-for="PublicEvents.Name" class="form-control">
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-4">
-                        <label asp-for="Description"></label>
+                        <label asp-for="PublicEvents.Description"></label>
                     </div>
                     <div class="col-8">
-                        <input asp-for="Description" class="form-control">
+                        <input asp-for="PublicEvents.Description" class="form-control">
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-4">
-                        <label asp-for="StartTime"></label>
+                        <label asp-for="PublicEvents.StartTime"></label>
                     </div>
                     <div class="col-8">
-                        <input asp-for="StartTime" class="form-control">
+                        <input asp-for="PublicEvents.StartTime" class="form-control">
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-4">
-                        <label asp-for="EndTime"></label>
+                        <label asp-for="PublicEvents.EndTime"></label>
                     </div>
                     <div class="col-8">
-                        <input asp-for="EndTime" class="form-control">
+                        <input asp-for="PublicEvents.EndTime" class="form-control">
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-4">
-                        <label asp-for="Capacity"></label>
+                        <label asp-for="PublicEvents.Capacity"></label>
                     </div>
                     <div class="col-8">
-                        <input asp-for="Capacity" class="form-control">
+                        <input asp-for="PublicEvents.Capacity" class="form-control">
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-4">
-                        <label asp-for="PinpointId"></label>
+                        <label asp-for="PublicEvents.PinpointId">Choose a pinpoint:</label>
                     </div>
-                    <div class="col-8">
-                        <input asp-for="PinpointId" class="form-control">
+                    <div class="col-4">
+                        <select required name="PublicEvents.PinpointId" asp-for="PublicEvents.PinpointId">
+                            @foreach (var obj in Model.PinpointsList)
+                            {
+                                <option value="@obj.Id">@obj.Name</option>
+
+                            }
+                        </select>
                     </div>
                 </div>
                 <div class="form-group row">

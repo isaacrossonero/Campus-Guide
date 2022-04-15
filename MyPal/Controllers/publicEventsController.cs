@@ -34,7 +34,16 @@ namespace MyPal.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            // Creates a new CollectionDataModel instace
+            CollectionDataModel coll = new CollectionDataModel();
+            // Adds an empty object of PublicEvents to coll.PublicEvents
+            // This will be then used as the object of PublicEvents inside the view
+            coll.PublicEvents = new PublicEvents();
+            // Populates coll's pinpoint list from database where pinpoint refers to a class
+            // This list will be used to display the drop-down of pinpoints available
+            coll.PinpointsList = _db.Pinpoints.Where(pinpoint => pinpoint.PinpointTypesId == 1).ToList();
+            //Passes the collection object to the view
+            return View(coll);
         }
 
         //Adding a new category to the table (POST - CREATE).
@@ -42,8 +51,10 @@ namespace MyPal.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public IActionResult Create(PublicEvents obj)
+        public IActionResult Create(CollectionDataModel coll)
         {
+            // Creates an object of PublicEvents that refers to the PublicEvents instance passed by collection
+            PublicEvents obj = coll.PublicEvents;
             //Adding the items to a private events object(they are not added to the db just yet).
             _db.PublicEvents.Add(obj);
             //Saving changes will add the above object to teh databse. Without this method the data would ot be added. 
