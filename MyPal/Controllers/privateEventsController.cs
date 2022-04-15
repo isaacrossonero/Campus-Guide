@@ -44,16 +44,21 @@ namespace MyPal.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            CollectionDataModel coll = new CollectionDataModel();
+            coll.PrivateEvents = new PrivateEvents();
+            coll.PinpointsList = _db.Pinpoints.ToList();
+            return View(coll);
         }
 
         //Adding a new category to the table (POST - CREATE).
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateAsync(PrivateEvents obj)
+        public async Task<IActionResult> CreateAsync(CollectionDataModel coll)
         {
             var user = await _userManager.FindByEmailAsync(User.Identity.Name);
 
+
+            PrivateEvents obj = coll.PrivateEvents;
             obj.UserId = user.Id;
             //Adding the items to a private events object(they are not added to the db just yet).
             _db.PrivateEvents.Add(obj);
