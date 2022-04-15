@@ -98,7 +98,18 @@ namespace MyPal.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    // Gets the user
+                    var user = await _userManager.FindByEmailAsync(Input.Email);
+                    // Checks whether the user is confirmed or not
+                    if(user.EmailConfirmed == true)
+                    {
+                        ModelState.AddModelError(string.Empty, "Invalid login attempt. Check that you are entering correct username and password.");
+                        
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Email not confirmed.");
+                    }
                     return Page();
                 }
             }
