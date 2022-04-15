@@ -7,7 +7,7 @@ namespace MyPal.Models
 {
     public class CollectionDataModel
     {
-        // List of private events
+        // List of pinpoints
         public List<Pinpoints> PinpointsList { get; set; }
 
         // PrivateEvents object
@@ -15,5 +15,9 @@ namespace MyPal.Models
 
         //PublicEvents object
         public PublicEvents PublicEvents { get; set; }
+        // List of private events
+        public List<PrivateEvents> PrivateEventsList { get; set;}
+        // List of public events
+        public List<PublicEvents> PublicEventsList { get; set; }
     }
 }
