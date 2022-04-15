@@ -3,71 +3,117 @@
 }
 
 @model IEnumerable<MyPal.Models.PrivateEvents>
+@*Source: https://fullcalendar.io/docs/initialize-globals*@
+<head>
+    <meta charset="utf-8" />
+    <link href="~/css/main.css" rel="stylesheet" />
+    <link href="~/css/main.min.css" rel="stylesheet" />
 
-<h1>This is where the calendar should be implemented. When clicking on the day inside the calendar, the list of Private Events associated with that day and associated with that logged in user should be displayed</h1>
-<div class="container p-3">
-    <div class="row pt-4">
-        <div class="col-6">
-            <h2 class="text-primary">Private Events List</h2>
+
+        <script src="~/js/main.js"></script>
+        <script src="~/js/main.min.js"></script>
+        <script>
+
+            document.addEventListener('DOMContentLoaded', function () {
+                var calendarEl = document.getElementById('calendar');
+
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    selectable: true,
+                    dateClick: function (info) {
+                        //These are supposed to send the date as a parameter.
+                       //var date = info.dateStr;
+                       //var url = 'Url.Action("Index", "privateEvents")/' + date;
+                       //window.location.href = url;
+                    }
+                });
+
+                calendar.addEvent({
+                    title: 'Event',
+                    start: '2022-04-15',
+                    end: '2022-04-17'
+                });
+
+            calendar.render();
+        });
+
+        </script>
+    
+    
+</head>
+
+
+
+
+
+<body>
+    <div id="calendar"></div>
+    <div class="container p-3">
+        <div class="row pt-4">
+            <div class="col-6">
+                <h2 class="text-primary">Private Events List</h2>
+            </div>
+        </div>
+
+        <!--skipping some lines-->
+        <br /><br />
+        <!--Validation to check if the table has any content-->
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            Event Id
+                        </th>
+
+                        <th>
+                            Event name
+                        </th>
+
+                        <th>
+                            Event description
+                        </th>
+
+                        <th>
+                            Start time
+                        </th>
+
+                        <th>
+                            End time
+                        </th>
+
+                        <th>
+                            PinPoint id
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var obj in Model)
+                    {
+                        
+                        <tr>
+                            <td width="30%">@obj.Id</td>
+                            <td width="30%">@obj.Name</td>
+                            <td width="40%">@obj.Description</td>
+                            <td width="50%">@obj.StartTime</td>
+                            <td width="50%">@obj.EndTime</td>
+                            <td width="50%">@obj.PinpointId</td>
+                        </tr>
+                        
+
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <!--In case that the table is empty-->
+            <p>There are no private events.</p>
+        }
+        <div class="col-6 text-left">
+            <a asp-controller="PrivateEvents" asp-action="Create" id="button" class="btn btn-secondary"> Create new private event.</a>
         </div>
     </div>
-
-    <!--skipping some lines-->
-    <br /><br />
-
-    <!--Validation to check if the table has any content-->
-    @if (Model.Count() > 0)
-    {
-        <table class="table table-bordered table-striped" style="width:100%">
-            <thead>
-                <tr>
-                    <th>
-                        Event Id
-                    </th>
-
-                    <th>
-                        Event name
-                    </th>
-
-                    <th>
-                        Event description
-                    </th>
-
-                    <th>
-                        Start time
-                    </th>
-
-                    <th>
-                        End time
-                    </th>
-
-                    <th>
-                        PinPoint id
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var obj in Model)
-                {
-                    <tr>
-                        <td width="30%">@obj.Id</td>
-                        <td width="30%">@obj.Name</td>
-                        <td width="40%">@obj.Description</td>
-                        <td width="50%">@obj.StartTime</td>
-                        <td width="50%">@obj.EndTime</td>
-                        <td width="50%">@obj.PinpointId</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
-    else
-    {
-        <!--In case that the table is empty-->
-        <p>There are no private events.</p>
-    }
-    <div class="col-6 text-left">
-        <a asp-controller="PrivateEvents" asp-action="Create" id="button" class="btn btn-secondary"> Create new private event.</a>
-    </div>
-</div>
+</body>
 

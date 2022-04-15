@@ -22,10 +22,10 @@ namespace MyPal.Controllers
         //Displaying all the contents from the public events table.
         public IActionResult Index()
         {
-            //Creating a list that will store the contents of all the data present in PublicEvents.
+            //Creating a list that will store the contents of all the data present in PublicEvents, in a list.
             IEnumerable<PublicEvents> objList = _db.PublicEvents;
 
-            //Returning the list of objects that were retrived from the databse to the PublicEvents view.
+            //Returning the list of objects that were retrived from the databse to the PublicEvents view, in a list.
             return View(objList);
         }
 

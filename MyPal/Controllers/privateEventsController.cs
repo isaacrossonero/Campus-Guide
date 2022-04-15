@@ -29,16 +29,16 @@ namespace MyPal.Controllers
         }
 
         //Displaying all the contents from the private events table.
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(String date)
         {
             //Creating a list that will store the contents of all the data present in PrivateEvents.
             var user = await _userManager.FindByEmailAsync(User.Identity.Name);
             IEnumerable<PrivateEvents> objList = _db.PrivateEvents.Where(userId => userId.UserId.Equals(user.Id));
 
-
             //Returning the list of objects that were retrived from the databse to the privateEvents view.
             return View(objList);
         }
+
 
         //Adding a new category to the table (GET - CREATE).
         [HttpGet]
