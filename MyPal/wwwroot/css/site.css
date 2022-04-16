@@ -73,3 +73,10 @@ body {
 #button {
     background-color: #6c757d;
 }
+
+#map {
+    height: 550px;
+    width: 1200px;
+    margin: auto;
+    padding: 10px;
+}

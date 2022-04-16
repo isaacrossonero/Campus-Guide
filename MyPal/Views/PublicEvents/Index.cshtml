@@ -8,19 +8,54 @@
     ViewData["Title"] = "Map View";
 }
 
-<h1>This is where the map with the pinpoints should be displayed</h1>
-<h1>When a user selects a specific pinpoint the list of PUBLIC events associated with that pinpoint should be displayed</h1>
-<br />
-<br />
+<!-- Map -->
+<div id="map"></div>
+<div id="radio-buttons">
+    <h1 id="status">No Overlay</h1>
+    <form name="level-selector">
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="level" id="no-overlay" checked="checked" value="no overlay">
+            <label class="form-check-label" for="no-overlay">
+                No overlay
+            </label>
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="level" id="level -2" value="Level -2">
+            <label class="form-check-label" for="level -2">
+                Level -2 Parking
+            </label>
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="level" id="level -1" value="Level -1">
+            <label class="form-check-label" for="level -1">
+                Level -1
+            </label>
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="level" id="level 0" value="Level 0">
+            <label class="form-check-label" for="level 0">
+                Level 0
+            </label>
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="level" id="level 1" value="Level 1">
+            <label class="form-check-label" for="level 1">
+                Level 1
+            </label>
+        </div>
+    </form>
+</div>
+
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
             <h2 class="text-primary">Public Events List</h2>
         </div>
     </div>
-
-    <!--skipping some lines-->
-    <br /><br />
 
     <!--Validation to check if the table has any content-->
     @if (Model.Count() > 0)
@@ -79,10 +114,17 @@
         <!--In case that the table is empty-->
         <p>There are no public events.</p>
     }
-   @if (User.IsInRole("Admin")) { 
+    @if (User.IsInRole("Admin"))
+    {
         <div class="col-6 text-left">
             <a asp-controller="PublicEvents" asp-action="Create" class="btn btn-primary"> Create new public event.</a>
         </div>
     }
-    
+
 </div>
+
+<script src="../js/site.js"></script>
+<!--requesting google api using private api key-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHDadyFvmZMjr7kDdBJp1erOG8et2fvPU&callback=initMap"
+        async></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
