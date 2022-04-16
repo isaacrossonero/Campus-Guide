@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "7/emdKFfxPxr3DK4dCDLA9C81OWTkZmg9GF9RZqa5Uvo7ySdYeVy0zT2eEV2CghvmqnQQK6Pe1PAxo8ufMvgnA==",
+  "dgSpecHash": "HX8Kt21Ib5VE2X6ZHgTWI1O9lI4W0rAyvXMRzRz4RfLQifI9vIzvURtWn46Ar3ffTui3wu0EwRW9N0BgmngCCg==",
   "success": true,
   "projectFilePath": "C:\\Users\\phili\\OneDrive\\Desktop\\Campus-Guide\\MyPal\\MyPal.csproj",
   "expectedPackageFiles": [
@@ -136,11 +136,23 @@
     "C:\\Users\\phili\\.nuget\\packages\\system.threading\\4.3.0\\system.threading.4.3.0.nupkg.sha512",
     "C:\\Users\\phili\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512",
     "C:\\Users\\phili\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
+    "C:\\Users\\phili\\.nuget\\packages\\system.web.helpers.crypto\\3.2.3\\system.web.helpers.crypto.3.2.3.nupkg.sha512",
     "C:\\Users\\phili\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512",
     "C:\\Users\\phili\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\phili\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\phili\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Users\\phili\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'System.Web.Helpers.Crypto 3.2.3' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
+      "libraryId": "System.Web.Helpers.Crypto",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    }
+  ]
 }

@@ -29,7 +29,7 @@ namespace MyPal.Controllers
         }
 
         //Displaying all the contents from the private events table.
-        public async Task<IActionResult> Index(String date)
+        public async Task<IActionResult> Index()
         {
             //Creating a list that will store the contents of all the data present in PrivateEvents.
             var user = await _userManager.FindByEmailAsync(User.Identity.Name);
