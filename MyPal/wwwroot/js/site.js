@@ -124,16 +124,19 @@ function GetAllPinpoints() {
 
                     console.log(long + " " + lat);
 
-                    /*
-                    //adding event listener for double-clicking to show pinpoint name
-                    markerObj.marker.addListener("dblclick", function () {
+                    
+                    // Adding event listener for double-clicking to show pinpoint name
+                    markerObj.marker.addListener("click", function () {
                         const coordInfoWindow = new google.maps.InfoWindow();
-                        coordInfoWindow.setContent(String(data.pinpointName));
+                        coordInfoWindow.setContent(String(data.name));
                         coordInfoWindow.setPosition(markerObj.marker.position);
                         coordInfoWindow.open(map);
 
                     });
 
+
+                    /*
+                     
                     //adding event listener to set the clicked pinpoint as the start point
                     markerObj.marker.addListener("click", function () {
 
@@ -150,9 +153,9 @@ function GetAllPinpoints() {
                     });
                     */
 
-                    //adding the marker object to the markers array
+                    // Adding the marker object to the markers array
                     markers.push(markerObj);
-                    //clicking the no overlay option in order to not show any pinpoints on page load
+                    // Clicking the no overlay option in order to not show any pinpoints on page load
                     document.getElementById('no-overlay').click();
                 });
             }
