@@ -1,66 +1,4 @@
-﻿
-
-/*
-// Function to GetAllPinpoints
-function GetAllPinpoints() {
-    var port = location.port;
-    url = "https://localhost:" + port + "/Pinpoints";
-    markers = [];
-    var iconType;
-    var level = 0;
-
-    //sending request to API to retrieve all pinpoints
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", url + "/GetAllPinpoints", true);
-    xhttp.responseType = "text";
-    xhttp.send();
-
-    xhttp.onreadystatechange = function () {
-        console.log(xhttp.responseText);
-        if (this.readyState == 4, this.status == 200) {
-            var jsonPinpoints = JSON.parse(xhttp.responseText);
-            for (var element in jsonPinpoints) {
-                // Setting the floor level
-                if (parseInt(element.FloorId) == 2)
-                    level = -1
-                if (parseInt(element.FloorId) == 3)
-                    level = 0;
-                //setting the icon type
-                if (parseInt(element.PinpointTypesId) == 1)
-                    iconType = "Room.png";
-                else if (parseInt(element.PinpointTypesId) == 2)
-                    iconType = "EntExt.png";
-                else if (parseInt(element.PinpointTypesId) == 3)
-                    iconType = "Stairs.png";
-
-                var markerObj = {
-                    id: element.Id,
-                    name: element.Name,
-                    level: level,
-                    marker: new google.maps.Marker({
-                        position: { lat: parseFloat(element.Latitude), lng: parseFloat(element.Longitude) },
-                        icon: iconBase + iconType,
-                        map
-                    })
-                };
-
-
-                // Adding the marker object to the markers array
-                markers.push(markerObj);
-
-                // Clicking the no overlay option in order to not show any pinpoints on page load
-                document.getElementById('no-overlay').click();
-            }
-        }
-    };
-}
-*/
-    
-    
-
-
-
-//returning all pinpoints from database
+﻿// Returning all pinpoints from database
 function GetAllPinpoints() {
     var port = location.port;
     url = "https://localhost:" + port + "/Pinpoints";
@@ -79,7 +17,7 @@ function GetAllPinpoints() {
         tilt: 0
     });
 
-    //sending request to API to retrieve all pinpoints
+    // Sending request to API to retrieve all pinpoints
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", url + "/GetAllPinpoints", true);
     xhttp.responseType = "text";
@@ -93,7 +31,7 @@ function GetAllPinpoints() {
                 pinpnt.forEach(function (data, index) {
 
                     console.log(data);
-                    //setting the floor level
+                    // Setting the floor level
                     if (data.floorId == 2)
                         level = -1
                     if (data.floorId == 3)
