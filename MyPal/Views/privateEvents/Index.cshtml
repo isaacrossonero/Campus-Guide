@@ -33,7 +33,7 @@
                     }
                 });
 
-                var myArray = new Array();
+            var myArray = [];
 
                 //Storing all model items into array. 
                 @foreach(var obj in Model)
@@ -41,22 +41,24 @@
                     @:myArray.push({ "Name": "@obj.Name", "StartTime": "@obj.StartTime", "EndTime": "@obj.EndTime" });
                 }
 
-
+            
 
             //Converting the items to string
+
             myArray = JSON.stringify({ 'myArray': myArray });
 
+            //alert(array.toString());
+
+            var o = { toString: function () { return myArray.toString() } };
+            alert(o[i].Name); 
+             // foo
+
             //Without the below foreach() method, this alert works properly and displays the correct values from the PrivateEvents model.
-            alert(myArray);
+            
 
             //When this piece of code is added the calendar does not load and neither does the alert.
-            myArray.forEach(function () {
-                calendar.addEvent({
-                    name: myArray.Name,
-                    start: '2022-04-19',
-                    end: '2022-04-20'
-                });
-            );
+
+           
             
 
             calendar.render();
