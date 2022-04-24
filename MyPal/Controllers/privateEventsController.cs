@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyPal.Data;
 using MyPal.Models;
 using System;
@@ -60,6 +61,13 @@ namespace MyPal.Controllers
             //Saving changes will add the above object to teh databse. Without this method the data would ot be added. 
             _db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<PrivateEvents>>> GetAllPrivateEventsAsync()
+        {
+            var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+            return await _db.PrivateEvents.Where(userId => userId.UserId.Equals(user.Id)).ToListAsync();
         }
     }
 }

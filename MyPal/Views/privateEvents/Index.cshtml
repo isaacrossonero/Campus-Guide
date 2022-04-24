@@ -16,7 +16,10 @@
     <script src="~/js/main.min.js"></script>
     <script>
 
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function ()
+        {
+            var port = location.port;
+            var url = "https://localhost:" + port + "/PrivateEvents";
             var calendarEl = document.getElementById('calendar');
 
             //This JS represents the fulcalendar.io. The css and JS that are new in their folders were all imported.
@@ -25,50 +28,39 @@
                     initialView: 'dayGridMonth',
                     selectable: true,
                     dateClick: function (info) {
-                        //These are supposed to send the date as a parameter.
-                        //var date = info.dateStr;
-                        //var url = /privateEvents/ + date;
-                        //'Url.Action("Index", "privateEvents")/' + date;
-                        // window.location.href = url;
+                        alert(info.dateStr)
                     }
                 });
 
-            var myArray = [];
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", url + "/GetAllPrivateEvents", true);
+            xhttp.responseType = "text";
+            xhttp.send();
 
-                //Storing all model items into array. 
-                @foreach(var obj in Model)
-                {
-                    @:myArray.push({ "Name": "@obj.Name", "StartTime": "@obj.StartTime", "EndTime": "@obj.EndTime" });
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4, this.status == 200) {
+                    if (this.responseText != "") {
+                        pinpnt = JSON.parse(this.responseText);
+                        console.log(pinpnt);
+                        pinpnt.forEach(function (data, index)
+                        {
+                            calendar.addEvent({
+                                title: data.name,
+                                start: data.startTime,
+                                end: data.endTime
+                            });
+                        });
+                    }
                 }
-
-            
-
-            //Converting the items to string
-
-            myArray = JSON.stringify({ 'myArray': myArray });
-
-            //alert(array.toString());
-
-            var o = { toString: function () { return myArray.toString() } };
-            alert(o[i].Name); 
-             // foo
-
-            //Without the below foreach() method, this alert works properly and displays the correct values from the PrivateEvents model.
-            
-
-            //When this piece of code is added the calendar does not load and neither does the alert.
-
-           
-            
-
-            calendar.render();
+            };
+           calendar.render();
         });
 
     </script>
 </head>
 
 
-<body>
+<body> 
     <div id="calendar"></div>
     <div class="container p-3">
         <div class="row pt-4">
