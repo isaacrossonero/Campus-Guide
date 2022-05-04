@@ -44,6 +44,7 @@ namespace MyPal
                 .AddDefaultTokenProviders();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddSession();
 
             // Options for users login regarding password, maximum attempts, etcetera
             services.Configure<IdentityOptions>(options =>
@@ -101,6 +102,7 @@ namespace MyPal
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
