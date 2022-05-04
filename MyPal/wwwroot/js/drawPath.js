@@ -1,6 +1,75 @@
 ﻿// Global variables
 var drawPathLvl0, drawPathLvlMin1, len, lat, lng;
 
+//function to turn on camera on html page
+function turnOnCamera() {
+
+    document.getElementById("preview").hidden = false;
+
+    let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+
+    //listener for the scanning function
+    scanner.addListener('scan', async function (content) {
+        alert("QR Coordinate has been received");
+        document.getElementById("preview").hidden = true;
+
+        if (content == 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO') {
+            //Rick Roll Redirect
+            location.href = content;
+        } else {
+            //set the key variable and get the pinpoint object
+            var key = "CurrentLocation";
+            await retreivePinpointObject(key, content);
+            scanner.stop();
+        }
+    });
+
+    Instascan.Camera.getCameras().then(function (cameras) {
+        if (cameras.length > 0) {
+            scanner.start(cameras[0]);
+        } else {
+            console.error('No cameras found.');
+        }
+    }).catch(function (e) {
+        console.error(e);
+    });
+}
+
+//function to get a pinpoint object based on the name passed
+function retreivePinpointObject(key, pinpointQR_Url) {
+    var port = location.port;
+    var url = "https://localhost:" + port + "/Pinpoints";
+    var xhttp = new XMLHttpRequest();
+    var pinpointURL = url + pinpointQR_Url;
+    xhttp.open("GET", pinpointURL, true);
+    xhttp.responseType = 'text';
+    xhttp.send();
+
+    xhttp.onreadystatechange = async function () {
+        if (this.readyState == 4, this.status == 200) {
+            if (this.responseText != "") {
+                var pinpoint = await JSON.parse(this.responseText);
+                document.getElementById("startPointName").value = pinpoint.pinpointName;
+                document.getElementById("startId").value = pinpoint.pinpoint_Id;
+                savePinpointAsSession(key, pinpoint);
+            }
+        }
+    }
+}
+
+//function to reset everything back to default values
+function ResetNavigation() {
+    document.getElementById("startPointName").value = "";
+    document.getElementById("endPointName").value = "";
+    document.getElementById("startId").value = "";
+    document.getElementById("endId").value = "";
+
+
+    document.getElementById("GetNavigation").hidden = false;
+    document.getElementById("UpdateNavigation").hidden = true;
+
+}
+
 async function RetreiveNavigation() {
     let startpoint = document.getElementById("startId").value;
     let endpoint = document.getElementById("endId").value;
@@ -26,9 +95,14 @@ async function RetreiveNavigation() {
 function savePinpointAsSession(key, pinpoint) {
     var xhttp = new XMLHttpRequest();
 
+    var port = location.port;
+    var url = "https://localhost:" + port + "/Pinpoints";
+
     xhttp.open("POST", url + "/SetSessionLocation?key=" + key, true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.responseType = 'json';
+    /*console.log(pinpoint.name);
+    console.log(JSON.stringify(pinpoint));*/
     xhttp.send(JSON.stringify(pinpoint));
 
     xhttp.onreadystatechange = function () {
@@ -46,6 +120,8 @@ function savePinpointAsSession(key, pinpoint) {
 }
 
 function getSessionAsPinpoint(key) {
+    var port = location.port;
+    var url = "https://localhost:" + port + "/Pinpoints";
     var retreivedPinpoint;
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", url + "/GetSessionLocation?key=" + key, true);
@@ -69,7 +145,6 @@ function calculatePath(start, end) {
     var countLvl0 = 0;
     var countLvlMin1 = 0;
     var path = [];
-    var pathMarkers = [];
     var markerListLvl0 = [];
     var markerListLvlMin1 = [];
     var formattedCoord0 = [];
@@ -87,13 +162,34 @@ function calculatePath(start, end) {
     request.send();
     request.onload = () => {
         path = JSON.parse(request.response);
-        len = path.length;
+        console.log("Outputting path: " + path);
+        var len = path.length;
+        var pathMarkers = new Array(len);
+        for (var i = 0; i < len; i++) {
+            pathMarkers[i] = 0;
+        }
+        console.log(pathMarkers);
+
+
         for (var i = 0; i < len; i++) {
             //storing the path nodes
-            pathMarkers[i] = markers.find(element => {
-                return element.id === path[i]
-            });
+            /*markers.find(element => {
+                *//*console.log(element);*//*
+                if (element.id === path[i]) {
 
+                }
+            });*/
+            let specificMarker = null;
+            if (specificMarker === null) {
+                specificMarker = markers.find(({ id }) => id === path[i]);
+            }
+            console.log("Path at " + i + ": " + path[i]);
+            console.log("Logging specific marker: " + specificMarker);
+            pathMarkers[i] = specificMarker;
+
+
+            console.log("Outputting PathMarkers[i] at i: "+i);
+            console.log(pathMarkers[i]);
             //if current path node is level 0
             if (pathMarkers[i].level == 0) {
                 //returning the position of the current marker and storing in array

@@ -30,7 +30,7 @@ function GetAllPinpoints() {
         if (this.readyState == 4, this.status == 200) {
             if (this.responseText != "") {
                 pinpnt = JSON.parse(this.responseText);
-                console.log(pinpnt);
+                /*console.log(pinpnt);*/
                 pinpnt.forEach(function (data, index) {
 
                     console.log(data);
@@ -65,36 +65,34 @@ function GetAllPinpoints() {
                         })
                     };
 
-                    console.log(long + " " + lat);
+                    /*console.log(long + " " + lat);*/
 
-                    
                     // Adding event listener for double-clicking to show pinpoint name
-                    markerObj.marker.addListener("click", function () {
+                    markerObj.marker.addListener("dblclick", function () {
+                        // Showing pinpoint name on map
                         const coordInfoWindow = new google.maps.InfoWindow();
                         coordInfoWindow.setContent(String(data.name));
                         coordInfoWindow.setPosition(markerObj.marker.position);
                         coordInfoWindow.open(map);
 
                     });
-
-
                     
-                     
-                    //adding event listener to set the clicked pinpoint as the start point
+                    // Adding event listener for clicking to show pinpoint name and setting it as start pinpiont
                     markerObj.marker.addListener("click", function () {
-
+                        // Setting it as pinpoint start location
                         document.getElementById("startPointName").value = markerObj.name;
                         document.getElementById("startId").value = markerObj.id;
                     });
 
-                    ////adding event listener to set the right-clicked pinpoint as the end point
+
+                    // Adding event listener to set the right-clicked pinpoint as the end point
                     markerObj.marker.addListener("rightclick", function () {
 
                         document.getElementById("endPointName").value = markerObj.name;
                         document.getElementById("endId").value = markerObj.id;
                         savePinpointAsSession("EndLocation", data);
                     });
-                    
+
 
                     // Adding the marker object to the markers array
                     markers.push(markerObj);
@@ -137,7 +135,7 @@ function GetPinpointsOfTodaysEvents() {
         if (this.readyState == 4, this.status == 200) {
             if (this.responseText != "") {
                 pinpnt = JSON.parse(this.responseText);
-                console.log(pinpnt);
+                /*console.log(pinpnt);*/
                 pinpnt.forEach(function (data, index) {
 
                     console.log(data);
@@ -173,29 +171,24 @@ function GetPinpointsOfTodaysEvents() {
                         })
                     };
 
-                    console.log(long + " " + lat);
+                    /*console.log(long + " " + lat);*/
 
 
-                    // Adding event listener for double-clicking to show pinpoint name
+                    // Adding event listener for clicking to show pinpoint name and setting it as start pinpiont
                     markerObj.marker.addListener("click", function () {
+                        // Showing pinpoint name on map
                         const coordInfoWindow = new google.maps.InfoWindow();
                         coordInfoWindow.setContent(String(data.name));
                         coordInfoWindow.setPosition(markerObj.marker.position);
                         coordInfoWindow.open(map);
 
-                    });
-
-
-                    
-                     
-                    //adding event listener to set the clicked pinpoint as the start point
-                    markerObj.marker.addListener("click", function () {
-
+                        // Setting it as pinpoint start location
                         document.getElementById("startPointName").value = markerObj.name;
                         document.getElementById("startId").value = markerObj.id;
                     });
+                    
 
-                    ////adding event listener to set the right-clicked pinpoint as the end point
+                    // Adding event listener to set the right-clicked pinpoint as the end point
                     markerObj.marker.addListener("rightclick", function () {
 
                         document.getElementById("endPointName").value = markerObj.name;
