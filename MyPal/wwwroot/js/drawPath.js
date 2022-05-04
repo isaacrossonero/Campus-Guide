@@ -10,6 +10,7 @@ function turnOnCamera() {
 
     //listener for the scanning function
     scanner.addListener('scan', async function (content) {
+        console.log(content);
         alert("QR Coordinate has been received");
         document.getElementById("preview").hidden = true;
 
@@ -49,8 +50,8 @@ function retreivePinpointObject(key, pinpointQR_Url) {
         if (this.readyState == 4, this.status == 200) {
             if (this.responseText != "") {
                 var pinpoint = await JSON.parse(this.responseText);
-                document.getElementById("startPointName").value = pinpoint.pinpointName;
-                document.getElementById("startId").value = pinpoint.pinpoint_Id;
+                document.getElementById("startPointName").value = pinpoint.name;
+                document.getElementById("startId").value = pinpoint.id;
                 savePinpointAsSession(key, pinpoint);
             }
         }
