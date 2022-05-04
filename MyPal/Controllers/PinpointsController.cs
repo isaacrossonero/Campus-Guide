@@ -41,5 +41,20 @@ namespace MyPal.Controllers
             }
             return await _db.Pinpoints.Where(pinpoint => pinpointIdList.Contains(pinpoint.Id)).ToListAsync();
         }
+
+        //Returns a list of Pinpoints Ids from start to end of the shortest path
+        [HttpGet("GetNavigationId")]
+        public async Task<ActionResult<IEnumerable<int>>> GetNavigationId(int start, int end)
+        {
+            Navigation nav = new Navigation(_db);
+            List<Pinpoints> path = nav.CalculatePath(start, end);
+            List<int> pathIds = new();
+
+            foreach (var p in path)
+            {
+                pathIds.Add(p.Id);
+            }
+            return pathIds;
+        }
     }
 }

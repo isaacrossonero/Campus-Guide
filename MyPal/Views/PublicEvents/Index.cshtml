@@ -50,6 +50,31 @@
             </label>
         </div>
     </form>
+
+    <div id="navigation">
+        <video id="preview" width="500" height="450" hidden></video>
+        <form id="GetNavigation" class="form-control">
+            <input id="TurnOnCamera" type="button" value="Present QR Code" onclick="turnOnCamera();" />
+            <input id="startPointName" type="text" name="startpoint" />
+            <input id="endPointName" type="text" name="endpoint" />
+
+            <input id="startId" type="hidden" />
+            <input id="endId" type="hidden" />
+            <input type="button" value="Get Navigation" onclick="RetreiveNavigation();" />
+        </form>
+
+
+        <form id="UpdateNavigation" hidden>
+            <p>Input new QR Code to Update the Navigation</p>
+            <input id="TurnOnCameraAgain" type="button" value="Present QR Code" onclick="turnOnCamera();" />
+            <input type="button" value="Update Navigation" onclick="RetreiveNavigation();" />
+            <br />
+            <input type="button" value="Reset Navigation" onclick="ResetNavigation();" />
+        </form>
+        <div id="pastePath"></div>
+        <br />
+    </div>
+
 </div>
 
 <div class="container p-3">

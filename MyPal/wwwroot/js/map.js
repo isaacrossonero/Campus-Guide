@@ -187,6 +187,16 @@ function initMap() {
             if (document.getElementById('level -1').checked) {
                 level = -1;
 
+                // Showing the path on the current level only
+                /*
+                if (drawPathLvl0 != null) {
+                    drawPathLvl0.setMap(null);
+                }
+                if (drawPathLvlMin1 != null) {
+                    drawPathLvlMin1.setMap(map);
+                }
+                */
+
                 // Clear and change the overlay to display level -2 and write "Level -2 Parking" to let user know
                 map.overlayMapTypes.clear();
                 map.overlayMapTypes.push(ictLvlMinOne);
@@ -203,6 +213,16 @@ function initMap() {
             }
             if (document.getElementById('level 0').checked) {
                 level = 0;
+
+                // Showing the path on the current level only
+                /*
+                if (drawPathLvlMin1 != null) {
+                    drawPathLvlMin1.setMap(null);
+                }
+                if (drawPathLvl0 != null) {
+                    drawPathLvl0.setMap(map);
+                }
+                */
 
                 map.overlayMapTypes.clear();
                 map.overlayMapTypes.push(ictLvlZero);

@@ -48,6 +48,8 @@ function GetAllPinpoints() {
                         iconType = "Stairs.png";
                     else if (data.pinpointTypesId == 4)
                         iconType = "";
+                    else if (data.pinpointTypesId == 5)
+                        iconType = "Stairs.png";
 
                     long = parseFloat(data.longitude);
                     lat = parseFloat(data.latitude);
@@ -76,7 +78,7 @@ function GetAllPinpoints() {
                     });
 
 
-                    /*
+                    
                      
                     //adding event listener to set the clicked pinpoint as the start point
                     markerObj.marker.addListener("click", function () {
@@ -92,7 +94,7 @@ function GetAllPinpoints() {
                         document.getElementById("endId").value = markerObj.id;
                         savePinpointAsSession("EndLocation", data);
                     });
-                    */
+                    
 
                     // Adding the marker object to the markers array
                     markers.push(markerObj);
@@ -153,6 +155,9 @@ function GetPinpointsOfTodaysEvents() {
                         iconType = "Stairs.png";
                     else if (data.pinpointTypesId == 4)
                         iconType = "";
+                    else if (data.pinpointTypesId == 5)
+                        iconType = "Stairs.png";
+
 
                     long = parseFloat(data.longitude);
                     lat = parseFloat(data.latitude);
@@ -181,7 +186,7 @@ function GetPinpointsOfTodaysEvents() {
                     });
 
 
-                    /*
+                    
                      
                     //adding event listener to set the clicked pinpoint as the start point
                     markerObj.marker.addListener("click", function () {
@@ -197,7 +202,7 @@ function GetPinpointsOfTodaysEvents() {
                         document.getElementById("endId").value = markerObj.id;
                         savePinpointAsSession("EndLocation", data);
                     });
-                    */
+                    
 
                     // Adding the marker object to the markers array
                     markers.push(markerObj);
