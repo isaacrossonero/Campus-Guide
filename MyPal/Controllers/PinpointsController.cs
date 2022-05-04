@@ -26,5 +26,20 @@ namespace MyPal.Controllers
         {
             return await _db.Pinpoints.Where(pinpoint => pinpoint.PinpointTypesId != 4).ToListAsync();
         }
+
+        // GET Request for all pinpoints of Todays Events
+        public async Task<ActionResult<IEnumerable<Pinpoints>>> GetPinpointsOfTodaysEvents()
+        {
+            CollectionDataModel coll = new CollectionDataModel();
+            // Getting today's public events and their pinpointId
+            coll.PublicEventsList = await _db.PublicEvents.Where(publicEvent => publicEvent.StartTime == DateTime.Now.Date).ToListAsync();
+            // Getting the list of the pinpoins
+            var pinpointIdList = new List<int>();
+            foreach(var element in coll.PublicEventsList)
+            {
+                pinpointIdList.Add(element.PinpointId);
+            }
+            return await _db.Pinpoints.Where(pinpoint => pinpointIdList.Contains(pinpoint.Id)).ToListAsync();
+        }
     }
 }
