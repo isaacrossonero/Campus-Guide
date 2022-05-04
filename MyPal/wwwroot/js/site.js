@@ -8,6 +8,8 @@ function GetAllPinpoints() {
     var pinpnt;
     var long;
     var lat;
+    // Reset the pinpoints - in case the other button (Get All Pinpoints Button) is pressed
+    // So that the pinpoints are reset and do not stay there
     markers = [];
 
     map = new google.maps.Map(document.getElementById("map"), {
@@ -37,7 +39,7 @@ function GetAllPinpoints() {
                         level = -1
                     if (data.floorId == 3)
                         level = 0;
-                    //setting the icon type
+                    // Setting the icon type
                     if (data.pinpointTypesId == 1)
                         iconType = "Room.png";
                     else if (data.pinpointTypesId == 2)
@@ -111,6 +113,8 @@ function GetPinpointsOfTodaysEvents() {
     var pinpnt;
     var long;
     var lat;
+    // Reset the pinpoints - in case the other button (Get All Pinpoints Button) is pressed
+    // So that the pinpoints are reset and do not stay there
     markers = [];
 
     map = new google.maps.Map(document.getElementById("map"), {
