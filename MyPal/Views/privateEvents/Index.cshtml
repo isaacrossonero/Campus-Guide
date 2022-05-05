@@ -3,7 +3,7 @@
     ViewData["Title"] = "Itinerary View";
 }
 
-@model IEnumerable<MyPal.Models.PrivateEvents>
+@model Tuple<IEnumerable<MyPal.Models.PrivateEvents>, MyPal.Models.PrivateEvents>
 
 @*Source: https://fullcalendar.io/docs/initialize-globals*@
 <head>
@@ -65,14 +65,20 @@
     <div class="container p-3">
         <div class="row pt-4">
             <div class="col-6">
-                <h2 class="text-primary">Private Events List</h2>
+                <h2 class="text-primary" style="text-align:center">Private Events List</h2>
             </div>
         </div>
 
         <!--skipping some lines-->
         <br /><br />
-        <!--Validation to check if the table has any content-->
-        @if (Model.Count() > 0)
+
+        <div class="row pt-4">
+            <div class="col-6">
+                <h3 class="text-primary">Next event</h3>
+            </div>
+        </div>
+
+        @if (!Model.Item2.Equals(null))
         {
             <table class="table table-bordered table-striped" style="width:100%">
                 <thead>
@@ -103,19 +109,77 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var obj in Model)
+                    <tr>
+                        <td width="30%">@Model.Item2.Id</td>
+                        <td width="30%">@Model.Item2.Name</td>
+                        <td width="40%">@Model.Item2.Description</td>
+                        <td width="50%">@Model.Item2.StartTime</td>
+                        <td width="50%">@Model.Item2.EndTime</td>
+                        <td width="50%">@Model.Item2.PinpointId</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <!--In case that the table is empty-->
+            <p>There are no private events.</p>
+        }
+
+        <!--skipping some lines-->
+        <br /><br />
+        <div class="row pt-4">
+            <div class="col-6">
+                <h3 class="text-primary">All events</h3>
+            </div>
+        </div>
+        <!--Validation to check if the table has any content-->
+        @if (Model.Item1.Count() > 0)
+        {
+            <table class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            Event Id
+                        </th>
+
+                        <th>
+                            Event name
+                        </th>
+
+                        <th>
+                            Event description
+                        </th>
+
+                        <th>
+                            Start time
+                        </th>
+
+                        <th>
+                            End time
+                        </th>
+
+                        <th>
+                            PinPoint id
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var obj in Model.Item1)
                     {
-
-                        <tr>
-                            <td width="30%">@obj.Id</td>
-                            <td width="30%">@obj.Name</td>
-                            <td width="40%">@obj.Description</td>
-                            <td width="50%">@obj.StartTime</td>
-                            <td width="50%">@obj.EndTime</td>
-                            <td width="50%">@obj.PinpointId</td>
-                        </tr>
-
-
+                        <!--IF statemnet to filter out irrelvant events-->
+                        @if (DateTime.Now < obj.StartTime)
+                        {
+                            <tr>
+                                <td width="30%">@obj.Id</td>
+                                <td width="30%">@obj.Name</td>
+                                <td width="40%">@obj.Description</td>
+                                <td width="50%">@obj.StartTime</td>
+                                <td width="50%">@obj.EndTime</td>
+                                <td width="50%">@obj.PinpointId</td>
+                            </tr>
+                        }
                     }
                 </tbody>
             </table>

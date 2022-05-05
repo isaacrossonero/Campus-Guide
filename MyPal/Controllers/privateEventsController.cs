@@ -34,10 +34,29 @@ namespace MyPal.Controllers
         {
             //Creating a list that will store the contents of all the data present in PrivateEvents.
             var user = await _userManager.FindByEmailAsync(User.Identity.Name);
-            IEnumerable<PrivateEvents> objList = _db.PrivateEvents.Where(userId => userId.UserId.Equals(user.Id));
+            //Getting all the private events, sorting the result by most urgent date.
+            IEnumerable<PrivateEvents> objList = await _db.PrivateEvents.Where(userId => userId.UserId.Equals(user.Id)).OrderBy(date => date.StartTime).ToListAsync();
+
+            //Removes all past events that are no longer needed.
+            foreach(var a in objList)
+            {
+                if(a.StartTime < DateTime.Now)
+                {
+                    _db.PrivateEvents.Remove(a);
+                    _db.SaveChanges();
+                }
+            }
+
+            //Creates new list which represnts the updated version of teh pervious one.
+            IEnumerable<PrivateEvents> list = objList;
+
+            PrivateEvents e = list.First();
+
+            //Creating a new tuple.
+            var tupleModel = new Tuple<IEnumerable<PrivateEvents>, PrivateEvents> (list, e);
 
             //Returning the list of objects that were retrived from the databse to the privateEvents view.
-            return View(objList);
+            return View(tupleModel);
         }
 
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -24,5 +25,79 @@ namespace MyPal.Models
         [ForeignKey("AspNetUsers")]
         [DisplayName("User ID")]
         public string UserId { get; set; }
+    }
+
+    public class Events : IEnumerable
+    {
+        private PrivateEvents[] _events;
+        public Events(PrivateEvents[] pArray)
+        {
+            _events = new PrivateEvents[pArray.Length];
+
+            for (int i = 0; i < pArray.Length; i++)
+            {
+                _events[i] = pArray[i];
+            }
+        }
+
+        // Implementation for the GetEnumerator method.
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return (IEnumerator)GetEnumerator();
+        }
+
+        public PeopleEnum GetEnumerator()
+        {
+            return new PeopleEnum(_events);
+        }
+    }
+
+    // When you implement IEnumerable, you must also implement IEnumerator.
+    public class PeopleEnum : IEnumerator
+    {
+        public PrivateEvents[] _events;
+
+        // Enumerators are positioned before the first element
+        // until the first MoveNext() call.
+        int position = -1;
+
+        public PeopleEnum(PrivateEvents[] list)
+        {
+            _events = list;
+        }
+
+        public bool MoveNext()
+        {
+            position++;
+            return (position < _events.Length);
+        }
+
+        public void Reset()
+        {
+            position = -1;
+        }
+
+        object IEnumerator.Current
+        {
+            get
+            {
+                return Current;
+            }
+        }
+
+        public PrivateEvents Current
+        {
+            get
+            {
+                try
+                {
+                    return _events[position];
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    throw new InvalidOperationException();
+                }
+            }
+        }
     }
 }
