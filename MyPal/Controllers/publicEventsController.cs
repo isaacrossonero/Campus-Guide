@@ -18,9 +18,10 @@ namespace MyPal.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
 
         //Constructor.
-        public PublicEventsController(ApplicationDbContext db)
+        public PublicEventsController(ApplicationDbContext db, UserManager<IdentityUser> userManager)
         {
             _db = db;
+            _userManager = userManager;
         }
         //Displaying all the contents from the public events table.
         public IActionResult Index()
@@ -135,7 +136,7 @@ namespace MyPal.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public IActionResult DeletePrivateEvent(int? id)
+        public IActionResult DeletePublicEvent(int? id)
         {
             // If the id does not exit.
             if (id == null || id == 0)

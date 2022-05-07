@@ -87,41 +87,42 @@
     <!--Validation to check if the table has any content-->
     @if (Model.Count() > 0)
     {
-        <table class="table table-bordered table-striped" style="width:100%">
-            <thead>
-                <tr>
-                    <th>
-                        Event Id
-                    </th>
 
-                    <th>
-                        Event name
-                    </th>
+        @foreach (var obj in Model)
+        {
+            <table class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            Event Id
+                        </th>
 
-                    <th>
-                        Event description
-                    </th>
+                        <th>
+                            Event name
+                        </th>
 
-                    <th>
-                        Start time
-                    </th>
+                        <th>
+                            Event description
+                        </th>
 
-                    <th>
-                        End time
-                    </th>
+                        <th>
+                            Start time
+                        </th>
 
-                    <th>
-                        Capacity
-                    </th>
+                        <th>
+                            End time
+                        </th>
 
-                    <th>
-                        PinPoint id
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var obj in Model)
-                {
+                        <th>
+                            Capacity
+                        </th>
+
+                        <th>
+                            PinPoint id
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
                     <tr>
                         <td width="30%">@obj.Id</td>
                         <td width="30%">@obj.Name</td>
@@ -131,9 +132,21 @@
                         <td width="50%">@obj.Capacity</td>
                         <td width="50%">@obj.PinpointId</td>
                     </tr>
-                }
-            </tbody>
-        </table>
+
+                </tbody>
+            </table>
+            @if (User.IsInRole("Admin"))
+            {
+                <div style="margin:10px">
+                    <a asp-controller="PublicEvents" asp-route-Id="@obj.Id" asp-action="Edit" class="btn btn-success">
+                        Edit
+                    </a>
+                    <a asp-controller="PublicEvents" asp-route-Id="@obj.Id" asp-action="Delete" class="btn btn-info">
+                        Delete
+                    </a>
+                </div>
+             }
+         }
 
     }
     else

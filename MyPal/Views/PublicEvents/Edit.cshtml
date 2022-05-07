@@ -1,7 +1,66 @@
-﻿
+﻿@model MyPal.Models.CollectionDataModel
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
+<body>
+    <form method="post" enctype="multipart/form-data" asp-action="Edit">
+        <input asp-for="PublicEvents.Id" hidden>
+        <div class="border p-3">
+            <div class="form-group row">
+                <h2 class="text-maroon pl-3">Edit your event</h2>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group row">
+                        <div class="col-4 text-maroon">
+                            <label asp-for="PublicEvents.Name"></label>
+                        </div>
+                        <div class="col-8">
+                            <input asp-for="PublicEvents.Name" class="form-control">
+                            <span asp-validation-for="PublicEvents.Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-4 text-maroon">
+                            <label asp-for="PublicEvents.Description"></label>
+                        </div>
+                        <div class="col-8">
+                            <textarea asp-for="PublicEvents.Description" class="form-control"></textarea>
+                            <span asp-validation-for="PublicEvents.Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-4 text-maroon">
+                            <label asp-for="PublicEvents.StartTime"></label>
+                        </div>
+                        <div class="col-8">
+                            <input asp-for="PublicEvents.StartTime" class="form-control">
+                            <span asp-validation-for="PublicEvents.StartTime" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-4 text-maroon">
+                            <label asp-for="PublicEvents.EndTime"></label>
+                        </div>
+                        <div class="col-8">
+                            <input asp-for="PublicEvents.EndTime" class="form-control">
+                            <span asp-validation-for="PublicEvents.EndTime" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <input type="submit" class="btn btn-info w-100" value="Update" />
+                        </div>
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-success w-100">Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                @*This is kept empty*@
+            </div>
+        </div>
+    </form>
+</body>
