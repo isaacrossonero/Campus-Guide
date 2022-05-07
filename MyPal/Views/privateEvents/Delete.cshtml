@@ -1,0 +1,64 @@
+﻿@model MyPal.Models.PrivateEvents
+@{
+    ViewData["Title"] = "Delete Report";
+}
+
+<form method="post" asp-action="DeletePrivateEvent">
+    <input asp-for="Id" hidden>
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-maroon pl-3">Delete report</h2>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col-4 text-maroon">
+                        <label asp-for="Name"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Name" class="form-control">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4 text-maroon">
+                        <label asp-for="Description"></label>
+                    </div>
+                    <div class="col-8">
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4 text-maroon">
+                        <label asp-for="StartTime"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="StartTime" class="form-control">
+                        <span asp-validation-for="StartTime" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4 text-maroon">
+                        <label asp-for="EndTime"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="EndTime" class="form-control">
+                        <span asp-validation-for="EndTime" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col">
+                        <input type="submit" class="btn btn-info w-100" value="Delete" />
+                    </div>
+                    <div class="col">
+                        <a asp-action="Index" asp-controller="PrivateEvents" asp-route-Id="@Model.Id" class="btn btn-dark w-100">Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            @*This is kept empty*@
+        </div>
+    </div>
+</form>

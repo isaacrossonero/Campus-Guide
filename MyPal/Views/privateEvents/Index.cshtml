@@ -102,21 +102,19 @@
                         <th>
                             End time
                         </th>
-
-                        <th>
-                            PinPoint id
-                        </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td width="30%">@Model.Item2.Id</td>
-                        <td width="30%">@Model.Item2.Name</td>
-                        <td width="40%">@Model.Item2.Description</td>
-                        <td width="50%">@Model.Item2.StartTime</td>
-                        <td width="50%">@Model.Item2.EndTime</td>
-                        <td width="50%">@Model.Item2.PinpointId</td>
-                    </tr>
+                    @if (DateTime.Now < Model.Item2.StartTime)
+                    {
+                        <tr>
+                            <td width="30%">@Model.Item2.Id</td>
+                            <td width="30%">@Model.Item2.Name</td>
+                            <td width="40%">@Model.Item2.Description</td>
+                            <td width="50%">@Model.Item2.StartTime</td>
+                            <td width="50%">@Model.Item2.EndTime</td>
+                        </tr>
+                    }
 
                 </tbody>
             </table>
@@ -137,37 +135,34 @@
         <!--Validation to check if the table has any content-->
         @if (Model.Item1.Count() > 0)
         {
-            <table class="table table-bordered table-striped" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>
-                            Event Id
-                        </th>
 
-                        <th>
-                            Event name
-                        </th>
+            @foreach (var obj in Model.Item1)
+            {
+                <table class="table table-bordered table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                Event Id
+                            </th>
 
-                        <th>
-                            Event description
-                        </th>
+                            <th>
+                                Event name
+                            </th>
 
-                        <th>
-                            Start time
-                        </th>
+                            <th>
+                                Event description
+                            </th>
 
-                        <th>
-                            End time
-                        </th>
+                            <th>
+                                Start time
+                            </th>
 
-                        <th>
-                            PinPoint id
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var obj in Model.Item1)
-                    {
+                            <th>
+                                End time
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <!--IF statemnet to filter out irrelvant events-->
                         @if (DateTime.Now < obj.StartTime)
                         {
@@ -177,12 +172,20 @@
                                 <td width="40%">@obj.Description</td>
                                 <td width="50%">@obj.StartTime</td>
                                 <td width="50%">@obj.EndTime</td>
-                                <td width="50%">@obj.PinpointId</td>
                             </tr>
                         }
-                    }
-                </tbody>
-            </table>
+
+                    </tbody>
+                </table>
+                <div style="margin:10px">
+                    <a asp-controller="privateEvents" asp-route-Id="@obj.Id" asp-action="Edit" class="btn btn-success">
+                        Edit
+                    </a>
+                    <a asp-controller="privateEvents" asp-route-Id="@obj.Id" asp-action="Delete" class="btn btn-info">
+                        Delete
+                    </a>
+                </div>
+            }
         }
         else
         {

@@ -1443,3 +1443,5 @@ C:\Users\phili\OneDrive\Desktop\Campus-Guide\MyPal\obj\Debug\net5.0\ref\MyPal.dl
 C:\Users\phili\OneDrive\Desktop\Campus-Guide\MyPal\obj\Debug\net5.0\MyPal.pdb
 C:\Users\phili\OneDrive\Desktop\Campus-Guide\MyPal\obj\Debug\net5.0\MyPal.genruntimeconfig.cache
 C:\Users\phili\OneDrive\Desktop\Campus-Guide\MyPal\bin\Debug\net5.0\System.Web.Helpers.Crypto.dll
+C:\Users\phili\OneDrive\Desktop\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\privateEvents\Edit.cshtml.g.cs
+C:\Users\phili\OneDrive\Desktop\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\privateEvents\Delete.cshtml.g.cs

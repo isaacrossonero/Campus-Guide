@@ -82,6 +82,96 @@ namespace MyPal.Controllers
             return RedirectToAction("Index");
         }
 
+
+        [HttpGet]
+        public IActionResult Edit(int? id)
+        {
+            // If the id does not exit.
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            // Obj that stores the whole report.
+            CollectionaDataModel coll = new CollectionaDataModel();
+            coll.Event = _db.PrivateEvents.Find(id);
+
+            // Validation if the report does have an ID, but it is null.
+            if (coll.Event == null)
+            {
+                return NotFound();
+            }
+
+            //The object is being returned correctly to the Edit view.
+            return View(coll);
+        }
+
+        //POST - Edit the report
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditAsync(CollectionaDataModel coll)
+        {
+            if (ModelState.IsValid)
+            {
+                //Here the default Id value of this obj is 0, where it should be the id of the selected event.
+                PrivateEvents obj = coll.Event;
+
+                // Gets the logged in user
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                obj.UserId = user.Id;
+                _db.PrivateEvents.Update(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(coll);
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int? id)
+        {
+            // If the id does not exit.
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            // Obj that stores the whole report.
+            var obj = _db.PrivateEvents.Find(id);
+
+            //Validation if the report does have an ID, but it is null.
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+        }
+
+        //POST - Delete the report
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletePrivateEvent(int? id)
+        {
+            // If the id does not exit.
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            var obj = _db.PrivateEvents.Find(id);
+
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            _db.PrivateEvents.Remove(obj);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PrivateEvents>>> GetAllPrivateEventsAsync()
         {
