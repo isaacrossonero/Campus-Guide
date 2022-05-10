@@ -1926,3 +1926,5 @@ C:\Users\phili\OneDrive\Desktop\Campus-Guide\MyPal\obj\Debug\net5.0\MyPal.pdb
 C:\Users\phili\OneDrive\Desktop\Campus-Guide\MyPal\obj\Debug\net5.0\MyPal.genruntimeconfig.cache
 C:\Users\phili\OneDrive\Desktop\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\PublicEvents\Edit.cshtml.g.cs
 C:\Users\phili\OneDrive\Desktop\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\PublicEvents\Delete.cshtml.g.cs
+C:\Users\phili\OneDrive\Desktop\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\privateEvents\Delete.cshtml.g.cs
+C:\Users\phili\OneDrive\Desktop\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\privateEvents\Edit.cshtml.g.cs

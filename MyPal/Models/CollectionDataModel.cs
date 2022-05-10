@@ -19,5 +19,7 @@ namespace MyPal.Models
         public List<PrivateEvents> PrivateEventsList { get; set;}
         // List of public events
         public List<PublicEvents> PublicEventsList { get; set; }
+        // PriavteEvents object
+        public PrivateEvents Event { get; set; }
     }
 }
