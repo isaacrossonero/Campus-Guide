@@ -93,7 +93,7 @@
 
         @foreach (var obj in Model)
         {
-            <table class="table table-bordered border-primary table-striped" style="block-size:100%">
+            <table class="table table-bordered border-primary table-striped table-responsive" style="block-size:100%">
                 <thead>
                     <tr>
                         <th>
@@ -148,14 +148,14 @@
                         Delete
                     </a>
                 </div>
-             }
-         }
+            }
+        }
 
     }
     else
     {
         <!--In case that the table is empty-->
-        <p>There are no public events.</p>
+        <h4 class="text-secondary">There are no public events.</h4>
     }
     @if (User.IsInRole("Admin"))
     {

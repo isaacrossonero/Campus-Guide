@@ -79,7 +79,7 @@
 
         @if (!Model.Item2.Equals(null))
         {
-            <table class="table table-bordered table-striped" style="width:100%">
+            <table class="table table-bordered border-primary table-striped table-responsive" style="block-size:100%">
                 <thead>
                     <tr>
                         <th>
@@ -121,7 +121,7 @@
         else
         {
             <!--In case that the table is empty-->
-            <p>There are no private events.</p>
+            <h4 class="text-secondary">There are no private events.</h4>
         }
 
         <!--skipping some lines-->
@@ -137,7 +137,7 @@
 
             @foreach (var obj in Model.Item1)
             {
-                <table class="table table-bordered table-striped" style="width:100%">
+                <table class="table table-bordered border-primary table-striped table-responsive" style="block-size:100%">
                     <thead>
                         <tr>
                             <th>
@@ -189,7 +189,7 @@
         else
         {
             <!--In case that the table is empty-->
-            <p>There are no private events.</p>
+        <h4 class="text-secondary">There are no private events.</h4>
         }
         <div class="col-6 text-left">
             <a asp-controller="PrivateEvents" asp-action="Create" id="button" class="btn btn-secondary"> Create new private event.</a>

@@ -7,11 +7,11 @@
     ViewData["Title"] = "MyPal Dashboard";
 }
 <h1 class="text-primary">MyPal Dashboard</h1>
-<br >
+<br>
 <h4 class="text-secondary">Available Public Events</h4>
 @if (Model.PublicEventsList.Count() > 0)
 {
-    <table class="table table-bordered border-secondary table-striped" style="block-size:100%">
+    <table class="table table-bordered border-primary table-striped table-responsive" style="block-size:100%">
         <thead>
             <tr>
                 <th>
@@ -63,16 +63,16 @@
 else
 {
     <!--In case that the table is empty-->
-    <p>There are no public events.</p>
+    <h4 class="text-secondary">There are no public events.</h4>
 }
 @if (SignInManager.IsSignedIn(User))
 {
 
-    <br >
-<h4 class="text-secondary">Available Private Events</h4>
+    <br>
+    <h4 class="text-secondary">Available Private Events</h4>
     @if (Model.PrivateEventsList.Count() > 0)
     {
-        <table class="table table-bordered border-secondary table-striped" style="width:100%">
+        <table class="table table-bordered border-primary table-striped table-responsive" style="block-size:100%">
             <thead>
                 <tr>
                     <th>
@@ -118,14 +118,14 @@ else
     else
     {
         <!--In case that the table is empty-->
-        <p>There are no private events.</p>
-        <br >
+        <h4 class="text-secondary">There are no private events.</h4>
+        <br>
     }
 }
 
 
 
 @*<form asp-action="GetAllPrivateEvents" method="get">
-    Choose your favorite subject:
-    <button name="" type="submit" value="">Private Event</button>
-</form>*@
+        Choose your favorite subject:
+        <button name="" type="submit" value="">Private Event</button>
+    </form>*@

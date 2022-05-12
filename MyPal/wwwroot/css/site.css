@@ -75,8 +75,8 @@ body {
 }
 
 #map {
-    height: 550px;
-    width: 1200px;
-    margin: auto;
-    padding: 10px;
+    overflow: hidden;
+    padding-bottom: 56.25%;
+    position: relative;
+    height: 0;
 }
