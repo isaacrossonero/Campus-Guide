@@ -6,11 +6,12 @@
 @{
     ViewData["Title"] = "MyPal Dashboard";
 }
-<h1>MyPal Dashboard</h1>
-<h2>Available Public Events</h2>
+<h1 class="text-primary">MyPal Dashboard</h1>
+<br >
+<h4 class="text-secondary">Available Public Events</h4>
 @if (Model.PublicEventsList.Count() > 0)
 {
-    <table class="table table-bordered table-striped" style="width:100%">
+    <table class="table table-bordered border-secondary table-striped" style="block-size:100%">
         <thead>
             <tr>
                 <th>
@@ -67,10 +68,11 @@ else
 @if (SignInManager.IsSignedIn(User))
 {
 
-<h2>Available Private Events</h2>
+    <br >
+<h4 class="text-secondary">Available Private Events</h4>
     @if (Model.PrivateEventsList.Count() > 0)
     {
-        <table class="table table-bordered table-striped" style="width:100%">
+        <table class="table table-bordered border-secondary table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th>
@@ -117,6 +119,7 @@ else
     {
         <!--In case that the table is empty-->
         <p>There are no private events.</p>
+        <br >
     }
 }
 
