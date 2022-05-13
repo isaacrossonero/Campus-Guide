@@ -50,7 +50,11 @@ namespace MyPal.Controllers
             //Creates new list which represnts the updated version of teh pervious one.
             IEnumerable<PrivateEvents> list = objList;
 
-            PrivateEvents e = list.First();
+            PrivateEvents e = new PrivateEvents();
+            if (list.Any())
+            {
+                e = list.First();
+            }
 
             //Creating a new tuple.
             var tupleModel = new Tuple<IEnumerable<PrivateEvents>, PrivateEvents>(list, e);

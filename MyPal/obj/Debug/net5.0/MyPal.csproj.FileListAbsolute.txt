@@ -2418,3 +2418,7 @@ C:\Users\Isaac\Documents\GitHub\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\
 C:\Users\Isaac\Documents\GitHub\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\privateEvents\Edit.cshtml.g.cs
 C:\Users\Isaac\Documents\GitHub\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\PublicEvents\Delete.cshtml.g.cs
 C:\Users\Isaac\Documents\GitHub\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\PublicEvents\Edit.cshtml.g.cs
+E:\SchoolCoding\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\PrivateEvents\Delete.cshtml.g.cs
+E:\SchoolCoding\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\PrivateEvents\Edit.cshtml.g.cs
+E:\SchoolCoding\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\PublicEvents\Delete.cshtml.g.cs
+E:\SchoolCoding\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\PublicEvents\Edit.cshtml.g.cs
