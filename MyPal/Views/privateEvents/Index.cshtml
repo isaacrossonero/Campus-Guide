@@ -64,22 +64,18 @@
     <div class="container p-3">
         <div class="row pt-4">
             <div class="col-6">
-                <h2 class="text-primary" style="text-align:center">Itinerary</h2>
+                <h2 class="text-primary">Itinerary</h2>
             </div>
         </div>
 
-        <!--skipping some lines-->
-        <br /><br />
-
-        <div class="row pt-4">
-            <div class="col-6">
-                <h3 class="text-primary">Next event</h3>
-            </div>
-        </div>
-
-        @if (!Model.Item2.Equals(null))
+        @if (Model.Item2.UserId != null)
         {
-            <table class="table table-bordered table-striped" style="width:100%">
+            <div class="row pt-4">
+                <div class="col-6">
+                    <h3 class="text-primary">Next event</h3>
+                </div>
+            </div>
+            <table class="table table-bordered border-primary table-striped table-responsive" style="block-size:100%">
                 <thead>
                     <tr>
                         <th>
@@ -121,7 +117,7 @@
         else
         {
             <!--In case that the table is empty-->
-            <p>There are no private events.</p>
+            <h4 class="text-secondary">There are no private events.</h4>
         }
 
         <!--skipping some lines-->
@@ -137,7 +133,7 @@
 
             @foreach (var obj in Model.Item1)
             {
-                <table class="table table-bordered table-striped" style="width:100%">
+                <table class="table table-bordered border-primary table-striped table-responsive" style="block-size:100%">
                     <thead>
                         <tr>
                             <th>
@@ -189,7 +185,7 @@
         else
         {
             <!--In case that the table is empty-->
-            <p>There are no private events.</p>
+        <h4 class="text-secondary">There are no private events.</h4>
         }
         <div class="col-6 text-left">
             <a asp-controller="PrivateEvents" asp-action="Create" id="button" class="btn btn-secondary"> Create new private event.</a>
