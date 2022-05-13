@@ -1,18 +1,23 @@
 ﻿@model MyPal.Models.CollectionDataModel
 
+@{
+    ViewData["Title"] = "Create Public Event";
+}
+
 <form method="post" asp-action="Create">
     <div class="border p-3">
         <div class="form-group row">
-            <h2 class="text-info p1-3" style="padding-left:20px">Add public event</h2>
+            <h2 class="text-primary pl-3">Add public event</h2>
         </div>
         <div class="row">
-            <div class="col-8">
+            <div class="col-12">
                 <div class="form-group row">
                     <div class="col-4">
                         <label asp-for="PublicEvents.Name"></label>
                     </div>
                     <div class="col-8">
                         <input asp-for="PublicEvents.Name" class="form-control">
+                        <span asp-validation-for="PublicEvents.Name" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -21,6 +26,7 @@
                     </div>
                     <div class="col-8">
                         <input asp-for="PublicEvents.Description" class="form-control">
+                        <span asp-validation-for="PublicEvents.Description" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -29,6 +35,7 @@
                     </div>
                     <div class="col-8">
                         <input asp-for="PublicEvents.StartTime" class="form-control">
+                        <span asp-validation-for="PublicEvents.StartTime" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -37,6 +44,7 @@
                     </div>
                     <div class="col-8">
                         <input asp-for="PublicEvents.EndTime" class="form-control">
+                        <span asp-validation-for="PublicEvents.EndTime" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -45,6 +53,7 @@
                     </div>
                     <div class="col-8">
                         <input asp-for="PublicEvents.Capacity" class="form-control">
+                        <span asp-validation-for="PublicEvents.Capacity" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -60,13 +69,14 @@
                             }
                         </select>
                     </div>
+                    <span asp-validation-for="PublicEvents.PinpointId" class="text-danger"></span>
                 </div>
                 <div class="form-group row">
-                    <div class="col">
-                        <input type="submit" class="btn btn-info w-100" value="Create" />
+                    <div class="col-6">
+                        <input type="submit" class="btn btn-primary w-100" value="Create" />
                     </div>
-                    <div class="col">
-                        <a asp-action="Index" class="btn btn-success w-100">Back</a>
+                    <div class="col-6">
+                        <a asp-action="Index" class="btn btn-dark w-100">Back</a>
                     </div>
                 </div>
             </div>

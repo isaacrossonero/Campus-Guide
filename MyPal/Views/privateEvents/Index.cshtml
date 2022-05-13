@@ -2,7 +2,7 @@
     ViewData["Title"] = "Itinerary View";
 }
 
-@model Tuple<IEnumerable<MyPal.Models.PrivateEvents>, MyPal.Models.PrivateEvents>
+@model MyPal.Models.CollectionDataModel
 
 @*Source: https://fullcalendar.io/docs/initialize-globals*@
 <head>
@@ -59,22 +59,77 @@
 </head>
 
 
-<body> 
-    <div id="calendar"></div>
-    <div class="container p-3">
+
+<div id="calendar"></div>
+<div class="container mb-5 p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Itinerary</h2>
+        </div>
+    </div>
+
+    @if (Model.PrivateEvents != null)
+    {
         <div class="row pt-4">
             <div class="col-6">
-                <h2 class="text-primary">Itinerary</h2>
+                <h3 class="text-dark">Next event</h3>
             </div>
         </div>
+        <table class="table table-bordered border-primary table-striped table-responsive" style="block-size:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Event Id
+                    </th>
 
-        @if (Model.Item2.UserId != null)
+                    <th>
+                        Event name
+                    </th>
+
+                    <th>
+                        Event description
+                    </th>
+
+                    <th>
+                        Start time
+                    </th>
+
+                    <th>
+                        End time
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                    <tr>
+                        <td width="30%">@Model.PrivateEvents.Id</td>
+                        <td width="30%">@Model.PrivateEvents.Name</td>
+                        <td width="40%">@Model.PrivateEvents.Description</td>
+                        <td width="50%">@Model.PrivateEvents.StartTime</td>
+                        <td width="50%">@Model.PrivateEvents.EndTime</td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <!--In case that the table is empty-->
+        <h6 class="text-secondary">You have no upcoming private events. Add one by clicking the button below.</h6>
+    }
+
+    <div class="row pt-4">
+        <div class="col-6">
+            <h3 class="text-dark">All events</h3>
+        </div>
+    </div>
+    <!--Validation to check if the table has any content-->
+    @if (Model.PrivateEventsList.Count() > 0)
+    {
+
+        @foreach (var obj in Model.PrivateEventsList)
         {
-            <div class="row pt-4">
-                <div class="col-6">
-                    <h3 class="text-primary">Next event</h3>
-                </div>
-            </div>
             <table class="table table-bordered border-primary table-striped table-responsive" style="block-size:100%">
                 <thead>
                     <tr>
@@ -100,96 +155,35 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if (DateTime.Now < Model.Item2.StartTime)
-                    {
                         <tr>
-                            <td width="30%">@Model.Item2.Id</td>
-                            <td width="30%">@Model.Item2.Name</td>
-                            <td width="40%">@Model.Item2.Description</td>
-                            <td width="50%">@Model.Item2.StartTime</td>
-                            <td width="50%">@Model.Item2.EndTime</td>
+                            <td width="30%">@obj.Id</td>
+                            <td width="30%">@obj.Name</td>
+                            <td width="40%">@obj.Description</td>
+                            <td width="50%">@obj.StartTime</td>
+                            <td width="50%">@obj.EndTime</td>
                         </tr>
-                    }
+                    
 
                 </tbody>
             </table>
-        }
-        else
-        {
-            <!--In case that the table is empty-->
-            <h4 class="text-secondary">There are no private events.</h4>
-        }
-
-        <!--skipping some lines-->
-        <br /><br />
-        <div class="row pt-4">
-            <div class="col-6">
-                <h3 class="text-primary">All events</h3>
+            <div style="margin:10px">
+                <a asp-controller="privateEvents" asp-route-Id="@obj.Id" asp-action="Edit" class="btn btn-primary">
+                    Edit
+                </a>
+                <a asp-controller="privateEvents" asp-route-Id="@obj.Id" asp-action="Delete" class="btn btn-dark">
+                    Delete
+                </a>
             </div>
-        </div>
-        <!--Validation to check if the table has any content-->
-        @if (Model.Item1.Count() > 0)
-        {
-
-            @foreach (var obj in Model.Item1)
-            {
-                <table class="table table-bordered border-primary table-striped table-responsive" style="block-size:100%">
-                    <thead>
-                        <tr>
-                            <th>
-                                Event Id
-                            </th>
-
-                            <th>
-                                Event name
-                            </th>
-
-                            <th>
-                                Event description
-                            </th>
-
-                            <th>
-                                Start time
-                            </th>
-
-                            <th>
-                                End time
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!--IF statemnet to filter out irrelvant events-->
-                        @if (DateTime.Now < obj.StartTime)
-                        {
-                            <tr>
-                                <td width="30%">@obj.Id</td>
-                                <td width="30%">@obj.Name</td>
-                                <td width="40%">@obj.Description</td>
-                                <td width="50%">@obj.StartTime</td>
-                                <td width="50%">@obj.EndTime</td>
-                            </tr>
-                        }
-
-                    </tbody>
-                </table>
-                <div style="margin:10px">
-                    <a asp-controller="privateEvents" asp-route-Id="@obj.Id" asp-action="Edit" class="btn btn-success">
-                        Edit
-                    </a>
-                    <a asp-controller="privateEvents" asp-route-Id="@obj.Id" asp-action="Delete" class="btn btn-info">
-                        Delete
-                    </a>
-                </div>
-            }
         }
-        else
-        {
-            <!--In case that the table is empty-->
-        <h4 class="text-secondary">There are no private events.</h4>
-        }
-        <div class="col-6 text-left">
-            <a asp-controller="PrivateEvents" asp-action="Create" id="button" class="btn btn-secondary"> Create new private event.</a>
-        </div>
+    }
+    else
+    {
+        <!--In case that the table is empty-->
+        <h6 class="text-secondary">You have no upcoming private events. Add one by clicking the button below.</h6>
+    }
+    <div>
+        <a asp-controller="PrivateEvents" asp-action="Create" class="btn btn-primary"> Create new private event.</a>
     </div>
-</body>
+</div>
+
 

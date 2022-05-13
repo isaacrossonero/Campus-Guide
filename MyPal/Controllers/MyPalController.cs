@@ -22,16 +22,26 @@ namespace MyPal.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
+
         public async Task<IActionResult> Index()
         {
-            CollectionDataModel COLL = new CollectionDataModel();
-            COLL.PublicEventsList = _db.PublicEvents.ToList();//Add LINQ where to current date
-            if (_signInManager.IsSignedIn(User))
+            if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByEmailAsync(User.Identity.Name);
-                COLL.PrivateEventsList = _db.PrivateEvents.Where(userId => userId.UserId.Equals(user.Id)).ToList();
+                // CollectionDataModel Variable
+                CollectionDataModel coll = new CollectionDataModel();
+
+                // Adding public events to collection data model public events list variable
+                coll.PublicEventsList = _db.PublicEvents.Where(publicEvent => publicEvent.StartTime > DateTime.Now).ToList();
+
+                // Adding private events to collection data model private events list variable
+                if (_signInManager.IsSignedIn(User))
+                {
+                    var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+                    coll.PrivateEventsList = _db.PrivateEvents.Where(privateEvent => privateEvent.UserId.Equals(user.Id) && privateEvent.StartTime > DateTime.Now).ToList();
+                }
+                return View(coll);
             }
-            return View(COLL);
+            return NotFound();
         }
     
     }

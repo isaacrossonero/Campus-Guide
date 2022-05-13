@@ -14,14 +14,14 @@ namespace MyPal.Controllers
     [Authorize(Roles="Admin,User")]
     public class PrivateEventsController : Controller
     {
-        //Instance of the database.
+        // Instance of the database.
         private readonly ApplicationDbContext _db;
         // Instance of identity
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
 
 
-        //Constructor.
+        // Constructor.
         public PrivateEventsController(ApplicationDbContext db, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             _db = db;
@@ -29,60 +29,92 @@ namespace MyPal.Controllers
             _signInManager = signInManager;
         }
 
-        //Displaying all the contents from the private events table.
+        // Displaying all the contents from the private events table.
         public async Task<IActionResult> Index()
         {
-            //Creating a list that will store the contents of all the data present in PrivateEvents.
-            var user = await _userManager.FindByEmailAsync(User.Identity.Name);
-            //Getting all the private events, sorting the result by most urgent date.
-            IEnumerable<PrivateEvents> objList = await _db.PrivateEvents.Where(userId => userId.UserId.Equals(user.Id)).OrderBy(date => date.StartTime).ToListAsync();
-
-            //Removes all past events that are no longer needed.
-            foreach (var a in objList)
+            if (ModelState.IsValid)
             {
-                if (a.StartTime < DateTime.Now)
+                // CollectionDataModel object
+                CollectionDataModel coll = new CollectionDataModel();
+
+                //Creating a list that will store the contents of all the data present in PrivateEvents.
+                var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+
+                //Getting all the private events
+                coll.PrivateEventsList = _db.PrivateEvents.ToList();
+                // Filter out private events based on whether it is associated with logged on user and wheter it has already passed or not
+                foreach (var element in coll.PrivateEventsList)
                 {
-                    _db.PrivateEvents.Remove(a);
-                    _db.SaveChanges();
+                    if (!element.UserId.Equals(user.Id) && element.StartTime < DateTime.Now)
+                    {
+                        coll.PrivateEventsList.Remove(element);
+                    }
                 }
+
+
+                // Order PrivateEvents and get next upcoming Event
+                if (coll.PrivateEventsList.Count > 0)
+                {
+                    // Order Private Events by date
+                    coll.PrivateEventsList.OrderBy(priv => priv.StartTime);
+                    coll.PrivateEvents = coll.PrivateEventsList.First();
+                }
+
+                return View(coll);
             }
-
-            //Creates new list which represnts the updated version of teh pervious one.
-            IEnumerable<PrivateEvents> list = objList;
-
-            PrivateEvents e = new PrivateEvents();
-            if (list.Any())
-            {
-                e = list.First();
-            }
-
-            //Creating a new tuple.
-            var tupleModel = new Tuple<IEnumerable<PrivateEvents>, PrivateEvents>(list, e);
-
-            //Returning the list of objects that were retrived from the databse to the privateEvents view.
-            return View(tupleModel);
+            return NotFound();
         }
 
-        //Adding a new category to the table (GET - CREATE).
+        // Adding a new private event (GET)
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                // Creates a new CollectionDataModel instace
+                CollectionDataModel coll = new CollectionDataModel();
+
+                // Adds an empty object of PublicEvents to coll.PublicEvents
+                // This will be then used as the object of PublicEvents inside the view
+                coll.PrivateEvents = new PrivateEvents();
+                coll.PrivateEvents.StartTime = DateTime.Now;
+                coll.PrivateEvents.EndTime = DateTime.Now.AddDays(1);
+
+                // Populates coll's pinpoint list from database where pinpoint refers to a class
+                // This list will be used to display the drop-down of pinpoints available
+                coll.PinpointsList = _db.Pinpoints.Where(pinpoint => pinpoint.PinpointTypesId == 1).ToList();
+
+                // Passes the collection object to the view
+                return View(coll);
+            }
+            return NotFound();
         }
 
-        //Adding a new category to the table (POST - CREATE).
+        //Adding a new private event (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateAsync(PrivateEvents obj)
+        public async Task<IActionResult> CreateAsync(CollectionDataModel coll)
         {
-            var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(User.Identity.Name);
 
-            obj.UserId = user.Id;
-            //Adding the items to a private events object(they are not added to the db just yet).
-            _db.PrivateEvents.Add(obj);
-            //Saving changes will add the above object to teh databse. Without this method the data would ot be added. 
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+                PrivateEvents obj = coll.PrivateEvents;
+
+                obj.UserId = user.Id;
+
+                // Adding the items to a private events object (they are not added to the db just yet).
+                _db.PrivateEvents.Add(obj);
+                // Saving changes will add the above object to the databse. Without this method the data would not be added and saved to the database. 
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            // Returns the view with the errors
+            coll.Pinpoints = new Pinpoints();
+
+            coll.PinpointsList = _db.Pinpoints.Where(pinpoint => pinpoint.PinpointTypesId == 1).ToList();
+
+            return View(coll);
         }
 
 
@@ -97,10 +129,11 @@ namespace MyPal.Controllers
 
             // Obj that stores the whole report.
             CollectionDataModel coll = new CollectionDataModel();
-            coll.Event = _db.PrivateEvents.Find(id);
+            coll.PrivateEvents = _db.PrivateEvents.Find(id);
+            coll.PinpointsList = _db.Pinpoints.Where(pinpoint => pinpoint.PinpointTypesId == 1).ToList();
 
             // Validation if the report does have an ID, but it is null.
-            if (coll.Event == null)
+            if (coll.PrivateEvents == null)
             {
                 return NotFound();
             }
@@ -117,15 +150,22 @@ namespace MyPal.Controllers
             if (ModelState.IsValid)
             {
                 //Here the default Id value of this obj is 0, where it should be the id of the selected event.
-                PrivateEvents obj = coll.Event;
+                PrivateEvents obj = coll.PrivateEvents;
 
                 // Gets the logged in user
                 var user = await _userManager.FindByNameAsync(User.Identity.Name);
                 obj.UserId = user.Id;
+
                 _db.PrivateEvents.Update(obj);
                 _db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
+            // Returns the view with the errors
+            coll.Pinpoints = new Pinpoints();
+
+            coll.PinpointsList = _db.Pinpoints.Where(pinpoint => pinpoint.PinpointTypesId == 1).ToList();
+
             return View(coll);
         }
 
@@ -138,7 +178,7 @@ namespace MyPal.Controllers
                 return NotFound();
             }
 
-            // Obj that stores the whole report.
+            // Obj that stores the private event.
             var obj = _db.PrivateEvents.Find(id);
 
             //Validation if the report does have an ID, but it is null.
@@ -150,7 +190,7 @@ namespace MyPal.Controllers
             return View(obj);
         }
 
-        //POST - Delete the report
+        //POST - Delete the private event
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult DeletePrivateEvent(int? id)
@@ -168,8 +208,10 @@ namespace MyPal.Controllers
                 return NotFound();
             }
 
+            // Remove private event from database and save changes
             _db.PrivateEvents.Remove(obj);
             _db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
@@ -178,8 +220,12 @@ namespace MyPal.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PrivateEvents>>> GetAllPrivateEventsAsync()
         {
-            var user = await _userManager.FindByEmailAsync(User.Identity.Name);
-            return await _db.PrivateEvents.Where(userId => userId.UserId.Equals(user.Id)).ToListAsync();
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+                return await _db.PrivateEvents.Where(userId => userId.UserId.Equals(user.Id)).ToListAsync();
+            }
+            return NotFound();   
         }
     }
 }

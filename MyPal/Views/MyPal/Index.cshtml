@@ -6,71 +6,10 @@
 @{
     ViewData["Title"] = "MyPal Dashboard";
 }
-<h1 class="text-primary">MyPal Dashboard</h1>
-<br>
-<h4 class="text-secondary">Available Public Events</h4>
-@if (Model.PublicEventsList.Count() > 0)
-{
-    <table class="table table-bordered border-primary table-striped table-responsive" style="block-size:100%">
-        <thead>
-            <tr>
-                <th>
-                    Event Id
-                </th>
-
-                <th>
-                    Event name
-                </th>
-
-                <th>
-                    Event description
-                </th>
-
-                <th>
-                    Start time
-                </th>
-
-                <th>
-                    End time
-                </th>
-
-                <th>
-                    Capacity
-                </th>
-
-                <th>
-                    PinPoint id
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var obj in Model.PublicEventsList)
-            {
-                <tr>
-                    <td width="30%">@obj.Id</td>
-                    <td width="30%">@obj.Name</td>
-                    <td width="40%">@obj.Description</td>
-                    <td width="50%">@obj.StartTime</td>
-                    <td width="50%">@obj.EndTime</td>
-                    <td width="50%">@obj.Capacity</td>
-                    <td width="50%">@obj.PinpointId</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
-}
-else
-{
-    <!--In case that the table is empty-->
-    <h4 class="text-secondary">There are no public events.</h4>
-}
-@if (SignInManager.IsSignedIn(User))
-{
-
-    <br>
-    <h4 class="text-secondary">Available Private Events</h4>
-    @if (Model.PrivateEventsList.Count() > 0)
+<div class="container mb-5">
+    <h1 class="text-primary mb-2">MyPal Dashboard</h1>
+    <h4 class="text-secondary">Available Public Events</h4>
+    @if (Model.PublicEventsList.Count() > 0)
     {
         <table class="table table-bordered border-primary table-striped table-responsive" style="block-size:100%">
             <thead>
@@ -96,12 +35,16 @@ else
                     </th>
 
                     <th>
+                        Capacity
+                    </th>
+
+                    <th>
                         PinPoint id
                     </th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var obj in Model.PrivateEventsList)
+                @foreach (var obj in Model.PublicEventsList)
                 {
                     <tr>
                         <td width="30%">@obj.Id</td>
@@ -109,23 +52,74 @@ else
                         <td width="40%">@obj.Description</td>
                         <td width="50%">@obj.StartTime</td>
                         <td width="50%">@obj.EndTime</td>
+                        <td width="50%">@obj.Capacity</td>
                         <td width="50%">@obj.PinpointId</td>
                     </tr>
                 }
             </tbody>
         </table>
+
     }
     else
     {
         <!--In case that the table is empty-->
-        <h4 class="text-secondary">There are no private events.</h4>
-        <br>
+        <h6 class="text-secondary">There are no public events available at the moment. Please wait for an admin to add an upcoming public event.</h6>
     }
-}
+    @if (SignInManager.IsSignedIn(User))
+    {
 
+        <br>
+        <h4 class="text-secondary">Available Private Events</h4>
+        @if (Model.PrivateEventsList.Count() > 0)
+        {
+            <table class="table table-bordered border-primary table-striped table-responsive" style="block-size:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            Event Id
+                        </th>
 
+                        <th>
+                            Event name
+                        </th>
 
-@*<form asp-action="GetAllPrivateEvents" method="get">
-        Choose your favorite subject:
-        <button name="" type="submit" value="">Private Event</button>
-    </form>*@
+                        <th>
+                            Event description
+                        </th>
+
+                        <th>
+                            Start time
+                        </th>
+
+                        <th>
+                            End time
+                        </th>
+
+                        <th>
+                            PinPoint id
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var obj in Model.PrivateEventsList)
+                    {
+                        <tr>
+                            <td width="30%">@obj.Id</td>
+                            <td width="30%">@obj.Name</td>
+                            <td width="40%">@obj.Description</td>
+                            <td width="50%">@obj.StartTime</td>
+                            <td width="50%">@obj.EndTime</td>
+                            <td width="50%">@obj.PinpointId</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <!--In case that the table is empty-->
+            <h6 class="text-secondary">You have no upcoming private events. Add one from the <a class="text-secondary" asp-controller="PrivateEvents" asp-action="Index">calendar</a> section.</h6>
+            <br>
+        }
+    }
+</div>

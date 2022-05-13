@@ -1,67 +1,74 @@
-﻿@model MyPal.Models.PrivateEvents
+﻿@model MyPal.Models.CollectionDataModel
+
+@{
+    ViewData["Title"] = "Create Private Event";
+}
 
 
 <form method="post" asp-action="Create">
     <div class="border p-3">
         <div class="form-group row">
-            <h2 class="text-info p1-3" style="padding-left:20px">Add private-event</h2>
+            <h2 class="text-primary pl-3">Add new private event</h2>
         </div>
         <div class="row">
-            <div class="col-8">
+            <div class="col-12">
                 <div class="form-group row">
                     <div class="col-4">
-                        <label asp-for="Name"></label>
+                        <label asp-for="PrivateEvents.Name"></label>
                     </div>
                     <div class="col-8">
-                        <input asp-for="Name" class="form-control">
+                        <input asp-for="PrivateEvents.Name" class="form-control">
+                        <span asp-validation-for="PrivateEvents.Name" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-4">
-                        <label asp-for="Description"></label>
+                        <label asp-for="PrivateEvents.Description"></label>
                     </div>
                     <div class="col-8">
-                        <input asp-for="Description" class="form-control">
+                        <input asp-for="PrivateEvents.Description" class="form-control">
+                        <span asp-validation-for="PrivateEvents.Description" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-4">
-                        <label asp-for="StartTime"></label>
+                        <label asp-for="PrivateEvents.StartTime"></label>
                     </div>
                     <div class="col-8">
-                        <input asp-for="StartTime" class="form-control">
+                        <input asp-for="PrivateEvents.StartTime" class="form-control">
+                        <span asp-validation-for="PrivateEvents.StartTime" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-4">
-                        <label asp-for="EndTime"></label>
+                        <label asp-for="PrivateEvents.EndTime"></label>
                     </div>
                     <div class="col-8">
-                        <input asp-for="EndTime" class="form-control">
+                        <input asp-for="PrivateEvents.EndTime" class="form-control">
+                        <span asp-validation-for="PrivateEvents.EndTime" class="text-danger"></span>
                     </div>
                 </div>
-                @*
-            <div class="form-group row">
-            <label for="pinpoints">Choose a pinpoint:</label>
-            <select name="pinpoints" id="pinpoints">
-                @foreach (var obj in Model)
-                {
-                    <option value="volvo">Volvo</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercy</option>
-                    <option value="audi">Audi</option>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="PrivateEvents.PinpointId">Choose a pinpoint:</label>
+                    </div>
+                    <div class="col-4">
+                        <select required name="PrivateEvents.PinpointId" asp-for="PrivateEvents.PinpointId">
+                            @foreach (var obj in Model.PinpointsList)
+                            {
+                                <option value="@obj.Id">@obj.Name</option>
 
-                }
-            </select>
-        </div>
-                *@
-
+                            }
+                        </select>
+                    </div>
+                    <span asp-validation-for="PrivateEvents.PinpointId" class="text-danger"></span>
+                </div>
                 <div class="form-group row">
                     <div class="col">
-                        <input type="submit" class="btn btn-info w-100" value="Create" />
+                        <input type="submit" class="btn btn-primary w-100" value="Create" />
                     </div>
                     <div class="col">
-                        <a asp-action="Index" class="btn btn-success w-100">Back</a>
+                        <a asp-action="Index" class="btn btn-dark w-100">Back</a>
                     </div>
                 </div>
             </div>
