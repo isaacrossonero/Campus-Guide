@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyPal.Data;
 using MyPal.Models;
@@ -110,6 +111,47 @@ namespace MyPal.Controllers
                 return pinpoints;
             }
             return NotFound();
+        }
+
+        //Adding a new report (Get - Create)
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult Create()
+        {
+            if (ModelState.IsValid)
+            {
+                return View();
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> CreateAsync(CollectionDataModel coll)
+        {
+            if (ModelState.IsValid)
+            {
+                // Creates an object of Pinpoints that refers to the Pinpoints instance passed by collection
+                Pinpoints obj = coll.Pinpoints;
+
+                obj.FloorId = 3;
+
+                // Get all pinpoints
+                coll.PinpointsList = _db.Pinpoints.OrderBy(pinpoint => pinpoint.Id).ToList();
+                // Get last element
+                Pinpoints pin = coll.PinpointsList.Last();
+                obj.Id = pin.Id + 1;
+
+
+                //Adding the items to the Pinpoints Database(they are not saved to the db just yet).
+                _db.Pinpoints.Add(obj);
+                // Saving changes will add the above object to the databse. Without this method the data would not be added. 
+                _db.SaveChanges();
+
+                return RedirectToAction("Index", "PublicEvents");
+            }
+            return View(coll);
         }
     }
 }

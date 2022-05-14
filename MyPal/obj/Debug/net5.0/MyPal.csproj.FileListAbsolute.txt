@@ -2422,3 +2422,4 @@ E:\SchoolCoding\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\PrivateEvents\De
 E:\SchoolCoding\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\PrivateEvents\Edit.cshtml.g.cs
 E:\SchoolCoding\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\PublicEvents\Delete.cshtml.g.cs
 E:\SchoolCoding\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\PublicEvents\Edit.cshtml.g.cs
+E:\SchoolCoding\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\Pinpoints\Create.cshtml.g.cs

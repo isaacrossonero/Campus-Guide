@@ -1,0 +1,70 @@
+﻿@model MyPal.Models.CollectionDataModel
+
+@{
+    ViewData["Title"] = "Adding new pinpoint";
+}
+
+<body class="mb-5" onload="addPinpoint()">
+    <form method="post" asp-action="Create">
+        <div class="border p-3">
+            <div class="form-group row">
+                <h2 class="text-primary pl-3">Add new pinpoint</h2>
+            </div>
+            <input id="long" asp-for="Pinpoints.Longitude" hidden>
+            <span asp-validation-for="Pinpoints.Longitude" class="d-block text-danger"></span>
+            <input id="lat" asp-for="Pinpoints.Latitude" hidden>
+            <span asp-validation-for="Pinpoints.Latitude" class="d-block text-danger"></span>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group row">
+                        <div class="col-4">
+                            <label asp-for="Pinpoints.Name"></label>
+                        </div>
+                        <div class="col-8">
+                            <input asp-for="Pinpoints.Name" class="form-control">
+                            <span asp-validation-for="Pinpoints.Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-4">
+                            <label asp-for="Pinpoints.Description"></label>
+                        </div>
+                        <div class="col-8">
+                            <input asp-for="Pinpoints.Description" class="form-control">
+                            <span asp-validation-for="Pinpoints.Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-4">
+                            <label asp-for="Pinpoints.PinpointTypesId">Choose a pinpoint:</label>
+                        </div>
+                        <div class="col-4">
+                            <select required name="Pinpoints.PinpointTypesId" asp-for="Pinpoints.PinpointTypesId">
+                                <option value="1">Room / Location</option>
+                                <option value="4">Navigation Node</option>
+                            </select>
+                        </div>
+                        <span asp-validation-for="PublicEvents.PinpointId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-4">
+                            <label>Enter location on map:</label>
+                        </div>
+                        <div id="map" class="col-8">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <input type="submit" class="btn btn-primary w-100" value="Create" onclick="markerDistance()"/>
+                        </div>
+                        <div class="col-6">
+                            <a asp-action="Index" asp-controller="PublicEvents"  class="btn btn-dark w-100">Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+
+
