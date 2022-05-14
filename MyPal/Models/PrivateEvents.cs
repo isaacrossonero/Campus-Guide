@@ -40,5 +40,6 @@ namespace MyPal.Models
         [ForeignKey("AspNetUsers")]
         [DisplayName("User")]
         public string UserId { get; set; }
+       
     }
 }

@@ -40,5 +40,7 @@ namespace MyPal.Models
         [ForeignKey("Pinpoints")]
         [DisplayName("Pinpoint")]
         public int PinpointId { get; set; }
+
+        public int Attendance { get; set; }
     }
 }

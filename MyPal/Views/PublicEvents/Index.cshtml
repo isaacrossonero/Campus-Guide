@@ -3,7 +3,7 @@
 @inject UserManager<IdentityUser> UserManager
 @inject RoleManager<IdentityRole> RoleManager
 
-@model IEnumerable<MyPal.Models.PublicEvents>
+@model MyPal.Models.CollectionDataModel
 @{
     ViewData["Title"] = "Map View";
 }
@@ -86,15 +86,15 @@
 <div class="container mb-5">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">Public Events List</h2>
+            <h2 class="text-primary">Upcoming Public Events</h2>
         </div>
     </div>
 
     <!--Validation to check if the table has any content-->
-    @if (Model.Count() > 0)
+    @if (Model.PublicEventsList.Count() > 0)
     {
 
-        @foreach (var obj in Model)
+        @foreach (var obj in Model.PublicEventsList)
         {
             <table class="table table-bordered border-primary table-striped table-responsive" style="block-size:100%">
                 <thead>
@@ -141,6 +141,38 @@
 
                 </tbody>
             </table>
+            <p>Current event attendance for event @obj.Name: @obj.Attendance</p>
+            @if (User.IsInRole("User"))
+            {
+
+                Model.AlreadyAttending = false;
+                foreach (var element in Model.PublicEventAttendances)
+                {
+                    if (element.PublicEventId == obj.Id)
+                    {
+                        Model.AlreadyAttending = true;
+                    }
+                }
+                if ((obj.Attendance >= obj.Capacity) && Model.AlreadyAttending == false)
+                {
+                    <p>Unfortunately, the event is fully booked (Boohoo)</p>
+                }
+                else if (Model.AlreadyAttending == false)
+                {
+                    <form method="post" asp-controller="PublicEvents" asp-route-Id="@obj.Id" asp-route-UserId="@Model.CurrentUserId" asp-action="AttendEvent">
+                        <input type="submit" class="btn btn-primary mb-1 mr-1" value="Attend Event" />
+                    </form>
+                }
+                else
+                {
+                    <p>Your attendance has already been notified for this event!</p>
+                }
+
+
+
+
+
+            }
             @if (User.IsInRole("Admin"))
             {
                 <div style="margin:10px">

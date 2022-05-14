@@ -24,15 +24,29 @@ namespace MyPal.Controllers
             _userManager = userManager;
         }
         //Displaying all the contents from the public events table.
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
             if (ModelState.IsValid)
             {
+                CollectionDataModel coll = new CollectionDataModel();
+
                 // Creating a list that will store the contents of all the data present in PublicEvents.
                 IEnumerable<PublicEvents> objList = _db.PublicEvents.Where(publicEvent => publicEvent.StartTime > DateTime.Now);
 
+                coll.PublicEventsList = objList.ToList();
+
+                // If user is signed in (used for event attendance)
+                if (User.IsInRole("User") || User.IsInRole("Admin"))
+                {
+                    // Gets the logged in user
+                    var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+                    coll.PublicEventAttendances = _db.PublicEventAttendances.Where(attend => attend.UserId.Equals(user.Id)).ToList();
+                    coll.CurrentUserId = user.Id;
+                }
+                
                 // Returning the list of objects that were retrived from the databse to the PublicEvents view.
-                return View(objList);
+                return View(coll);
             }
             return NotFound();
         }
@@ -161,6 +175,13 @@ namespace MyPal.Controllers
                 return NotFound();
             }
 
+            // If Public Event is deleted, attendance related to that report should also be deleted
+            var attendancesToDelete = _db.PublicEventAttendances.Where(attend => attend.PublicEventId == id);
+            foreach (var upvote in attendancesToDelete)
+            {
+                _db.PublicEventAttendances.Remove(upvote);
+            }
+
             return View(obj);
         }
 
@@ -186,6 +207,27 @@ namespace MyPal.Controllers
             _db.PublicEvents.Remove(obj);
             _db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public IActionResult AttendEvent(string UserId, int Id)
+        {
+            if (ModelState.IsValid)
+            {
+                // Records attendance for that specific event (Id) and User (UserId)
+                PublicEventAttendance attend = new PublicEventAttendance(UserId, Id);
+                // Saves the attend to the database
+                _db.PublicEventAttendances.Add(attend);
+                // Gets the public event that the user is attending
+                PublicEvents publicEvent = _db.PublicEvents.Single(publicEv => publicEv.Id == Id);
+                // Increments attendace by 1
+                publicEvent.Attendance++;
+                // Updates table in datatbase
+                _db.PublicEvents.Update(publicEvent);
+                // Saving database changes
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return NotFound();
         }
     }
 }

@@ -36,7 +36,7 @@ namespace MyPal.Data
         public DbSet<PinpointsTypes> PinpointsTypes { get; set; }
         public DbSet<PrivateEvents> PrivateEvents { get; set; }
         public DbSet<PublicEvents> PublicEvents { get; set; }
-
+        public DbSet<PublicEventAttendance> PublicEventAttendances { get; set; }
     }
 }
 

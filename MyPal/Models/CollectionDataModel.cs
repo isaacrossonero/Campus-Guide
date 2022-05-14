@@ -23,5 +23,14 @@ namespace MyPal.Models
         // List of public events
         public List<PublicEvents> PublicEventsList { get; set; }
 
+        // Attendance list
+        public List<PublicEventAttendance> PublicEventAttendances { get; set; }
+
+        // Used for event attendance
+        public bool AlreadyAttending { get; set; }
+
+        // String to get UserId
+        public string CurrentUserId { get; set; }
+
     }
 }
