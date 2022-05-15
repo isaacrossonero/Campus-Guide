@@ -1,24 +1,24 @@
 ﻿// Global variables
 var drawPathLvl0, drawPathLvlMin1, len, lat, lng;
 
-//function to turn on camera on html page
+// Function to turn on camera on html page
 function turnOnCamera() {
 
     document.getElementById("preview").hidden = false;
 
     let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
 
-    //listener for the scanning function
+    // Listener for the scanning function
     scanner.addListener('scan', async function (content) {
         console.log(content);
         alert("QR Coordinate has been received");
         document.getElementById("preview").hidden = true;
 
         if (content == 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO') {
-            //Rick Roll Redirect
+            // Rick Roll Redirect
             location.href = content;
         } else {
-            //set the key variable and get the pinpoint object
+            // Set the key variable and get the pinpoint object
             var key = "CurrentLocation";
             await retreivePinpointObject(key, content);
             scanner.stop();
@@ -36,7 +36,7 @@ function turnOnCamera() {
     });
 }
 
-//function to get a pinpoint object based on the name passed
+// Function to get a pinpoint object based on the name passed
 function retreivePinpointObject(key, pinpointQR_Url) {
     var port = location.port;
     var url = "https://localhost:" + port + "/Pinpoints";
@@ -58,7 +58,7 @@ function retreivePinpointObject(key, pinpointQR_Url) {
     }
 }
 
-//function to reset everything back to default values
+// Function to reset everything back to default values
 function ResetNavigation() {
     document.getElementById("startPointName").value = "";
     document.getElementById("endPointName").value = "";
@@ -158,7 +158,7 @@ function calculatePath(start, end) {
 
     document.getElementById('pastePath').innerHTML = 'Calculating path';
 
-    // Gending a request to the navigation API with the user selected start and end nodes
+    // Sending a request to the navigation API with the user selected start and end nodes
     request.open('GET', 'https://localhost:' + port + '/Pinpoints/GetNavigationId?start=' + start + '&end=' + end);
     request.send();
     request.onload = () => {
@@ -173,13 +173,6 @@ function calculatePath(start, end) {
 
 
         for (var i = 0; i < len; i++) {
-            //storing the path nodes
-            /*markers.find(element => {
-                *//*console.log(element);*//*
-                if (element.id === path[i]) {
-
-                }
-            });*/
             let specificMarker = null;
             if (specificMarker === null) {
                 specificMarker = markers.find(({ id }) => id === path[i]);
@@ -191,13 +184,13 @@ function calculatePath(start, end) {
 
             console.log("Outputting PathMarkers[i] at i: "+i);
             console.log(pathMarkers[i]);
-            //if current path node is level 0
+            // If current path node is level 0
             if (pathMarkers[i].level == 0) {
-                //returning the position of the current marker and storing in array
+                // Returning the position of the current marker and storing in array
                 markerListLvl0[countLvl0] = pathMarkers[i].marker.position + '';
                 markerLvl0Ids[countLvl0] = pathMarkers[i].id;
 
-                //formatting the coordinates and storing in lat lng variables
+                // Formatting the coordinates and storing in lat lng variables
                 formattedCoord0[countLvl0] = markerListLvl0[countLvl0].replace(' ', '');
                 formattedCoord0[countLvl0] = markerListLvl0[countLvl0].split(', ');
                 formattedCoord0[countLvl0][0] = formattedCoord0[countLvl0][0].replace('(', '');
@@ -205,7 +198,7 @@ function calculatePath(start, end) {
                 lat = parseFloat(formattedCoord0[countLvl0][0]);
                 lng = parseFloat(formattedCoord0[countLvl0][1]);
 
-                //creating new Google Maps LatLng object with the latitude and longitude obtained above
+                // Creating new Google Maps LatLng object with the latitude and longitude obtained above
                 coordinatesLvl0[countLvl0] = new google.maps.LatLng(lat, lng);
                 countLvl0++;
             }

@@ -10,8 +10,7 @@ var markerAlreadySet = false;
 // Function to initialise the map
 function initMap() {
 
-    //Creating the map centred over UOM with default zoom level 19 and the necessary settings
-    /*const ict = new google.maps.LatLng(35.901810199007215, 14.485197413626922);*/
+    // Creating the map centred over UOM with default zoom level 19 and the necessary settings
     map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: parseFloat(35.901810199007215), lng: parseFloat(14.485197413626922) },
         zoom: 19,
@@ -22,11 +21,11 @@ function initMap() {
 
     google.maps.event.addListener(map, "click", function (e) {
         if (canEditMap === true) {
-            //lat and lng is available in e object
+            // lat and lng is available in e object
             document.getElementById('lat').value = e.latLng.lat()
             document.getElementById('long').value = e.latLng.lng()
-            /*console.log(e.latLng.lat())
-            console.log(e.latLng.lng())*/
+
+            // Logic so that not all maps can be clicked and pinpoints are added
             if (markerAlreadySet === false) {
                 markerAlreadySet = true;
                 marker = new google.maps.Marker({
@@ -308,7 +307,7 @@ function addPinpoint() {
         if (this.readyState == 4, this.status == 200) {
             if (this.responseText != "") {
                 pinpnt = JSON.parse(this.responseText);
-                /*console.log(pinpnt);*/
+
                 pinpnt.forEach(function (data, index) {
 
                     console.log(data);
@@ -343,6 +342,7 @@ function addPinpoint() {
                                 map
                             })
                         };
+
                         // Adding event listener for double-clicking to show pinpoint name
                         markerObj.marker.addListener("dblclick", function () {
                             // Showing pinpoint name on map
@@ -363,6 +363,8 @@ function addPinpoint() {
         }
     };
 
+    // Getting input from the map
+
     canEditMap = true;
     var latIn = document.getElementById('lat').value
     var lngIn = document.getElementById('long').value
@@ -380,32 +382,3 @@ function addPinpoint() {
         canEditMap = false;
     }
 }
-
-/*function markerDistance() {
-    var markersByDistance = [];
-    for (var i = 0; i < markers.length; i++) {
-        var marker = markers[i];
-
-        // using pythagoras does not take into account curvature, 
-        // but will work fine over small distances.
-        // you can use more complicated trigonometry to 
-        // take curvature into consideration
-        var dx = myLatlng.longitude - marker.longitude;
-        var dy = myLatlng.latitude - marker.latitude;
-        var distance = Math.sqrt(dx * dx + dy * dy);
-
-        markersByDistance[i] = marker;
-        markersByDistance[i].distance = distance;
-
-    }
-
-    // function to sort your data...
-    function sorter(a, b) {
-        return a.distance > b.distance ? 1 : -1;
-    }
-
-    // sort the array... now the first 5 elements should be your closest points.
-    markersByDistance.sort(sorter);
-    console.log(markersByDistance[0]);
-}
-*/
