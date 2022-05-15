@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using MyPal.Data;
 using MyPal.Models;
@@ -16,12 +17,14 @@ namespace MyPal.Controllers
         private readonly ApplicationDbContext _db;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly IEmailSender _emailSender;
 
         //Constructor.
-        public PublicEventsController(ApplicationDbContext db, UserManager<IdentityUser> userManager)
+        public PublicEventsController(ApplicationDbContext db, UserManager<IdentityUser> userManager, IEmailSender emailSender)
         {
             _db = db;
             _userManager = userManager;
+            _emailSender = emailSender;
         }
         //Displaying all the contents from the public events table.
         public async Task<IActionResult> IndexAsync()
@@ -83,7 +86,7 @@ namespace MyPal.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public IActionResult Create(CollectionDataModel coll)
+        public async Task<IActionResult> CreateAsync(CollectionDataModel coll)
         {
             if (ModelState.IsValid)
             {
@@ -95,6 +98,16 @@ namespace MyPal.Controllers
 
                 // Saving changes will add the above object to the databse. Without this method the data would not be added to the database. 
                 _db.SaveChanges();
+
+                // Sends email to all users that a new event has been created
+                var userRole = _db.Roles.First(role => role.Name.Equals("User"));
+                var usersId = _db.UserRoles.Where(user => user.RoleId.Equals(userRole.Id));
+                foreach (var user in usersId)
+                {
+                    var emailUser = await _userManager.FindByIdAsync(user.UserId);
+                    await _emailSender.SendEmailAsync(emailUser.Email, "New Event Created",
+                                $"View new event named {obj.Name}");
+                }
 
                 return RedirectToAction("Index");
             }

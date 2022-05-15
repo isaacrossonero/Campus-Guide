@@ -20,9 +20,11 @@ namespace MyPal.Models
         public double Longitude { get; set; }
 
         [Required]
+        [StringLength(50, ErrorMessage = "Name length can't be more than 50 characters.")]
         public string Name { get; set; }
 
         [Required]
+        [StringLength(50, ErrorMessage = "Description length can't be more than 50 characters.")]
         public string Description { get; set; }
 
         [Required]
