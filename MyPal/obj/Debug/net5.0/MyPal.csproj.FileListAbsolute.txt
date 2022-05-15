@@ -2423,3 +2423,4 @@ E:\SchoolCoding\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\PrivateEvents\Ed
 E:\SchoolCoding\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\PublicEvents\Delete.cshtml.g.cs
 E:\SchoolCoding\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\PublicEvents\Edit.cshtml.g.cs
 E:\SchoolCoding\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\Pinpoints\Create.cshtml.g.cs
+C:\Users\phili\OneDrive\Desktop\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\Pinpoints\Create.cshtml.g.cs

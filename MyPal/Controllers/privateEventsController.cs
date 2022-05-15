@@ -43,7 +43,7 @@ namespace MyPal.Controllers
                 //Getting all the private events
                 coll.PrivateEventsList = _db.PrivateEvents.ToList();
                 // Filter out private events based on whether it is associated with logged on user and wheter it has already passed or not
-                foreach (var element in coll.PrivateEventsList)
+                foreach (var element in coll.PrivateEventsList.ToList())
                 {
                     if (!element.UserId.Equals(user.Id) && element.StartTime < DateTime.Now)
                     {
@@ -216,7 +216,7 @@ namespace MyPal.Controllers
         }
 
 
-
+        //GET - Getting all the the private events according to the email that user used to log in. 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PrivateEvents>>> GetAllPrivateEventsAsync()
         {
