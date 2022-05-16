@@ -7932,19 +7932,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Michael\\.nuget\\packages\\": {}
+    "C:\\Users\\Laptop\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\SchoolCoding\\Campus-Guide\\MyPal\\MyPal.csproj",
+      "projectUniqueName": "C:\\Code\\Projects\\Campus-Guide\\MyPal\\MyPal.csproj",
       "projectName": "MyPal",
-      "projectPath": "E:\\SchoolCoding\\Campus-Guide\\MyPal\\MyPal.csproj",
-      "packagesPath": "C:\\Users\\Michael\\.nuget\\packages\\",
-      "outputPath": "E:\\SchoolCoding\\Campus-Guide\\MyPal\\obj\\",
+      "projectPath": "C:\\Code\\Projects\\Campus-Guide\\MyPal\\MyPal.csproj",
+      "packagesPath": "C:\\Users\\Laptop\\.nuget\\packages\\",
+      "outputPath": "C:\\Code\\Projects\\Campus-Guide\\MyPal\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Michael\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Laptop\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8027,7 +8027,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

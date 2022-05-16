@@ -23,34 +23,34 @@
     <form name="level-selector">
         <div class="form-check">
             <input class="form-check-input" type="radio" name="level" id="no-overlay" checked="checked" value="no overlay">
-            <label class="form-check-label" for="no-overlay">
+            <label class="form-check-label text-dark" for="no-overlay">
                 No overlay
             </label>
         </div>
         <div class="form-check">
             <input class="form-check-input" type="radio" name="level" id="level -2" value="Level -2">
-            <label class="form-check-label" for="level -2">
+            <label class="form-check-label text-dark" for="level -2">
                 Level -2 Parking
             </label>
         </div>
 
         <div class="form-check">
             <input class="form-check-input" type="radio" name="level" id="level -1" value="Level -1">
-            <label class="form-check-label" for="level -1">
+            <label class="form-check-label text-dark" for="level -1">
                 Level -1
             </label>
         </div>
 
         <div class="form-check">
             <input class="form-check-input" type="radio" name="level" id="level 0" value="Level 0">
-            <label class="form-check-label" for="level 0">
+            <label class="form-check-label text-dark" for="level 0">
                 Level 0
             </label>
         </div>
 
         <div class="form-check">
             <input class="form-check-input" type="radio" name="level" id="level 1" value="Level 1">
-            <label class="form-check-label" for="level 1">
+            <label class="form-check-label text-dark" for="level 1">
                 Level 1
             </label>
         </div>
@@ -89,58 +89,24 @@
         </div>
     </div>
 
-    <!--Validation to check if the table has any content-->
-    @if (Model.PublicEventsList.Count() > 0)
-    {
+    <div class="row justify-content-center">
 
-        @foreach (var obj in Model.PublicEventsList)
+        <!--Validation to check if the table has any content-->
+        @if (Model.PublicEventsList.Count() > 0)
         {
-            <table class="table table-bordered border-primary table-striped table-responsive" style="block-size:100%">
-                <thead>
-                    <tr>
-                        <th>
-                            Event Id
-                        </th>
 
-                        <th>
-                            Event name
-                        </th>
+            @foreach (var obj in Model.PublicEventsList)
+            {
+        <div class="card" style="width:24rem; padding: 20px; margin: 20px;">
+            <p class="text-dark">Event name: @obj.Name</p>
+            <p class="text-dark">Event description: @obj.Description</p>
+            <p class="text-dark">Start time: @obj.StartTime</p>
+            <p class="text-dark">End time: @obj.EndTime</p>
+            <p class="text-dark">Capacity: @obj.Capacity</p>
+            <p class="text-dark">Pinpoint: @obj.PinpointId</p>
 
-                        <th>
-                            Event description
-                        </th>
-
-                        <th>
-                            Start time
-                        </th>
-
-                        <th>
-                            End time
-                        </th>
-
-                        <th>
-                            Capacity
-                        </th>
-
-                        <th>
-                            PinPoint id
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td width="30%">@obj.Id</td>
-                        <td width="30%">@obj.Name</td>
-                        <td width="40%">@obj.Description</td>
-                        <td width="50%">@obj.StartTime</td>
-                        <td width="50%">@obj.EndTime</td>
-                        <td width="50%">@obj.Capacity</td>
-                        <td width="50%">@obj.PinpointId</td>
-                    </tr>
-
-                </tbody>
-            </table>
-            <p>Current event attendance for event @obj.Name: @obj.Attendance</p>
+            <div class="border-top border-dark"></div>
+            <p class="text-dark">Current event attendance for event @obj.Name: @obj.Attendance</p>
             @if (User.IsInRole("User"))
             {
 
@@ -154,7 +120,7 @@
                 }
                 if ((obj.Attendance >= obj.Capacity) && Model.AlreadyAttending == false)
                 {
-                    <p>Unfortunately, the event is fully booked (Boohoo)</p>
+                    <p class="text-dark">Unfortunately, the event is fully booked (Boohoo)</p>
                 }
                 else if (Model.AlreadyAttending == false)
                 {
@@ -164,7 +130,7 @@
                 }
                 else
                 {
-                    <p>Your attendance has already been notified for this event!</p>
+                    <p class="text-dark">Your attendance has already been notified for this event!</p>
                 }
 
 
@@ -183,22 +149,26 @@
                     </a>
                 </div>
             }
-        }
-
-    }
-    else
-    {
-        <!--In case that the table is empty-->
-        <h6 class="text-secondary">There are no public events available at the moment. Please wait for an admin to add an upcoming public event.</h6>
-    }
-    @if (User.IsInRole("Admin"))
-    {
-        <div class="col-6 text-left">
-            <a asp-controller="PublicEvents" asp-action="Create" class="btn btn-primary"> Create new public event.</a>
         </div>
-    }
+                
+            }
 
+        }
+        else
+        {
+            <!--In case that the table is empty-->
+            <h6 class="text-secondary">There are no public events available at the moment. Please wait for an admin to add an upcoming public event.</h6>
+        }
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="col-6 text-left">
+                <a asp-controller="PublicEvents" asp-action="Create" class="btn btn-primary"> Create new public event.</a>
+            </div>
+        }
+    </div>
 </div>
+    
+
 
 
 
