@@ -32,13 +32,21 @@ namespace MyPal.Controllers
 
                 // Adding public events to collection data model public events list variable
                 coll.PublicEventsList = _db.PublicEvents.Where(publicEvent => publicEvent.EndTime > DateTime.Now).ToList();
+                coll.PublicEventsList = coll.PublicEventsList.OrderBy(pub => Convert.ToDateTime(pub.EndTime)).ToList();
 
                 // Adding private events to collection data model private events list variable
                 if (_signInManager.IsSignedIn(User))
                 {
                     var user = await _userManager.FindByEmailAsync(User.Identity.Name);
                     coll.PrivateEventsList = _db.PrivateEvents.Where(privateEvent => privateEvent.UserId.Equals(user.Id) && privateEvent.EndTime > DateTime.Now).ToList();
+
+                    // Order Private Events by date
+                    coll.PrivateEventsList = coll.PrivateEventsList.OrderBy(priv => Convert.ToDateTime(priv.EndTime)).ToList();
                 }
+
+                // This list will be used to diplay the name of the pinpoint id for each pinpoint
+                coll.PinpointsList = _db.Pinpoints.Where(pinpoint => pinpoint.PinpointTypesId == 1).ToList();
+
                 return View(coll);
             }
             return NotFound();

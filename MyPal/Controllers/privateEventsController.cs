@@ -43,22 +43,26 @@ namespace MyPal.Controllers
                 //Getting all the private events
                 coll.PrivateEventsList = _db.PrivateEvents.ToList();
                 // Filter out private events based on whether it is associated with logged on user and wheter it has already passed or not
-                foreach (var element in coll.PrivateEventsList)
+                for (int i = 0; i < coll.PrivateEventsList.Count; i++)
                 {
-                    if (!element.UserId.Equals(user.Id) && element.StartTime < DateTime.Now)
+                    var element = coll.PrivateEventsList.ElementAt(i);
+                    if (!(element.UserId.Equals(user.Id)) || !(element.EndTime > DateTime.Now))
                     {
                         coll.PrivateEventsList.Remove(element);
+                        i--;
                     }
                 }
-
 
                 // Order PrivateEvents and get next upcoming Event
                 if (coll.PrivateEventsList.Count > 0)
                 {
                     // Order Private Events by date
-                    coll.PrivateEventsList.OrderBy(priv => priv.StartTime);
+                    coll.PrivateEventsList = coll.PrivateEventsList.OrderBy(priv => Convert.ToDateTime(priv.EndTime)).ToList();
                     coll.PrivateEvents = coll.PrivateEventsList.First();
                 }
+
+                // This list will be used to diplay the name of the pinpoint id for each pinpoint
+                coll.PinpointsList = _db.Pinpoints.Where(pinpoint => pinpoint.PinpointTypesId == 1).ToList();
 
                 return View(coll);
             }

@@ -102,8 +102,6 @@ function savePinpointAsSession(key, pinpoint) {
     xhttp.open("POST", url + "/SetSessionLocation?key=" + key, true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.responseType = 'json';
-    /*console.log(pinpoint.name);
-    console.log(JSON.stringify(pinpoint));*/
     xhttp.send(JSON.stringify(pinpoint));
 
     xhttp.onreadystatechange = function () {
@@ -133,8 +131,6 @@ function getSessionAsPinpoint(key) {
         if (this.readyState == 4, this.status == 200) {
             if (this.responseText != "") {
                 retreivedPinpoint = JSON.parse(this.responseText);
-                console.log("From Get Location Session API");
-                //console.log(pinpoint);
             }
         }
     }
@@ -155,8 +151,6 @@ function calculatePath(start, end) {
     var markerLvl0Ids = [];
     var markerLvlMin1Ids = [];
     let request = new XMLHttpRequest();
-
-    document.getElementById('pastePath').innerHTML = 'Calculating path';
 
     // Sending a request to the navigation API with the user selected start and end nodes
     request.open('GET', 'https://localhost:' + port + '/Pinpoints/GetNavigationId?start=' + start + '&end=' + end);
@@ -217,8 +211,6 @@ function calculatePath(start, end) {
                 countLvlMin1++;
             }
         }
-        // Writing the path on the HTML page
-        document.getElementById('pastePath').innerHTML = markerLvl0Ids + '<br>' + markerLvlMin1Ids;
 
         // Clearing the path if there already is one
         if (drawPathLvl0 != null) {
