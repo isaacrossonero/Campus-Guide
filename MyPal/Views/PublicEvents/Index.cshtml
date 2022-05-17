@@ -9,6 +9,7 @@
 }
 
 <!-- Map -->
+<h1 class="text-primary mb-2">Map</h1>
 <div id="map"></div>
 <br>
 
@@ -19,7 +20,7 @@
 
 
 <div class="container mt-2" id="radio-buttons">
-    <h3 class="text-primary" id="status">No Overlay</h3>
+    <h3 class="text-secondary" id="status">No Overlay</h3>
     <form name="level-selector">
         <div class="form-check">
             <input class="form-check-input" type="radio" name="level" id="no-overlay" checked="checked" value="no overlay">
@@ -55,28 +56,25 @@
             </label>
         </div>
     </form>
-
-    <br >
+    <br />
 
     <div id="navigation">
-        <video id="preview" width="500" height="400" hidden></video>
+        <video id="preview" hidden style="width:400px; width: auto;"></video>
         <form id="GetNavigation" class="form">
-            <input id="TurnOnCamera" type="button" class="btn btn-outline-secondary" value="Present QR Code" onclick="turnOnCamera();" />
-
-            <input id="startPointName" type="text" name="startpoint" class="mb-1" />
-            <input id="endPointName" type="text" name="endpoint" />
-
-            <input id="startId" type="hidden" />
-            <input id="endId" type="hidden" />
-            <input type="button" class="btn btn-outline-secondary" value="Get Navigation" onclick="RetreiveNavigation();" />
+            
+            
+            <div>
+                <input id="TurnOnCamera" type="button" class="btn btn-outline-secondary mb-1" value="Present QR Code" onclick="turnOnCamera();" />
+                <input id="startPointName" type="text" name="startpoint" class="mb-1" />
+                <input id="startId" type="hidden" />
+                <input id="endPointName" type="text" name="endpoint"  class="mb-1" />
+                <input id="endId" type="hidden" />
+                <input type="button" class="btn btn-outline-secondary mb-1" value="Get Navigation" onclick="RetreiveNavigation();" />
+            </div>    
         </form>
 
         <form id="UpdateNavigation" hidden>
-            <p>Input new QR Code to Update the Navigation</p>
-            <input id="TurnOnCameraAgain" type="button" value="Present QR Code" onclick="turnOnCamera();" />
-            <input type="button" value="Update Navigation" onclick="RetreiveNavigation();" />
-            <br />
-            <input type="button" value="Reset Navigation" onclick="ResetNavigation();" />
+            <input type="button" value="Reset Navigation" class="btn btn-outline-secondary" onclick="ResetNavigation();" />
         </form>
 
     </div>
@@ -85,7 +83,7 @@
 <div class="container mb-5">
     <div class="row pt-4">
         <div class="col-12">
-            <h2 class="text-primary">Upcoming Public Events</h2>
+            <h3 class="text-secondary">Upcoming Public Events</h3>
         </div>
     </div>
 
