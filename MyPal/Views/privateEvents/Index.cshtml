@@ -63,127 +63,82 @@
 <div id="calendar"></div>
 <div class="container mb-5 p-3">
     <div class="row pt-4">
-        <div class="col-6">
+        <div class="col-12">
             <h2 class="text-primary">Itinerary</h2>
         </div>
     </div>
 
     @if (Model.PrivateEvents != null)
     {
+        Model.Pinpoints = Model.PinpointsList.Find(pin => pin.Id == Model.PrivateEvents.PinpointId);
         <div class="row pt-4">
-            <div class="col-6">
-                <h3 class="text-dark">Next event</h3>
+            <div class="col-12">
+                <h3 class="text-secondary">Next event</h3>
             </div>
         </div>
-        <table class="table table-bordered border-primary table-striped table-responsive" style="block-size:100%">
-            <thead>
-                <tr>
-                    <th>
-                        Event Id
-                    </th>
+        <div class="row justify-content-around">
+            <div class="card" style="width:24rem; padding: 20px; margin: 20px;">
+                <p class="text-dark">Event name: @Model.PrivateEvents.Name</p>
+                <p class="text-dark">Event description: @Model.PrivateEvents.Description</p>
+                <p class="text-dark">Start time: @Model.PrivateEvents.StartTime</p>
+                <p class="text-dark">End time: @Model.PrivateEvents.EndTime</p>
+                <p class="text-dark">Location: @Model.Pinpoints.Name</p>
 
-                    <th>
-                        Event name
-                    </th>
-
-                    <th>
-                        Event description
-                    </th>
-
-                    <th>
-                        Start time
-                    </th>
-
-                    <th>
-                        End time
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-
-                    <tr>
-                        <td width="30%">@Model.PrivateEvents.Id</td>
-                        <td width="30%">@Model.PrivateEvents.Name</td>
-                        <td width="40%">@Model.PrivateEvents.Description</td>
-                        <td width="50%">@Model.PrivateEvents.StartTime</td>
-                        <td width="50%">@Model.PrivateEvents.EndTime</td>
-                    </tr>
-
-
-            </tbody>
-        </table>
+            </div>
+        </div>
+            
     }
     else
     {
-        <!--In case that the table is empty-->
-        <h6 class="text-secondary">You have no upcoming private events. Add one by clicking the button below.</h6>
+    <!--In case that the table is empty-->
+    <h6 class="text-secondary">You have no upcoming private events. Add one by clicking the button below.</h6>
     }
 
     <div class="row pt-4">
-        <div class="col-6">
-            <h3 class="text-dark">All events</h3>
+        <div class="col-12">
+            <h3 class="text-secondary">All events</h3>
         </div>
     </div>
     <!--Validation to check if the table has any content-->
-    @if (Model.PrivateEventsList.Count() > 0)
-    {
-
-        @foreach (var obj in Model.PrivateEventsList)
+    <div class="row justify-content-around">
+        @if (Model.PrivateEventsList.Count() > 0)
         {
-            <table class="table table-bordered border-primary table-striped table-responsive" style="block-size:100%">
-                <thead>
-                    <tr>
-                        <th>
-                            Event Id
-                        </th>
 
-                        <th>
-                            Event name
-                        </th>
+            @foreach (var obj in Model.PrivateEventsList)
+            {
+                Model.Pinpoints = Model.PinpointsList.Find(pin => pin.Id == obj.PinpointId);
+                <div class="card" style="width:24rem; padding: 20px; margin: 20px;">
+                    <p class="text-dark">Event name: @obj.Name</p>
+                    <p class="text-dark">Event description: @obj.Description</p>
+                    <p class="text-dark">Start time: @obj.StartTime</p>
+                    <p class="text-dark">End time: @obj.EndTime</p>
+                    <p class="text-dark">Location: @Model.Pinpoints.Name</p>
+                    <div style="margin:10px">
+                        <a asp-controller="privateEvents" asp-route-Id="@obj.Id" asp-action="Edit" class="btn btn-primary w-100 mb-1">
+                            Edit
+                        </a>
+                        <a asp-controller="privateEvents" asp-route-Id="@obj.Id" asp-action="Delete" class="btn btn-dark w-100">
+                            Delete
+                        </a>
+                    </div>
+                </div>
 
-                        <th>
-                            Event description
-                        </th>
 
-                        <th>
-                            Start time
-                        </th>
 
-                        <th>
-                            End time
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                        <tr>
-                            <td width="30%">@obj.Id</td>
-                            <td width="30%">@obj.Name</td>
-                            <td width="40%">@obj.Description</td>
-                            <td width="50%">@obj.StartTime</td>
-                            <td width="50%">@obj.EndTime</td>
-                        </tr>
-                    
-
-                </tbody>
-            </table>
-            <div style="margin:10px">
-                <a asp-controller="privateEvents" asp-route-Id="@obj.Id" asp-action="Edit" class="btn btn-primary">
-                    Edit
-                </a>
-                <a asp-controller="privateEvents" asp-route-Id="@obj.Id" asp-action="Delete" class="btn btn-dark">
-                    Delete
-                </a>
-            </div>
+            }
         }
-    }
-    else
-    {
-        <!--In case that the table is empty-->
-        <h6 class="text-secondary">You have no upcoming private events. Add one by clicking the button below.</h6>
-    }
-    <div>
-        <a asp-controller="PrivateEvents" asp-action="Create" class="btn btn-primary"> Create new private event.</a>
+
+        else
+        {
+            <!--In case that the table is empty-->
+            <h6 class="text-secondary">You have no upcoming private events. Add one by clicking the button below.</h6>
+        }
+        <div>
+            <a asp-controller="PrivateEvents" asp-action="Create" class="btn btn-primary"> Create new private event.</a>
+        </div>
     </div>
+
+
 </div>
 
 

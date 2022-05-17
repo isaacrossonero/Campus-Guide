@@ -1,5 +1,4 @@
-﻿
-@using Microsoft.AspNetCore.Identity
+﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 @model MyPal.Models.CollectionDataModel
@@ -11,54 +10,21 @@
     <h4 class="text-secondary">Available Public Events</h4>
     @if (Model.PublicEventsList.Count() > 0)
     {
-        <table class="table table-bordered border-primary table-striped table-responsive" style="block-size:100%">
-            <thead>
-                <tr>
-                    <th>
-                        Event Id
-                    </th>
+        <div class="row justify-content-around">
+            @foreach (var obj in Model.PublicEventsList)
+            {
+                Model.Pinpoints = Model.PinpointsList.Find(pin => pin.Id == obj.PinpointId);
+                <div class="card" style="width:24rem; padding: 20px; margin: 20px;">
+                    <p class="text-dark">Event name: @obj.Name</p>
+                    <p class="text-dark">Event description: @obj.Description</p>
+                    <p class="text-dark">Start time: @obj.StartTime</p>
+                    <p class="text-dark">End time: @obj.EndTime</p>
+                    <p class="text-dark">End time: @obj.Capacity</p>
+                    <p class="text-dark">Location: @Model.Pinpoints.Name</p>
+                </div>
 
-                    <th>
-                        Event name
-                    </th>
-
-                    <th>
-                        Event description
-                    </th>
-
-                    <th>
-                        Start time
-                    </th>
-
-                    <th>
-                        End time
-                    </th>
-
-                    <th>
-                        Capacity
-                    </th>
-
-                    <th>
-                        PinPoint id
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var obj in Model.PublicEventsList)
-                {
-                    <tr>
-                        <td width="30%">@obj.Id</td>
-                        <td width="30%">@obj.Name</td>
-                        <td width="40%">@obj.Description</td>
-                        <td width="50%">@obj.StartTime</td>
-                        <td width="50%">@obj.EndTime</td>
-                        <td width="50%">@obj.Capacity</td>
-                        <td width="50%">@obj.PinpointId</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-
+            }
+        </div>
     }
     else
     {
@@ -70,56 +36,30 @@
 
         <br>
         <h4 class="text-secondary">Available Private Events</h4>
-        @if (Model.PrivateEventsList.Count() > 0)
-        {
-            <table class="table table-bordered border-primary table-striped table-responsive" style="block-size:100%">
-                <thead>
-                    <tr>
-                        <th>
-                            Event Id
-                        </th>
+        <div class="row justify-content-around">
+            @if (Model.PrivateEventsList.Count() > 0)
+            {
 
-                        <th>
-                            Event name
-                        </th>
 
-                        <th>
-                            Event description
-                        </th>
+                @foreach (var obj in Model.PrivateEventsList)
+                {
+                    Model.Pinpoints = Model.PinpointsList.Find(pin => pin.Id == obj.PinpointId);
+                    <div class="card" style="width:24rem; padding: 20px; margin: 20px;">
+                        <p class="text-dark">Event name: @obj.Name</p>
+                        <p class="text-dark">Event description: @obj.Description</p>
+                        <p class="text-dark">Start time: @obj.StartTime</p>
+                        <p class="text-dark">End time: @obj.EndTime</p>
+                        <p class="text-dark">Location: @Model.Pinpoints.Name</p>
+                    </div>
+                }
 
-                        <th>
-                            Start time
-                        </th>
-
-                        <th>
-                            End time
-                        </th>
-
-                        <th>
-                            PinPoint id
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var obj in Model.PrivateEventsList)
-                    {
-                        <tr>
-                            <td width="30%">@obj.Id</td>
-                            <td width="30%">@obj.Name</td>
-                            <td width="40%">@obj.Description</td>
-                            <td width="50%">@obj.StartTime</td>
-                            <td width="50%">@obj.EndTime</td>
-                            <td width="50%">@obj.PinpointId</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        }
-        else
-        {
-            <!--In case that the table is empty-->
-            <h6 class="text-secondary">You have no upcoming private events. Add one from the <a class="text-secondary" asp-controller="PrivateEvents" asp-action="Index">calendar</a> section.</h6>
-            <br>
-        }
+            }
+            else
+            {
+                <!--In case that the table is empty-->
+                <h6 class="text-secondary">You have no upcoming private events. Add one from the <a class="text-secondary" asp-controller="PrivateEvents" asp-action="Index">calendar</a> section.</h6>
+                <br>
+            }
+        </div>
     }
 </div>

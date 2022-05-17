@@ -13,8 +13,8 @@
 <br>
 
 <div class="container">
-    <button type="button" class="btn btn-primary" onclick="GetAllPinpoints()">View Pinpoints</button>
-    <button type="button" class="btn btn-primary" onclick="GetPinpointsOfTodaysEvents()">View Today's Events</button>
+    <button type="button" class="btn btn-primary mb-1" onclick="GetAllPinpoints()">View Pinpoints</button>
+    <button type="button" class="btn btn-primary mb-1" onclick="GetPinpointsOfTodaysEvents()">View Today's Events</button>
 </div>
 
 
@@ -63,33 +63,33 @@
         <form id="GetNavigation" class="form">
             <input id="TurnOnCamera" type="button" class="btn btn-outline-secondary" value="Present QR Code" onclick="turnOnCamera();" />
 
-            <input id="startPointName" type="text" name="startpoint" />
+            <input id="startPointName" type="text" name="startpoint" class="mb-1" />
             <input id="endPointName" type="text" name="endpoint" />
-            
+
             <input id="startId" type="hidden" />
             <input id="endId" type="hidden" />
-            <input type="button" class = "btn btn-outline-secondary" value="Get Navigation" onclick="RetreiveNavigation();" />
+            <input type="button" class="btn btn-outline-secondary" value="Get Navigation" onclick="RetreiveNavigation();" />
         </form>
-        
+
         <form id="UpdateNavigation" hidden>
             <p>Input new QR Code to Update the Navigation</p>
-            <input id="TurnOnCameraAgain" type="button"  value="Present QR Code" onclick="turnOnCamera();" />
+            <input id="TurnOnCameraAgain" type="button" value="Present QR Code" onclick="turnOnCamera();" />
             <input type="button" value="Update Navigation" onclick="RetreiveNavigation();" />
-            <br/>
+            <br />
             <input type="button" value="Reset Navigation" onclick="ResetNavigation();" />
         </form>
-        <div id="pastePath"></div>
+
     </div>
 </div>
 
 <div class="container mb-5">
     <div class="row pt-4">
-        <div class="col-6">
+        <div class="col-12">
             <h2 class="text-primary">Upcoming Public Events</h2>
         </div>
     </div>
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-around">
 
         <!--Validation to check if the table has any content-->
         @if (Model.PublicEventsList.Count() > 0)
@@ -97,75 +97,76 @@
 
             @foreach (var obj in Model.PublicEventsList)
             {
-        <div class="card" style="width:24rem; padding: 20px; margin: 20px;">
-            <p class="text-dark">Event name: @obj.Name</p>
-            <p class="text-dark">Event description: @obj.Description</p>
-            <p class="text-dark">Start time: @obj.StartTime</p>
-            <p class="text-dark">End time: @obj.EndTime</p>
-            <p class="text-dark">Capacity: @obj.Capacity</p>
-            <p class="text-dark">Pinpoint: @obj.PinpointId</p>
+                Model.Pinpoints = Model.PinpointsList.Find(pin => pin.Id == obj.PinpointId);
+                <div class="card" style="width:24rem; padding: 20px; margin: 20px;">
+                    <p class="text-dark">Event name: @obj.Name</p>
+                    <p class="text-dark">Event description: @obj.Description</p>
+                    <p class="text-dark">Start time: @obj.StartTime</p>
+                    <p class="text-dark">End time: @obj.EndTime</p>
+                    <p class="text-dark">Capacity: @obj.Capacity</p>
+                    <p class="text-dark">Location: @Model.Pinpoints.Name</p>
 
-            <div class="border-top border-dark"></div>
-            <p class="text-dark">Current event attendance for event @obj.Name: @obj.Attendance</p>
-            @if (User.IsInRole("User"))
-            {
-
-                Model.AlreadyAttending = false;
-                foreach (var element in Model.PublicEventAttendances)
-                {
-                    if (element.PublicEventId == obj.Id)
+                    <div class="border-top border-dark"></div>
+                    <p class="text-dark">Current event attendance for event @obj.Name: @obj.Attendance</p>
+                    @if (User.IsInRole("User"))
                     {
-                        Model.AlreadyAttending = true;
+
+                        Model.AlreadyAttending = false;
+                        foreach (var element in Model.PublicEventAttendances)
+                        {
+                            if (element.PublicEventId == obj.Id)
+                            {
+                                Model.AlreadyAttending = true;
+                            }
+                        }
+                        if ((obj.Attendance >= obj.Capacity) && Model.AlreadyAttending == false)
+                        {
+                            <p class="text-dark">Unfortunately, the event is fully booked. See other events that might interest you.</p>
+                        }
+                        else if (Model.AlreadyAttending == false)
+                        {
+                            <form method="post" asp-controller="PublicEvents" asp-route-Id="@obj.Id" asp-route-UserId="@Model.CurrentUserId" asp-action="AttendEvent">
+                                <input type="submit" class="btn btn-primary w-100 mb-1 mr-1" value="Attend Event" />
+                            </form>
+                        }
+                        else
+                        {
+                            <p class="text-dark">Your attendance has already been notified for this event!</p>
+                        }
+
                     }
-                }
-                if ((obj.Attendance >= obj.Capacity) && Model.AlreadyAttending == false)
-                {
-                    <p class="text-dark">Unfortunately, the event is fully booked (Boohoo)</p>
-                }
-                else if (Model.AlreadyAttending == false)
-                {
-                    <form method="post" asp-controller="PublicEvents" asp-route-Id="@obj.Id" asp-route-UserId="@Model.CurrentUserId" asp-action="AttendEvent">
-                        <input type="submit" class="btn btn-primary mb-1 mr-1" value="Attend Event" />
-                    </form>
-                }
-                else
-                {
-                    <p class="text-dark">Your attendance has already been notified for this event!</p>
-                }
-
-
-
-
-
-            }
-            @if (User.IsInRole("Admin"))
-            {
-                <div style="margin:10px">
-                    <a asp-controller="PublicEvents" asp-route-Id="@obj.Id" asp-action="Edit" class="btn btn-primary">
-                        Edit
-                    </a>
-                    <a asp-controller="PublicEvents" asp-route-Id="@obj.Id" asp-action="Delete" class="btn btn-dark">
-                        Delete
-                    </a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div style="margin:10px">
+                            <a asp-controller="PublicEvents" asp-route-Id="@obj.Id" asp-action="Edit" class="btn btn-primary w-100 mb-1">
+                                Edit
+                            </a>
+                            <a asp-controller="PublicEvents" asp-route-Id="@obj.Id" asp-action="Delete" class="btn btn-dark w-100 mb-1">
+                                Delete
+                            </a>
+                        </div>
+                    }
                 </div>
+
             }
-        </div>
-                
-            }
+
 
         }
+
         else
         {
             <!--In case that the table is empty-->
             <h6 class="text-secondary">There are no public events available at the moment. Please wait for an admin to add an upcoming public event.</h6>
         }
+
         @if (User.IsInRole("Admin"))
         {
-            <div class="col-6 text-left">
+            <div class="col-12 text-left mb-5">
                 <a asp-controller="PublicEvents" asp-action="Create" class="btn btn-primary"> Create new public event.</a>
             </div>
         }
     </div>
+    
 </div>
     
 

@@ -34,9 +34,10 @@ namespace MyPal.Controllers
                 CollectionDataModel coll = new CollectionDataModel();
 
                 // Creating a list that will store the contents of all the data present in PublicEvents.
-                IEnumerable<PublicEvents> objList = _db.PublicEvents.Where(publicEvent => publicEvent.StartTime > DateTime.Now);
+                IEnumerable<PublicEvents> objList = _db.PublicEvents.Where(publicEvent => publicEvent.EndTime > DateTime.Now);
 
                 coll.PublicEventsList = objList.ToList();
+                coll.PublicEventsList = coll.PublicEventsList.OrderBy(pub => Convert.ToDateTime(pub.EndTime)).ToList();
 
                 // If user is signed in (used for event attendance)
                 if (User.IsInRole("User") || User.IsInRole("Admin"))
@@ -47,7 +48,10 @@ namespace MyPal.Controllers
                     coll.PublicEventAttendances = _db.PublicEventAttendances.Where(attend => attend.UserId.Equals(user.Id)).ToList();
                     coll.CurrentUserId = user.Id;
                 }
-                
+
+                // This list will be used to diplay the name of the pinpoint id for each pinpoint
+                coll.PinpointsList = _db.Pinpoints.Where(pinpoint => pinpoint.PinpointTypesId == 1).ToList();
+
                 // Returning the list of objects that were retrived from the databse to the PublicEvents view.
                 return View(coll);
             }
