@@ -7,6 +7,9 @@
 @{
     ViewData["Title"] = "Map View";
 }
+@*text to speech*@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<script src="~/js/screenreader.js"></script>
 
 <!-- Map -->
 <h1 class="text-primary mb-2">Map</h1>
@@ -61,16 +64,16 @@
     <div id="navigation">
         <video id="preview" hidden style="width:400px; width: auto;"></video>
         <form id="GetNavigation" class="form">
-            
-            
+
+
             <div>
                 <input id="TurnOnCamera" type="button" class="btn btn-outline-secondary mb-1" value="Present QR Code" onclick="turnOnCamera();" />
                 <input id="startPointName" type="text" name="startpoint" class="mb-1" />
                 <input id="startId" type="hidden" />
-                <input id="endPointName" type="text" name="endpoint"  class="mb-1" />
+                <input id="endPointName" type="text" name="endpoint" class="mb-1" />
                 <input id="endId" type="hidden" />
                 <input type="button" class="btn btn-outline-secondary mb-1" value="Get Navigation" onclick="RetreiveNavigation();" />
-            </div>    
+            </div>
         </form>
 
         <form id="UpdateNavigation" hidden>
@@ -163,12 +166,11 @@
                 <a asp-controller="PublicEvents" asp-action="Create" class="btn btn-primary"> Create new public event.</a>
             </div>
         }
+
     </div>
-    
 </div>
-    
-
-
-
-
+@*text to speech button*@
+<a href="#" class="float" onclick="mapPagescreenReader()">
+    <i class="fa fa-volume-up" style="font-size:40px;color:white"></i>
+</a>
 

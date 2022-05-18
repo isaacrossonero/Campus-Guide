@@ -3,20 +3,21 @@
 }
 
 @model MyPal.Models.CollectionDataModel
-
 @*Source: https://fullcalendar.io/docs/initialize-globals*@
 <head>
     <meta charset="utf-8" />
     <link href="~/css/main.css" rel="stylesheet" />
     <link href="~/css/main.min.css" rel="stylesheet" />
 
+    @*text to speech*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script src="~/js/screenreader.js"></script>
 
     <script src="~/js/main.js"></script>
     <script src="~/js/main.min.js"></script>
     <script>
 
-        document.addEventListener('DOMContentLoaded', function ()
-        {
+        document.addEventListener('DOMContentLoaded', function () {
             var port = location.port;
             var url = "https://localhost:" + port + "/PrivateEvents";
             var calendarEl = document.getElementById('calendar');
@@ -41,8 +42,7 @@
                     if (this.responseText != "") {
                         pinpnt = JSON.parse(this.responseText);
                         console.log(pinpnt);
-                        pinpnt.forEach(function (data, index)
-                        {
+                        pinpnt.forEach(function (data, index) {
                             calendar.addEvent({
                                 title: data.name,
                                 start: data.startTime,
@@ -52,7 +52,7 @@
                     }
                 }
             };
-           calendar.render();
+            calendar.render();
         });
 
     </script>
@@ -64,7 +64,7 @@
 <div class="container mb-5 p-3">
     <div class="row pt-4">
         <div class="col-12">
-            <h3 class="text-secondary">Itinerary</h3>
+            <h1 class="text-secondary">Itinerary</h1>
         </div>
     </div>
 
@@ -73,7 +73,7 @@
         Model.Pinpoints = Model.PinpointsList.Find(pin => pin.Id == Model.PrivateEvents.PinpointId);
         <div class="row pt-4">
             <div class="col-12">
-                <h3 class="text-secondary">Next event</h3>
+                <h4 class="text-secondary">Next event</h4>
             </div>
         </div>
         <div class="row justify-content-around">
@@ -86,17 +86,17 @@
 
             </div>
         </div>
-            
+
     }
     else
     {
-    <!--In case that the table is empty-->
-    <h6 class="text-secondary">You have no upcoming private events. Add one by clicking the button below.</h6>
+        <!--In case that the table is empty-->
+        <h6 class="text-secondary">You have no upcoming private events. Add one by clicking the button below.</h6>
     }
 
     <div class="row pt-4">
         <div class="col-12">
-            <h3 class="text-secondary">All events</h3>
+            <h4 class="text-secondary">All events</h4>
         </div>
     </div>
     <!--Validation to check if the table has any content-->
@@ -137,8 +137,8 @@
             <a asp-controller="PrivateEvents" asp-action="Create" class="btn btn-primary"> Create new private event.</a>
         </div>
     </div>
-
-
 </div>
-
-
+@*text to speech button*@
+<a href="#" class="float" onclick="calendarPagescreenReader()">
+    <i class="fa fa-volume-up" style="font-size: 40px; color: white"></i>
+</a>

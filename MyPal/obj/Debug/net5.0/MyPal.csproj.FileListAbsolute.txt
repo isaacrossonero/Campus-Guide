@@ -2911,3 +2911,4 @@ C:\Code\Projects\Campus-Guide\MyPal\obj\Debug\net5.0\MyPal.RazorTargetAssemblyIn
 C:\Code\Projects\Campus-Guide\MyPal\obj\Debug\net5.0\MyPal.Views.pdb
 C:\Code\Projects\Campus-Guide\MyPal\obj\Debug\net5.0\MyPal.csproj.CopyComplete
 C:\Code\Projects\Campus-Guide\MyPal\obj\Debug\net5.0\MyPal.genruntimeconfig.cache
+C:\Users\Isaac\Documents\GitHub\Campus-Guide\MyPal\obj\Debug\net5.0\Razor\Views\Pinpoints\Create.cshtml.g.cs

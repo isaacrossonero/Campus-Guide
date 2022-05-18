@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Code\\Projects\\Campus-Guide\\MyPal\\MyPal.csproj": {}
+    "C:\\Users\\Isaac\\Documents\\GitHub\\Campus-Guide\\MyPal\\MyPal.csproj": {}
   },
   "projects": {
-    "C:\\Code\\Projects\\Campus-Guide\\MyPal\\MyPal.csproj": {
+    "C:\\Users\\Isaac\\Documents\\GitHub\\Campus-Guide\\MyPal\\MyPal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Code\\Projects\\Campus-Guide\\MyPal\\MyPal.csproj",
+        "projectUniqueName": "C:\\Users\\Isaac\\Documents\\GitHub\\Campus-Guide\\MyPal\\MyPal.csproj",
         "projectName": "MyPal",
-        "projectPath": "C:\\Code\\Projects\\Campus-Guide\\MyPal\\MyPal.csproj",
-        "packagesPath": "C:\\Users\\Laptop\\.nuget\\packages\\",
-        "outputPath": "C:\\Code\\Projects\\Campus-Guide\\MyPal\\obj\\",
+        "projectPath": "C:\\Users\\Isaac\\Documents\\GitHub\\Campus-Guide\\MyPal\\MyPal.csproj",
+        "packagesPath": "C:\\Users\\Isaac\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Isaac\\Documents\\GitHub\\Campus-Guide\\MyPal\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Laptop\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Isaac\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -97,7 +101,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
         }
       }
     }
