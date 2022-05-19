@@ -34,11 +34,30 @@ namespace MyPal.Controllers
                 coll.PublicEventsList = _db.PublicEvents.Where(publicEvent => publicEvent.EndTime > DateTime.Now).ToList();
                 coll.PublicEventsList = coll.PublicEventsList.OrderBy(pub => Convert.ToDateTime(pub.EndTime)).ToList();
 
+               
+
                 // Adding private events to collection data model private events list variable
                 if (_signInManager.IsSignedIn(User))
-                {
+                { 
                     var user = await _userManager.FindByEmailAsync(User.Identity.Name);
-                    coll.PrivateEventsList = _db.PrivateEvents.Where(privateEvent => privateEvent.UserId.Equals(user.Id) && privateEvent.EndTime > DateTime.Now).ToList();
+
+
+                    coll.PublicEventAttendances = _db.PublicEventAttendances.ToList();
+                    coll.AttendingPublicEventsList = new();
+                    for (int i = 0; i < coll.PublicEventsList.Count; i++)
+                    {
+                        PublicEvents p = coll.PublicEventsList.ElementAt(i);
+                        foreach(var element in coll.PublicEventAttendances)
+                        {
+                            // If user is signed in the same and is attending
+                            if (element.PublicEventId == p.Id && element.UserId.Equals(user.Id))
+                            {
+                                coll.AttendingPublicEventsList.Add(p);
+                            }
+                        }
+                    }
+
+                        coll.PrivateEventsList = _db.PrivateEvents.Where(privateEvent => privateEvent.UserId.Equals(user.Id) && privateEvent.EndTime > DateTime.Now).ToList();
 
                     // Order Private Events by date
                     coll.PrivateEventsList = coll.PrivateEventsList.OrderBy(priv => Convert.ToDateTime(priv.EndTime)).ToList();

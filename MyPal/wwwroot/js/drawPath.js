@@ -71,6 +71,29 @@ function ResetNavigation() {
 
 }
 
+function checkForNavigation() {
+    document.getElementById("endId").value = localStorage.getItem("idvalue");
+    document.getElementById("endPointName").value = localStorage.getItem("locationvalue");
+
+    localStorage.removeItem("locationvalue");
+    localStorage.removeItem("idvalue");
+}
+
+function setEventNavigation(location, id) {
+
+    document.getElementById("endPointName").value = location;
+    document.getElementById("endId").value = id;
+}
+
+function passEventNavigation(location, id) {
+    var location = location;
+    var id = id;
+
+    localStorage.setItem("locationvalue", location);
+    localStorage.setItem("idvalue", id);
+    return false;
+}
+
 async function RetreiveNavigation() {
     let startpoint = document.getElementById("startId").value;
     let endpoint = document.getElementById("endId").value;

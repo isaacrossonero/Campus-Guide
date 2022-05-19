@@ -84,7 +84,11 @@
                 <p class="text-dark">End time: @Model.PrivateEvents.EndTime</p>
                 <p class="text-dark">Location: @Model.Pinpoints.Name</p>
 
+                <a asp-controller="PublicEvents" asp-action="Index" class="btn btn-dark w-100 mb-1 mt-1" onclick="passEventNavigation('@Model.Pinpoints.Name' , '@Model.Pinpoints.Id')">
+                    Get Navigation for Event
+                </a>
             </div>
+
         </div>
 
     }
@@ -107,21 +111,24 @@
             @foreach (var obj in Model.PrivateEventsList)
             {
                 Model.Pinpoints = Model.PinpointsList.Find(pin => pin.Id == obj.PinpointId);
-                <div class="card" style="width:24rem; padding: 20px; margin: 20px;">
-                    <p class="text-dark">Event name: @obj.Name</p>
-                    <p class="text-dark">Event description: @obj.Description</p>
-                    <p class="text-dark">Start time: @obj.StartTime</p>
-                    <p class="text-dark">End time: @obj.EndTime</p>
-                    <p class="text-dark">Location: @Model.Pinpoints.Name</p>
-                    <div style="margin:10px">
-                        <a asp-controller="privateEvents" asp-route-Id="@obj.Id" asp-action="Edit" class="btn btn-primary w-100 mb-1">
-                            Edit
-                        </a>
-                        <a asp-controller="privateEvents" asp-route-Id="@obj.Id" asp-action="Delete" class="btn btn-dark w-100">
-                            Delete
-                        </a>
-                    </div>
-                </div>
+        <div class="card" style="width:24rem; padding: 20px; margin: 20px;">
+            <p class="text-dark">Event name: @obj.Name</p>
+            <p class="text-dark">Event description: @obj.Description</p>
+            <p class="text-dark">Start time: @obj.StartTime</p>
+            <p class="text-dark">End time: @obj.EndTime</p>
+            <p class="text-dark">Location: @Model.Pinpoints.Name</p>
+            <div style="margin:10px">
+                <a asp-controller="privateEvents" asp-route-Id="@obj.Id" asp-action="Edit" class="btn btn-primary w-100 mb-1">
+                    Edit
+                </a>
+                <a asp-controller="privateEvents" asp-route-Id="@obj.Id" asp-action="Delete" class="btn btn-dark w-100">
+                    Delete
+                </a>
+                <a asp-controller="PublicEvents" asp-action="Index" class="btn btn-dark w-100 mb-1 mt-1" onclick="passEventNavigation('@Model.Pinpoints.Name' , '@Model.Pinpoints.Id')">
+                    Get Navigation for Event
+                </a>
+            </div>
+        </div>
 
 
 

@@ -12,6 +12,32 @@
 
 <div class="container mb-5">
     <h1 class="text-primary mb-2">MyPal Dashboard</h1>
+    <h4 class="text-secondary">Events that you are attending</h4>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        @if (Model.AttendingPublicEventsList.Count() > 0)
+        {
+            <div class="row justify-content-around">
+                @foreach (var obj in Model.AttendingPublicEventsList)
+                {
+                    Model.Pinpoints = Model.PinpointsList.Find(pin => pin.Id == obj.PinpointId);
+                    <div class="card" style="width:24rem; padding: 20px; margin: 20px;">
+                        <p class="text-dark">Event name: @obj.Name</p>
+                        <p class="text-dark">Event description: @obj.Description</p>
+                        <p class="text-dark">Start time: @obj.StartTime</p>
+                        <p class="text-dark">End time: @obj.EndTime</p>
+                        <p class="text-dark">Capacity: @obj.Capacity</p>
+                        <p class="text-dark">Location: @Model.Pinpoints.Name</p>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <!--In case that the table is empty-->
+            <h6 class="text-secondary">You have not submitted your attendance to any events. Do so by going in the <a class="text-secondary" asp-controller="PublicEvents" asp-action="Index">Map section </a> and pressing on the Attend Event button located under any upcoming event.</h6>
+        }
+    }
     <h4 class="text-secondary">Available Public Events</h4>
     @if (Model.PublicEventsList.Count() > 0)
     {
@@ -24,7 +50,7 @@
                     <p class="text-dark">Event description: @obj.Description</p>
                     <p class="text-dark">Start time: @obj.StartTime</p>
                     <p class="text-dark">End time: @obj.EndTime</p>
-                    <p class="text-dark">End time: @obj.Capacity</p>
+                    <p class="text-dark">Capacity: @obj.Capacity</p>
                     <p class="text-dark">Location: @Model.Pinpoints.Name</p>
                 </div>
             }
@@ -39,7 +65,7 @@
     {
 
         <br>
-        <h4 class="text-secondary">Available Private Events</h4>
+        <h4 class="text-secondary">Your Private Events</h4>
         <div class="row justify-content-around">
             @if (Model.PrivateEventsList.Count() > 0)
             {
