@@ -92,6 +92,14 @@
             }
         </div>
     }
+    <div>
+        <div style="padding-top: 5px; padding-bottom: 5px">
+            <a asp-controller="MyPal" asp-route-button="startTime" asp-action="Index" class="btn btn-primary"> Sort by start time.</a>
+        </div>
+        <div style="padding-top: 5px; padding-bottom: 5px">
+            <a asp-controller="MyPal" asp-route-button="endTime" asp-action="Index" class="btn btn-primary"> Sort by end time.</a>
+        </div>
+    </div>
 </div>
 @*text to speech button*@
 <a href="#" class="float" onclick="dashboardPagescreenReader()">

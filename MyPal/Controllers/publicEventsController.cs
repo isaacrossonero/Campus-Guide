@@ -27,7 +27,7 @@ namespace MyPal.Controllers
             _emailSender = emailSender;
         }
         //Displaying all the contents from the public events table.
-        public async Task<IActionResult> IndexAsync()
+        public async Task<IActionResult> IndexAsync(string button)
         {
             if (ModelState.IsValid)
             {
@@ -37,7 +37,7 @@ namespace MyPal.Controllers
                 IEnumerable<PublicEvents> objList = _db.PublicEvents.Where(publicEvent => publicEvent.EndTime > DateTime.Now);
 
                 coll.PublicEventsList = objList.ToList();
-                coll.PublicEventsList = coll.PublicEventsList.OrderBy(pub => Convert.ToDateTime(pub.EndTime)).ToList();
+                //coll.PublicEventsList = coll.PublicEventsList.OrderBy(pub => Convert.ToDateTime(pub.EndTime)).ToList();
 
                 // If user is signed in (used for event attendance)
                 if (User.IsInRole("User") || User.IsInRole("Admin"))
@@ -51,6 +51,24 @@ namespace MyPal.Controllers
 
                 // This list will be used to diplay the name of the pinpoint id for each pinpoint
                 coll.PinpointsList = _db.Pinpoints.Where(pinpoint => pinpoint.PinpointTypesId == 1).ToList();
+
+                if (button == null)
+                {
+                    // Order Private Events by date
+                    coll.PublicEventsList = coll.PublicEventsList.OrderBy(pub => Convert.ToDateTime(pub.EndTime)).ToList();
+                }
+                else if (button.Equals("endTime"))
+                {
+                    // Order Private Events by date
+                    coll.PublicEventsList = coll.PublicEventsList.OrderBy(pub => Convert.ToDateTime(pub.EndTime)).ToList();
+                }
+                else if (button.Equals("startTime"))
+                {
+                    // Order Private Events by date
+                    coll.PublicEventsList = coll.PublicEventsList.OrderBy(pub => Convert.ToDateTime(pub.EndTime)).ToList();
+                }
+
+
 
                 // Returning the list of objects that were retrived from the databse to the PublicEvents view.
                 return View(coll);

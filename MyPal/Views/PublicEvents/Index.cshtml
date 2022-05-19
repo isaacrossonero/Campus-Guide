@@ -169,7 +169,14 @@
                     <a asp-controller="PublicEvents" asp-action="Create" class="btn btn-primary"> Create new public event.</a>
                 </div>
             }
-
+            <div>
+                <div style="padding-top: 5px; padding-bottom: 5px">
+                    <a asp-controller="PublicEvents" asp-route-button="startTime" asp-action="Index" class="btn btn-primary"> Sort by start time.</a>
+                </div>
+                <div style="padding-top: 5px; padding-bottom: 5px">
+                    <a asp-controller="PublicEvents" asp-route-button="endTime" asp-action="Index" class="btn btn-primary"> Sort by end time.</a>
+                </div>
+            </div>
         </div>
     </div>
     @*text to speech button*@
