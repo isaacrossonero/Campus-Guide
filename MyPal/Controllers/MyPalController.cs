@@ -59,27 +59,27 @@ namespace MyPal.Controllers
 
                         coll.PrivateEventsList = _db.PrivateEvents.Where(privateEvent => privateEvent.UserId.Equals(user.Id) && privateEvent.EndTime > DateTime.Now).ToList();
 
-                    // Order Private Events by date
-                    if(button == null)
+                    // Order all events by date
+                    if (button == null)
                     {
-                        // Order Private Events by date
+                        // Order all events by date
                         coll.PrivateEventsList = coll.PrivateEventsList.OrderBy(priv => Convert.ToDateTime(priv.EndTime)).ToList();
                         coll.PublicEventsList = coll.PublicEventsList.OrderBy(pub => Convert.ToDateTime(pub.EndTime)).ToList();
                         coll.AttendingPublicEventsList = coll.AttendingPublicEventsList.OrderBy(att => Convert.ToDateTime(att.EndTime)).ToList();
                     }
                     else if (button.Equals("endTime"))
                     {
-                        // Order Private Events by date
+                        // Order all events by date
                         coll.PrivateEventsList = coll.PrivateEventsList.OrderBy(priv => Convert.ToDateTime(priv.EndTime)).ToList();
                         coll.PublicEventsList = coll.PublicEventsList.OrderBy(pub => Convert.ToDateTime(pub.EndTime)).ToList();
                         coll.AttendingPublicEventsList = coll.AttendingPublicEventsList.OrderBy(att => Convert.ToDateTime(att.EndTime)).ToList();
                     }
                     else if (button.Equals("startTime"))
                     {
-                        // Order Private Events by date
+                        // Order all events by date
                         coll.PrivateEventsList = coll.PrivateEventsList.OrderBy(priv => Convert.ToDateTime(priv.StartTime)).ToList();
-                        coll.PublicEventsList = coll.PublicEventsList.OrderBy(pub => Convert.ToDateTime(pub.EndTime)).ToList();
-                        coll.AttendingPublicEventsList = coll.AttendingPublicEventsList.OrderBy(att => Convert.ToDateTime(att.EndTime)).ToList();
+                        coll.PublicEventsList = coll.PublicEventsList.OrderBy(pub => Convert.ToDateTime(pub.StartTime)).ToList();
+                        coll.AttendingPublicEventsList = coll.AttendingPublicEventsList.OrderBy(att => Convert.ToDateTime(att.StartTime)).ToList();
                     }
                 }
 

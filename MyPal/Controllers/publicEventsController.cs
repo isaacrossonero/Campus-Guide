@@ -49,25 +49,24 @@ namespace MyPal.Controllers
                     coll.CurrentUserId = user.Id;
                 }
 
-                // This list will be used to diplay the name of the pinpoint id for each pinpoint
-                coll.PinpointsList = _db.Pinpoints.Where(pinpoint => pinpoint.PinpointTypesId == 1).ToList();
-
                 if (button == null)
                 {
-                    // Order Private Events by date
+                    // Order Public events by date
                     coll.PublicEventsList = coll.PublicEventsList.OrderBy(pub => Convert.ToDateTime(pub.EndTime)).ToList();
                 }
                 else if (button.Equals("endTime"))
                 {
-                    // Order Private Events by date
+                    // Order Public events by date
                     coll.PublicEventsList = coll.PublicEventsList.OrderBy(pub => Convert.ToDateTime(pub.EndTime)).ToList();
                 }
                 else if (button.Equals("startTime"))
                 {
-                    // Order Private Events by date
-                    coll.PublicEventsList = coll.PublicEventsList.OrderBy(pub => Convert.ToDateTime(pub.EndTime)).ToList();
+                    // Order Public events by date
+                    coll.PublicEventsList = coll.PublicEventsList.OrderBy(pub => Convert.ToDateTime(pub.StartTime)).ToList();
                 }
 
+                // This list will be used to diplay the name of the pinpoint id for each pinpoint
+                coll.PinpointsList = _db.Pinpoints.Where(pinpoint => pinpoint.PinpointTypesId == 1).ToList();
 
 
                 // Returning the list of objects that were retrived from the databse to the PublicEvents view.
