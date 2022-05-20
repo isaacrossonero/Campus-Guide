@@ -30,7 +30,7 @@ namespace MyPal.Controllers
         }
 
         // Displaying all the contents from the private events table.
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string button)
         {
             if (ModelState.IsValid)
             {
@@ -56,9 +56,24 @@ namespace MyPal.Controllers
                 // Order PrivateEvents and get next upcoming Event
                 if (coll.PrivateEventsList.Count > 0)
                 {
-                    // Order Private Events by date
-                    coll.PrivateEventsList = coll.PrivateEventsList.OrderBy(priv => Convert.ToDateTime(priv.EndTime)).ToList();
-                    coll.PrivateEvents = coll.PrivateEventsList.First();
+                    if (button == null)
+                    {
+                        // Order Private Events by date
+                        coll.PrivateEventsList = coll.PrivateEventsList.OrderBy(priv => Convert.ToDateTime(priv.EndTime)).ToList();
+                        coll.PrivateEvents = coll.PrivateEventsList.First();
+                    }
+                    else if (button.Equals("endTime"))
+                    {
+                        // Order Private Events by date
+                        coll.PrivateEventsList = coll.PrivateEventsList.OrderBy(priv => Convert.ToDateTime(priv.EndTime)).ToList();
+                        coll.PrivateEvents = coll.PrivateEventsList.First();
+                    }
+                    else if (button.Equals("startTime"))
+                    {
+                        // Order Private Events by date
+                        coll.PrivateEventsList = coll.PrivateEventsList.OrderBy(priv => Convert.ToDateTime(priv.StartTime)).ToList();
+                        coll.PrivateEvents = coll.PrivateEventsList.First();
+                    }
                 }
 
                 // This list will be used to diplay the name of the pinpoint id for each pinpoint
@@ -230,6 +245,57 @@ namespace MyPal.Controllers
                 return await _db.PrivateEvents.Where(userId => userId.UserId.Equals(user.Id)).ToListAsync();
             }
             return NotFound();   
+        }
+
+        public async Task<IActionResult> Sort(string button)
+        {
+            if (ModelState.IsValid)
+            {
+                // CollectionDataModel object
+                CollectionDataModel coll = new CollectionDataModel();
+
+                //Creating a list that will store the contents of all the data present in PrivateEvents.
+                var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+
+                //Getting all the private events
+                coll.PrivateEventsList = _db.PrivateEvents.ToList();
+                // Filter out private events based on whether it is associated with logged on user and wheter it has already passed or not
+                for (int i = 0; i < coll.PrivateEventsList.Count; i++)
+                {
+                    var element = coll.PrivateEventsList.ElementAt(i);
+                    if (!(element.UserId.Equals(user.Id)) || !(element.EndTime > DateTime.Now))
+                    {
+                        coll.PrivateEventsList.Remove(element);
+                        i--;
+                    }
+                }
+
+                // Order PrivateEvents and get next upcoming Event
+                if (coll.PrivateEventsList.Count > 0)
+                {
+                    if (coll.PrivateEventsList.Count > 0)
+                    {
+                        if (button.Equals("endTime"))
+                        {
+                            // Order Private Events by date
+                            coll.PrivateEventsList = coll.PrivateEventsList.OrderBy(priv => Convert.ToDateTime(priv.EndTime)).ToList();
+                            coll.PrivateEvents = coll.PrivateEventsList.First();
+                        }
+                        else if (button.Equals("startTime"))
+                        {
+                            // Order Private Events by date
+                            coll.PrivateEventsList = coll.PrivateEventsList.OrderBy(priv => Convert.ToDateTime(priv.StartTime)).ToList();
+                            coll.PrivateEvents = coll.PrivateEventsList.First();
+                        }
+                    }
+                }
+
+                // This list will be used to diplay the name of the pinpoint id for each pinpoint
+                coll.PinpointsList = _db.Pinpoints.Where(pinpoint => pinpoint.PinpointTypesId == 1).ToList();
+
+                return RedirectToAction("Index");
+            }
+            return NotFound();
         }
     }
 }

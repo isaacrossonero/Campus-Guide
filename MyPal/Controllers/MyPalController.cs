@@ -23,25 +23,64 @@ namespace MyPal.Controllers
             _signInManager = signInManager;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string button)
         {
             if (ModelState.IsValid)
             {
                 // CollectionDataModel Variable
                 CollectionDataModel coll = new CollectionDataModel();
 
-                // Adding public events to collection data model public events list variable
+                // Adding public events to collection data model public events list variable (Not sure if these lines need to be kept)
                 coll.PublicEventsList = _db.PublicEvents.Where(publicEvent => publicEvent.EndTime > DateTime.Now).ToList();
                 coll.PublicEventsList = coll.PublicEventsList.OrderBy(pub => Convert.ToDateTime(pub.EndTime)).ToList();
 
+               
+
                 // Adding private events to collection data model private events list variable
                 if (_signInManager.IsSignedIn(User))
-                {
+                { 
                     var user = await _userManager.FindByEmailAsync(User.Identity.Name);
-                    coll.PrivateEventsList = _db.PrivateEvents.Where(privateEvent => privateEvent.UserId.Equals(user.Id) && privateEvent.EndTime > DateTime.Now).ToList();
+
+
+                    coll.PublicEventAttendances = _db.PublicEventAttendances.ToList();
+                    coll.AttendingPublicEventsList = new();
+                    for (int i = 0; i < coll.PublicEventsList.Count; i++)
+                    {
+                        PublicEvents p = coll.PublicEventsList.ElementAt(i);
+                        foreach(var element in coll.PublicEventAttendances)
+                        {
+                            // If user is signed in the same and is attending
+                            if (element.PublicEventId == p.Id && element.UserId.Equals(user.Id))
+                            {
+                                coll.AttendingPublicEventsList.Add(p);
+                            }
+                        }
+                    }
+
+                        coll.PrivateEventsList = _db.PrivateEvents.Where(privateEvent => privateEvent.UserId.Equals(user.Id) && privateEvent.EndTime > DateTime.Now).ToList();
 
                     // Order Private Events by date
-                    coll.PrivateEventsList = coll.PrivateEventsList.OrderBy(priv => Convert.ToDateTime(priv.EndTime)).ToList();
+                    if(button == null)
+                    {
+                        // Order Private Events by date
+                        coll.PrivateEventsList = coll.PrivateEventsList.OrderBy(priv => Convert.ToDateTime(priv.EndTime)).ToList();
+                        coll.PublicEventsList = coll.PublicEventsList.OrderBy(pub => Convert.ToDateTime(pub.EndTime)).ToList();
+                        coll.AttendingPublicEventsList = coll.AttendingPublicEventsList.OrderBy(att => Convert.ToDateTime(att.EndTime)).ToList();
+                    }
+                    else if (button.Equals("endTime"))
+                    {
+                        // Order Private Events by date
+                        coll.PrivateEventsList = coll.PrivateEventsList.OrderBy(priv => Convert.ToDateTime(priv.EndTime)).ToList();
+                        coll.PublicEventsList = coll.PublicEventsList.OrderBy(pub => Convert.ToDateTime(pub.EndTime)).ToList();
+                        coll.AttendingPublicEventsList = coll.AttendingPublicEventsList.OrderBy(att => Convert.ToDateTime(att.EndTime)).ToList();
+                    }
+                    else if (button.Equals("startTime"))
+                    {
+                        // Order Private Events by date
+                        coll.PrivateEventsList = coll.PrivateEventsList.OrderBy(priv => Convert.ToDateTime(priv.StartTime)).ToList();
+                        coll.PublicEventsList = coll.PublicEventsList.OrderBy(pub => Convert.ToDateTime(pub.EndTime)).ToList();
+                        coll.AttendingPublicEventsList = coll.AttendingPublicEventsList.OrderBy(att => Convert.ToDateTime(att.EndTime)).ToList();
+                    }
                 }
 
                 // This list will be used to diplay the name of the pinpoint id for each pinpoint
