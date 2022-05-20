@@ -107,6 +107,10 @@
     <div class="row justify-content-around">
         @if (Model.PrivateEventsList.Count() > 0)
         {
+            <div class="container">
+                <a asp-controller="PrivateEvents" asp-route-button="startTime" asp-action="Index" class="btn btn-primary"> Sort by start time</a>
+                <a asp-controller="PrivateEvents" asp-route-button="endTime" asp-action="Index" class="btn btn-primary"> Sort by end time</a>
+            </div>
 
             @foreach (var obj in Model.PrivateEventsList)
             {
@@ -141,15 +145,7 @@
             <h6 class="text-secondary">You have no upcoming private events. Add one by clicking the button below.</h6>
         }
         <div>
-            <a asp-controller="PrivateEvents" asp-action="Create" class="btn btn-primary" value =""> Create new private event.</a>
-        </div>
-        <div>
-            <div style="padding-top: 5px; padding-bottom: 5px">
-                <a asp-controller="PrivateEvents" asp-route-button="startTime" asp-action="Index" class="btn btn-primary"> Sort by start time.</a>
-            </div>
-            <div style="padding-top: 5px; padding-bottom: 5px">
-                <a asp-controller="PrivateEvents" asp-route-button="endTime" asp-action="Index" class="btn btn-primary"> Sort by end time.</a>
-            </div>
+            <a asp-controller="PrivateEvents" asp-action="Create" class="btn btn-primary" value=""> Create new private event.</a>
         </div>
     </div>
 </div>
