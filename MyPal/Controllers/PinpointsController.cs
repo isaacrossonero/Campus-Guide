@@ -42,7 +42,7 @@ namespace MyPal.Controllers
                 CollectionDataModel coll = new CollectionDataModel();
 
                 // Getting today's public Events
-                coll.PublicEventsList = await _db.PublicEvents.Where(publicEvent => publicEvent.StartTime == DateTime.Now.Date).ToListAsync();
+                coll.PublicEventsList = await _db.PublicEvents.Where(publicEvent => publicEvent.StartTime.Date == DateTime.Now.Date).ToListAsync();
 
                 // Pinpoints related to today's public events
                 var pinpointPublicEventList = new List<int>();
