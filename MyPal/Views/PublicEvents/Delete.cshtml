@@ -1,0 +1,73 @@
+﻿@model MyPal.Models.PublicEvents
+@{
+    ViewData["Title"] = "Delete Public Event";
+}
+
+<form method="post" asp-action="DeletePublicEvent">
+    <input asp-for="Id" hidden>
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-primary pl-3">Delete public event</h2>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Name"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Name" disabled class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Description"></label>
+                    </div>
+                    <div class="col-8">
+                        <textarea asp-for="Description" disabled class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="StartTime"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="StartTime" disabled class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="EndTime"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="EndTime" disabled class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Capacity"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Capacity" disabled class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="PinpointId"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="PinpointId" disabled class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col">
+                        <input type="submit" class="btn btn-primary w-100" value="Delete" />
+                    </div>
+                    <div class="col">
+                        <a asp-action="Index" asp-controller="PublicEvents" asp-route-Id="@Model.Id" class="btn btn-dark w-100">Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

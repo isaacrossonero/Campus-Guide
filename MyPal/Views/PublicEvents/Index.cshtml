@@ -1,0 +1,184 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@inject RoleManager<IdentityRole> RoleManager
+
+@model MyPal.Models.CollectionDataModel
+@{
+    ViewData["Title"] = "Map View";
+}
+@*text to speech*@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<script src="~/js/screenreader.js"></script>
+
+<body onload="checkForNavigation()">
+    <!-- Map -->
+    <h1 class="text-primary mb-2">Map</h1>
+    <div id="map"></div>
+    <br>
+
+    <div class="container">
+        <button type="button" class="btn btn-primary mb-1" onclick="GetAllPinpoints()">View Pinpoints</button>
+        <button type="button" class="btn btn-primary mb-1" onclick="GetPinpointsOfTodaysEvents()">View Today's Events</button>
+    </div>
+
+
+    <div class="container mt-2" id="radio-buttons">
+        <h3 class="text-secondary" id="status">No Overlay</h3>
+        <form name="level-selector">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="level" id="no-overlay" checked="checked" value="no overlay">
+                <label class="form-check-label text-dark" for="no-overlay">
+                    No overlay
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="level" id="level -2" value="Level -2">
+                <label class="form-check-label text-dark" for="level -2">
+                    Level -2 Parking
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="level" id="level -1" value="Level -1">
+                <label class="form-check-label text-dark" for="level -1">
+                    Level -1
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="level" id="level 0" value="Level 0">
+                <label class="form-check-label text-dark" for="level 0">
+                    Level 0
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="level" id="level 1" value="Level 1">
+                <label class="form-check-label text-dark" for="level 1">
+                    Level 1
+                </label>
+            </div>
+        </form>
+        <br />
+
+        <div id="navigation">
+            <video id="preview" hidden style="width:400px; width: auto;"></video>
+            <form id="GetNavigation" class="form">
+
+
+                <div>
+                    <input id="TurnOnCamera" type="button" class="btn btn-outline-secondary mb-1" value="Present QR Code" onclick="turnOnCamera();" />
+                    <input id="startPointName" type="text" name="startpoint" class="mb-1" />
+                    <input id="startId" type="hidden" />
+                    <input id="endPointName" type="text" name="endpoint" class="mb-1" />
+                    <input id="endId" type="hidden" />
+                    <input type="button" class="btn btn-outline-secondary mb-1" value="Get Navigation" onclick="RetreiveNavigation();" />
+                </div>
+            </form>
+
+            <form id="UpdateNavigation" hidden>
+                <input type="button" value="Reset Navigation" class="btn btn-outline-secondary" onclick="ResetNavigation();" />
+            </form>
+
+        </div>
+    </div>
+
+    <div class="container mb-5">
+        <div class="row pt-4">
+            <div class="col-12">
+                <h3 class="text-secondary">Upcoming Public Events</h3>
+            </div>
+        </div>
+
+        <div class="row justify-content-around">
+
+            <!--Validation to check if the table has any content-->
+            @if (Model.PublicEventsList.Count() > 0)
+            {
+                <div class="container">
+                    <a asp-controller="PublicEvents" asp-route-button="startTime" asp-action="Index" class="btn btn-primary"> Sort by start time</a>
+                    <a asp-controller="PublicEvents" asp-route-button="endTime" asp-action="Index" class="btn btn-primary"> Sort by end time</a>
+                </div>
+
+                @foreach (var obj in Model.PublicEventsList)
+                {
+                    Model.Pinpoints = Model.PinpointsList.Find(pin => pin.Id == obj.PinpointId);
+                    <div class="card" style="width:24rem; padding: 20px; margin: 20px;">
+                        <p class="text-dark">Event name: @obj.Name</p>
+                        <p class="text-dark">Event description: @obj.Description</p>
+                        <p class="text-dark">Start time: @obj.StartTime</p>
+                        <p class="text-dark">End time: @obj.EndTime</p>
+                        <p class="text-dark">Capacity: @obj.Capacity</p>
+                        <p class="text-dark">Location: @Model.Pinpoints.Name</p>
+
+                        <div class="border-top border-dark"></div>
+                        <p class="text-dark">Current event attendance for event @obj.Name: @obj.Attendance</p>
+                        @if (User.IsInRole("User"))
+                        {
+
+                            Model.AlreadyAttending = false;
+                            foreach (var element in Model.PublicEventAttendances)
+                            {
+                                if (element.PublicEventId == obj.Id)
+                                {
+                                    Model.AlreadyAttending = true;
+                                }
+                            }
+                            if ((obj.Attendance >= obj.Capacity) && Model.AlreadyAttending == false)
+                            {
+                                <p class="text-dark">Unfortunately, the event is fully booked. See other events that might interest you.</p>
+                            }
+                            else if (Model.AlreadyAttending == false)
+                            {
+                                <form method="post" asp-controller="PublicEvents" asp-route-Id="@obj.Id" asp-route-UserId="@Model.CurrentUserId" asp-action="AttendEvent">
+                                    <input type="submit" class="btn btn-primary w-100 mb-1 mr-1" value="Attend Event" />
+                                </form>
+                            }
+                            else
+                            {
+                                <p class="text-dark">Your attendance has already been notified for this event!</p>
+                            }
+
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <div style="margin:10px">
+                                <a asp-controller="PublicEvents" asp-route-Id="@obj.Id" asp-action="Edit" class="btn btn-primary w-100 mb-1">
+                                    Edit
+                                </a>
+                                <a asp-controller="PublicEvents" asp-route-Id="@obj.Id" asp-action="Delete" class="btn btn-dark w-100 mb-1">
+                                    Delete
+                                </a>
+                            </div>
+                        }
+                        <div>
+                            <input id="" type="button" class="btn btn-dark w-100 mb-1 mr-1" value="Get Navigation for Event" onclick="setEventNavigation('@Model.Pinpoints.Name' , '@Model.Pinpoints.Id')" />
+                        </div>
+                    </div>
+                }
+
+
+            }
+
+            else
+            {
+                <!--In case that the table is empty-->
+                <h6 class="text-secondary">There are no public events available at the moment. Please wait for an admin to add an upcoming public event.</h6>
+            }
+
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="col-12 text-left mb-5">
+                    <a asp-controller="PublicEvents" asp-action="Create" class="btn btn-primary"> Create new public event.</a>
+                </div>
+            }
+        </div>
+    </div>
+    @*text to speech button*@
+    <a href="#" class="float" onclick="mapPagescreenReader()">
+        <i class="fa fa-volume-up" style="font-size:40px;color:white"></i>
+    </a>
+</body>
+
+

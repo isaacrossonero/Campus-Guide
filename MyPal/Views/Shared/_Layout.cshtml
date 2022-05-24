@@ -1,0 +1,80 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"] - CampusPal</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/bootstrap.css" asp-append-version="true"/>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md  navbar-dark bg-primary border-bottom box-shadow mb-3">
+            <div class="container -fluid">
+                <a class="navbar-brand active" asp-area="" asp-controller="PublicEvents" asp-action="Index"><img src="~/images/logo/logo.png" alt="" style="height:40px; width: 50px"></a>
+                <a class="navbar-brand active" asp-area="" asp-controller="PublicEvents" asp-action="Index">Map</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse collapse d-sm-inline-flex justify-content-between" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto">
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="PrivateEvents" asp-action="Index">
+                                    Calendar
+                                    <span class="visually-hidden">(current)</span>
+                                </a>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="MyPal" asp-action="Index">CampusPal Dashboard</a>
+                        </li>
+                        @if ((User.IsInRole("Admin")))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Pinpoints" asp-action="Create">
+                                    Add Pinpoint
+                                    <span class="visually-hidden">(current)</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - CampusPal</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/map.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/drawPath.js" asp-append-version="true"></script>
+    <!--QR CODE LIBS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+    <!--requesting google api using private api key-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHDadyFvmZMjr7kDdBJp1erOG8et2fvPU&callback=initMap"
+            async defer></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
