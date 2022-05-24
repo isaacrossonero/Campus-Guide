@@ -1,4 +1,4 @@
-# MyPal Repo
+# CampusPal Repo
 
 - Important rules:
  
